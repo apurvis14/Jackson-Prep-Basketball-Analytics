@@ -214,7 +214,7 @@ def plot_zone_chart(df):
 
     zone_polys = get_updated_zones()
 
-    fig, ax = plt.subplots(figsize=(18, 12), dpi = 200)
+    fig, ax = plt.subplots(figsize=(18, 14), dpi = 200)
     draw_hs_half_court(ax)
     ax.set_xlim(-250, 250)
     ax.set_ylim(-47.5, 422.5)
@@ -336,6 +336,8 @@ with st.container():
         col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
         col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
         col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
+
+    st.markdown("---")
 
     # -----------------------------
     # Shot Chart
