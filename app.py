@@ -11,9 +11,10 @@ import os
 st.markdown(
     """
     <style>
-    /* Remove top padding on main page */
-    .css-18e3th9 {
-        padding-top: 0rem;
+    /* Remove top padding for the entire app */
+    .main > div {
+        padding-top: 0rem !important;
+        margin-top: 0rem !important;
     }
     </style>
     """,
@@ -314,6 +315,19 @@ def plot_zone_chart(df):
 # fig = plot_zone_chart(filtered)
 # st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
 # st.pyplot(fig, use_container_width=True)
+
+st.markdown(
+    """
+    <style>
+    /* Remove top padding for the entire app */
+    .main > div {
+        padding-top: 0rem !important;
+        margin-top: 0rem !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 with st.container():
     left_col, right_col = st.columns([1, 2])
