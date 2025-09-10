@@ -271,7 +271,7 @@ def plot_zone_chart(df):
 left_col, right_col = st.columns([1,2])
 
 with left_col:
-    st.image(f"photos/{selected_player}.jpg", width=250)
+    st.image(f"photos/{selected_player}.JPG", width=250)
 
 with right_col:
     st.header(selected_player)
