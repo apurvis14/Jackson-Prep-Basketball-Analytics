@@ -294,7 +294,7 @@ with right_col:
     col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
     col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
 
-st.markdown("---")
+# st.markdown("---")
 
 # Shot chart
 fig = plot_zone_chart(filtered)
