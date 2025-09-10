@@ -302,13 +302,47 @@ def plot_zone_chart(df):
 # -----------------------------
 # Layout: Image + Info + Scoreboard
 # -----------------------------
-left_col, right_col = st.columns([1,2])
+# left_col, right_col = st.columns([1,2])
+
+# with left_col:
+#     st.image(f"photos/{selected_player}.JPG", width=250)
+
+# with right_col:
+#     st.header(selected_player)
+#     col1, col2, col3 = st.columns(3)
+
+#     def calc_zone_pct(df: pd.DataFrame, type: str) -> str:
+#         """
+#         Calculate the field goal percentage for a specific zone.
+#         Returns a string with percentage formatted to 1 decimal place.
+#         """
+#         # Filter shots in the given zone
+#         zone: pd.DataFrame = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
+#         if zone.empty:
+#             return "0%"
+        
+#         fg_pct: float = zone['SHOT_MADE_FLAG'].mean() * 100
+#         return f"{fg_pct:.1f}%"
+
+#     # Display metrics
+#     col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
+#     col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
+#     col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
+
+left_col, right_col = st.columns([1, 2])
 
 with left_col:
-    st.image(f"photos/{selected_player}.JPG", width=250)
+    if selected_player == "Team":
+        st.image("photos/team_logo.JPG", width=250)
+    else:
+        st.image(f"photos/{selected_player}.JPG", width=250)
 
 with right_col:
-    st.header(selected_player)
+    if selected_player == "Team":
+        st.header("Jackson Prep Team")
+    else:
+        st.header(selected_player)
+
     col1, col2, col3 = st.columns(3)
 
     def calc_zone_pct(df: pd.DataFrame, type: str) -> str:
@@ -316,15 +350,14 @@ with right_col:
         Calculate the field goal percentage for a specific zone.
         Returns a string with percentage formatted to 1 decimal place.
         """
-        # Filter shots in the given zone
-        zone: pd.DataFrame = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
+        zone = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
         if zone.empty:
             return "0%"
         
-        fg_pct: float = zone['SHOT_MADE_FLAG'].mean() * 100
+        fg_pct = zone['SHOT_MADE_FLAG'].mean() * 100
         return f"{fg_pct:.1f}%"
 
-    # Display metrics
+    # Display metrics (use filtered for both Player and Team cases)
     col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
     col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
     col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
