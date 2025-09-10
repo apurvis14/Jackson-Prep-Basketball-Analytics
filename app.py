@@ -87,24 +87,6 @@ else:
         (df["GAME"] == selected_game) &
         (df["TYPE"].isin(game_types))
     ]
-
-# df['ZONE'] = df['ZONE'].str.strip()
-# df['SHOT_TYPE'] = df['SHOT_TYPE'].str.strip()
-
-# # Sidebar filters
-# st.sidebar.header("Filters")
-# players = df["PLAYER"].unique()
-# selected_player = st.sidebar.selectbox("Select Player", players)
-# games = df[df["PLAYER"] == selected_player]["GAME"].unique()
-# selected_game = st.sidebar.selectbox("Select Game", games)
-# game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
-
-# filtered = df[
-#     (df["PLAYER"] == selected_player) &
-#     (df["GAME"] == selected_game) &
-#     (df["TYPE"].isin(game_types))
-# ]
-
 # -----------------------------
 # Court Drawing Functions
 # -----------------------------
@@ -257,7 +239,7 @@ def plot_zone_chart(df):
         if zone_name not in zone_stats['ZONE'].values:
             continue
         stats = zone_stats[zone_stats['ZONE'] == zone_name].iloc[0]
-        color = 'green' if stats['FG%'] >= overall_fg else 'red'
+        color = 'red' if stats['FG%'] <= overall_fg else 'green'
         ax.add_patch(Polygon(poly.get_xy(), closed=True, facecolor=color, alpha=0.4, edgecolor='black', linestyle = '--'))
         xs = poly.get_xy()[:, 0]
         ys = poly.get_xy()[:, 1]
@@ -302,33 +284,6 @@ def plot_zone_chart(df):
 # -----------------------------
 # Layout: Image + Info + Scoreboard
 # -----------------------------
-# left_col, right_col = st.columns([1,2])
-
-# with left_col:
-#     st.image(f"photos/{selected_player}.JPG", width=250)
-
-# with right_col:
-#     st.header(selected_player)
-#     col1, col2, col3 = st.columns(3)
-
-#     def calc_zone_pct(df: pd.DataFrame, type: str) -> str:
-#         """
-#         Calculate the field goal percentage for a specific zone.
-#         Returns a string with percentage formatted to 1 decimal place.
-#         """
-#         # Filter shots in the given zone
-#         zone: pd.DataFrame = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
-#         if zone.empty:
-#             return "0%"
-        
-#         fg_pct: float = zone['SHOT_MADE_FLAG'].mean() * 100
-#         return f"{fg_pct:.1f}%"
-
-#     # Display metrics
-#     col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
-#     col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
-#     col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
-
 left_col, right_col = st.columns([1, 2])
 
 with left_col:
