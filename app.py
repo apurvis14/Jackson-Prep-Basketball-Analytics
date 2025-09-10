@@ -337,10 +337,10 @@ with st.container():
         col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
         col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
 
-    st.markdown(
-        "<hr style='margin-top:0px; margin-bottom:0px; border:1px solid #ddd;'>",
-        unsafe_allow_html=True
-    )
+    # st.markdown(
+    #     "<hr style='margin-top:10px; margin-bottom:0px; border:1px solid #ddd;'>",
+    #     unsafe_allow_html=True
+    # )
 
     # -----------------------------
     # Shot Chart
