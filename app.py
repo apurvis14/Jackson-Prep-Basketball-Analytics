@@ -238,9 +238,22 @@ def plot_zone_chart(df):
     for zone_name, poly in zone_polys.items():
         if zone_name not in zone_stats['ZONE'].values:
             continue
+
         stats = zone_stats[zone_stats['ZONE'] == zone_name].iloc[0]
-        color = 'red' if stats['FG%'] <= overall_fg else 'green'
-        ax.add_patch(Polygon(poly.get_xy(), closed=True, facecolor=color, alpha=0.4, edgecolor='black', linestyle = '--'))
+        zone_fg = round(stats['FG%'], 2)
+        overall_fg_rounded = round(overall_fg, 2)
+
+        # Color logic: red if overall FG% is 0
+        if overall_fg_rounded == 0:
+            color = 'red'
+        else:
+            color = 'green' if zone_fg >= overall_fg_rounded else 'red'
+
+        ax.add_patch(Polygon(
+            poly.get_xy(), closed=True,
+            facecolor=color, alpha=0.4, edgecolor='black', linestyle='--'
+        ))
+        
         xs = poly.get_xy()[:, 0]
         ys = poly.get_xy()[:, 1]
         cx,cy = np.mean(xs), np.mean(ys)
