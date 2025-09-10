@@ -8,6 +8,18 @@ import math
 import base64
 import os
 
+st.markdown(
+    """
+    <style>
+    /* Remove top padding on main page */
+    .css-18e3th9 {
+        padding-top: 0rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # -----------------------------
 # Page Config
 # --------------------------
