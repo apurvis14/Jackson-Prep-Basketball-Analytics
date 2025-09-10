@@ -219,78 +219,196 @@ def get_updated_zones():
 # -----------------------------
 # Plot Zones
 # -----------------------------
-def plot_zone_chart(df):
-    zone_stats = df.groupby('ZONE').agg(
+# def plot_zone_chart(df):
+#     zone_stats = df.groupby('ZONE').agg(
+#         makes=('SHOT_MADE_FLAG', 'sum'),
+#         attempts=('SHOT_MADE_FLAG', 'count')
+#     ).reset_index()
+#     zone_stats['FG%'] = (zone_stats['makes'] / zone_stats['attempts']) * 100
+#     overall_fg = df['SHOT_MADE_FLAG'].mean() * 100
+
+#     zone_polys = get_updated_zones()
+
+#     fig, ax = plt.subplots(figsize=(18, 14), dpi = 200)
+#     draw_hs_half_court(ax)
+#     ax.set_xlim(-250, 250)
+#     ax.set_ylim(-47.5, 422.5)
+#     ax.axis('off')
+
+#     for zone_name, poly in zone_polys.items():
+#         if zone_name not in zone_stats['ZONE'].values:
+#             continue
+
+#         stats = zone_stats[zone_stats['ZONE'] == zone_name].iloc[0]
+#         zone_fg = round(stats['FG%'], 2)
+#         overall_fg_rounded = round(overall_fg, 2)
+
+#         # Color logic: red if overall FG% is 0
+#         if overall_fg_rounded == 0:
+#             color = 'red'
+#         elif overall_fg_rounded == 100:
+#             color = 'green'
+#         else:
+#             color = 'green' if zone_fg >= overall_fg_rounded else 'red'
+
+#         ax.add_patch(Polygon(
+#             poly.get_xy(), closed=True,
+#             facecolor=color, alpha=0.4, edgecolor='black', linestyle='--'
+#         ))
+
+#         xs = poly.get_xy()[:, 0]
+#         ys = poly.get_xy()[:, 1]
+#         cx,cy = np.mean(xs), np.mean(ys)
+
+
+#         # Offset LW and RW Midrange text slightly
+#         if zone_name in ['LW Midrange', 'RW Midrange']:
+#             cy -= 30 
+
+#         if zone_name in ['RW Midrange']:
+#             cx -= 20 
+        
+#         if zone_name in ['LW Midrange']:
+#             cx += 20
+
+#         if zone_name in ['Left Midrange BL']:
+#             cx +=20
+
+#         if zone_name in ['Top of Key 3','Left Center Midrange', 'Right Center Midrange']:
+#             cy -= 10
+
+#         if zone_name in ['Left Layup']:
+#             cx += 10
+
+#         if zone_name in ['Right Layup']:
+#             cx += 10
+        
+#         if zone_name in ['Left Corner 3', 'Right Corner 3']:
+#             cx += 3
+
+#         ax.text(cx, cy+20, f"{int(stats['makes'])}/{int(stats['attempts'])}",
+#                 ha='center', va='center', fontsize=16, weight='bold',
+#                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
+
+#         ax.text(cx, cy, f"{stats['FG%']:.1f}%",
+#                 ha='center', va='center', fontsize=16,
+#                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
+
+#     return fig
+
+def plot_zone_chart(filtered_df, df_team):
+    """
+    Plot a basketball shot chart by zone with:
+    - Red/green color based on relative FG% vs team benchmark
+    - Multi-thresholds
+    - Alpha scaled by attempts
+    """
+    # -----------------------------
+    # Calculate per-zone stats for the player/game selection
+    # -----------------------------
+    zone_stats = filtered_df.groupby('ZONE').agg(
         makes=('SHOT_MADE_FLAG', 'sum'),
         attempts=('SHOT_MADE_FLAG', 'count')
     ).reset_index()
     zone_stats['FG%'] = (zone_stats['makes'] / zone_stats['attempts']) * 100
-    overall_fg = df['SHOT_MADE_FLAG'].mean() * 100
 
+    # -----------------------------
+    # Calculate team benchmarks per zone type
+    # -----------------------------
+    # Map zones to 3 categories
+    def get_zone_type(zone_name):
+        if "3" in zone_name:
+            return "3PT"
+        elif "Midrange" in zone_name:
+            return "Midrange"
+        else:
+            return "Layup"
+
+    df_team['ZONE_TYPE'] = df_team['ZONE'].apply(get_zone_type)
+    team_benchmarks = df_team.groupby('ZONE_TYPE')['SHOT_MADE_FLAG'].mean() * 100  # FG% per type
+
+    # -----------------------------
+    # Prepare polygons
+    # -----------------------------
     zone_polys = get_updated_zones()
 
-    fig, ax = plt.subplots(figsize=(18, 14), dpi = 200)
+    fig, ax = plt.subplots(figsize=(18, 14), dpi=200)
     draw_hs_half_court(ax)
     ax.set_xlim(-250, 250)
     ax.set_ylim(-47.5, 422.5)
     ax.axis('off')
+
+    # Alpha scaling
+    min_alpha = 0.2
+    max_alpha = 0.8
+    max_attempts = zone_stats['attempts'].max() if not zone_stats.empty else 1
 
     for zone_name, poly in zone_polys.items():
         if zone_name not in zone_stats['ZONE'].values:
             continue
 
         stats = zone_stats[zone_stats['ZONE'] == zone_name].iloc[0]
-        zone_fg = round(stats['FG%'], 2)
-        overall_fg_rounded = round(overall_fg, 2)
+        zone_fg = stats['FG%']
+        attempts = stats['attempts']
 
-        # Color logic: red if overall FG% is 0
-        if overall_fg_rounded == 0:
+        # Determine zone type
+        z_type = get_zone_type(zone_name)
+        benchmark = team_benchmarks[z_type]
+
+        # -----------------------------
+        # Multi-threshold color logic
+        # -----------------------------
+        # thresholds (relative to benchmark)
+        ratio = zone_fg / benchmark if benchmark > 0 else 0
+        if ratio < 0.7:
             color = 'red'
-        elif overall_fg_rounded == 100:
-            color = 'green'
+        elif ratio < 1.0:
+            color = 'orange'
+        elif ratio < 1.2:
+            color = 'yellowgreen'
         else:
-            color = 'green' if zone_fg >= overall_fg_rounded else 'red'
+            color = 'green'
 
+        # -----------------------------
+        # Alpha scaling based on attempts
+        # -----------------------------
+        alpha = min_alpha + (attempts / max_attempts) * (max_alpha - min_alpha)
+
+        # Draw zone
         ax.add_patch(Polygon(
             poly.get_xy(), closed=True,
-            facecolor=color, alpha=0.4, edgecolor='black', linestyle='--'
+            facecolor=color, alpha=alpha, edgecolor='black', linestyle='--'
         ))
 
+        # -----------------------------
+        # Text placement
+        # -----------------------------
         xs = poly.get_xy()[:, 0]
         ys = poly.get_xy()[:, 1]
-        cx,cy = np.mean(xs), np.mean(ys)
-
+        cx, cy = np.mean(xs), np.mean(ys)
 
         # Offset LW and RW Midrange text slightly
         if zone_name in ['LW Midrange', 'RW Midrange']:
-            cy -= 30 
-
-        if zone_name in ['RW Midrange']:
-            cx -= 20 
-        
-        if zone_name in ['LW Midrange']:
+            cy -= 30
+        if zone_name == 'RW Midrange':
+            cx -= 20
+        if zone_name == 'LW Midrange':
             cx += 20
-
-        if zone_name in ['Left Midrange BL']:
-            cx +=20
-
-        if zone_name in ['Top of Key 3','Left Center Midrange', 'Right Center Midrange']:
+        if zone_name == 'Left Midrange BL':
+            cx += 20
+        if zone_name in ['Top of Key 3', 'Left Center Midrange', 'Right Center Midrange']:
             cy -= 10
-
-        if zone_name in ['Left Layup']:
+        if zone_name == 'Left Layup':
             cx += 10
-
-        if zone_name in ['Right Layup']:
+        if zone_name == 'Right Layup':
             cx += 10
-        
         if zone_name in ['Left Corner 3', 'Right Corner 3']:
             cx += 3
 
-        ax.text(cx, cy+20, f"{int(stats['makes'])}/{int(stats['attempts'])}",
+        ax.text(cx, cy + 20, f"{int(stats['makes'])}/{int(stats['attempts'])}",
                 ha='center', va='center', fontsize=16, weight='bold',
                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
-
-        ax.text(cx, cy, f"{stats['FG%']:.1f}%",
+        ax.text(cx, cy, f"{zone_fg:.1f}%",
                 ha='center', va='center', fontsize=16,
                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
 
@@ -335,6 +453,6 @@ with right_col:
 # st.markdown("---")
 
 # Shot chart
-fig = plot_zone_chart(filtered)
+fig = plot_zone_chart(filtered, df)
 st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
 st.pyplot(fig, use_container_width=True)
