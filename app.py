@@ -6,10 +6,11 @@ from matplotlib.patches import Circle, Rectangle, Arc, Polygon
 import numpy as np
 import math
 import base64
+import os
 
 # -----------------------------
 # Page Config
-# -----------------------------
+# --------------------------
 st.set_page_config(layout="centered", page_title="HS Basketball Dashboard")
 
 # -----------------------------
@@ -268,36 +269,76 @@ def plot_zone_chart(df):
 # -----------------------------
 # Layout: Image + Info + Scoreboard
 # -----------------------------
-left_col, right_col = st.columns([1,2])
+# left_col, right_col = st.columns([1,2])
 
-with left_col:
-    st.image(f"photos/{selected_player}.JPG", width=250)
+# with left_col:
+#     st.image(f"photos/{selected_player}.JPG", width=250)
 
-with right_col:
-    st.header(selected_player)
-    col1, col2, col3 = st.columns(3)
+# with right_col:
+#     st.header(selected_player)
+#     col1, col2, col3 = st.columns(3)
 
-    def calc_zone_pct(df: pd.DataFrame, type: str) -> str:
-        """
-        Calculate the field goal percentage for a specific zone.
-        Returns a string with percentage formatted to 1 decimal place.
-        """
-        # Filter shots in the given zone
-        zone: pd.DataFrame = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
-        if zone.empty:
-            return "0%"
+#     def calc_zone_pct(df: pd.DataFrame, type: str) -> str:
+#         """
+#         Calculate the field goal percentage for a specific zone.
+#         Returns a string with percentage formatted to 1 decimal place.
+#         """
+#         # Filter shots in the given zone
+#         zone: pd.DataFrame = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
+#         if zone.empty:
+#             return "0%"
         
-        fg_pct: float = zone['SHOT_MADE_FLAG'].mean() * 100
-        return f"{fg_pct:.1f}%"
+#         fg_pct: float = zone['SHOT_MADE_FLAG'].mean() * 100
+#         return f"{fg_pct:.1f}%"
 
-    # Display metrics
-    col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
-    col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
-    col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
+#     # Display metrics
+#     col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
+#     col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
+#     col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
 
-st.markdown("---")
+# st.markdown("---")
 
-# Shot chart
-fig = plot_zone_chart(filtered)
-st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
-st.pyplot(fig, use_container_width=True)
+# # Shot chart
+# fig = plot_zone_chart(filtered)
+# st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
+# st.pyplot(fig, use_container_width=True)
+
+with st.container():
+    left_col, right_col = st.columns([1, 2])
+
+    # -----------------------------
+    # Left Column: Player Image
+    # -----------------------------
+    with left_col:
+        image_path = f"photos/{selected_player}.JPG"
+        if os.path.exists(image_path):
+            st.image(image_path, width=250)
+        else:
+            st.warning(f"No image found for {selected_player}")
+            placeholder_url = "https://via.placeholder.com/250x250.png?text=No+Image"
+            st.image(placeholder_url, width=250)
+
+    # -----------------------------
+    # Right Column: Player Name + Metrics
+    # -----------------------------
+    with right_col:
+        st.header(selected_player)
+
+        col1, col2, col3 = st.columns(3)
+
+        def calc_zone_pct(df: pd.DataFrame, type: str) -> str:
+            zone: pd.DataFrame = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
+            if zone.empty:
+                return "0%"
+            fg_pct: float = zone['SHOT_MADE_FLAG'].mean() * 100
+            return f"{fg_pct:.1f}%"
+
+        col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
+        col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
+        col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
+
+    # -----------------------------
+    # Shot Chart
+    # -----------------------------
+    fig = plot_zone_chart(filtered)
+    st.pyplot(fig, use_container_width=True)
