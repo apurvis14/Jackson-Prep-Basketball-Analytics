@@ -360,14 +360,16 @@ def plot_zone_chart(filtered_df, df_team):
         # -----------------------------
         # thresholds (relative to benchmark)
         ratio = zone_fg / benchmark if benchmark > 0 else 0
-        if ratio < 0.7:
+        if ratio < 0.5:
             color = 'red'
-        elif ratio < 1.0:
+        elif ratio < 0.7: 
             color = 'orange'
-        elif ratio < 1.2:
+        elif ratio < 1.0:
             color = 'yellowgreen'
-        else:
+        elif ratio < 1.2:
             color = 'green'
+        else:
+            color = 'darkgreen'
 
         # -----------------------------
         # Alpha scaling based on attempts
