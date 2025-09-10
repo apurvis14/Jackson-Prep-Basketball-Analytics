@@ -213,7 +213,7 @@ def plot_zone_chart(df):
 
     zone_polys = get_updated_zones()
 
-    fig, ax = plt.subplots(figsize=(18, 8), dpi = 200)
+    fig, ax = plt.subplots(figsize=(18, 12), dpi = 200)
     draw_hs_half_court(ax)
     ax.set_xlim(-250, 250)
     ax.set_ylim(-47.5, 422.5)
