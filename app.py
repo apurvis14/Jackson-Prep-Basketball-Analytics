@@ -246,6 +246,8 @@ def plot_zone_chart(df):
         # Color logic: red if overall FG% is 0
         if overall_fg_rounded == 0:
             color = 'red'
+        elif overall_fg_rounded == 100:
+            color = 'green'
         else:
             color = 'green' if zone_fg >= overall_fg_rounded else 'red'
 
@@ -253,7 +255,7 @@ def plot_zone_chart(df):
             poly.get_xy(), closed=True,
             facecolor=color, alpha=0.4, edgecolor='black', linestyle='--'
         ))
-        
+
         xs = poly.get_xy()[:, 0]
         ys = poly.get_xy()[:, 1]
         cx,cy = np.mean(xs), np.mean(ys)
