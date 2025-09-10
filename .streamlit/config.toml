@@ -1,0 +1,6 @@
+[theme]
+primaryColor="#0033A0"           # Dark blue (buttons, highlights)
+backgroundColor="#FFFFFF"        # White page background
+secondaryBackgroundColor="#FF7F7F"  # Light gray cards/containers
+textColor="#0033A0"              # Dark blue text
+font="sans serif"
