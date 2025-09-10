@@ -53,22 +53,57 @@ csv_url = "https://drive.google.com/uc?export=download&id=1ANJJdJJpgiwECxwXIKXTk
 # Load CSV into DataFrame
 df = pd.read_csv(csv_url)
 
-df['ZONE'] = df['ZONE'].str.strip()
-df['SHOT_TYPE'] = df['SHOT_TYPE'].str.strip()
-
 # Sidebar filters
 st.sidebar.header("Filters")
-players = df["PLAYER"].unique()
+
+# --- Player Dropdown ---
+players = df["PLAYER"].dropna().unique().tolist()
+players.sort()
+players = ["Team"] + players  # Add "Team" option at top
 selected_player = st.sidebar.selectbox("Select Player", players)
-games = df[df["PLAYER"] == selected_player]["GAME"].unique()
+
+# --- Game Dropdown ---
+if selected_player == "Team":
+    games = df["GAME"].dropna().unique().tolist()
+else:
+    games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
+games.sort()
+games = ["Season"] + games  # Add "Season" option at top
 selected_game = st.sidebar.selectbox("Select Game", games)
+
+# --- Type Dropdown ---
 game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
 
-filtered = df[
-    (df["PLAYER"] == selected_player) &
-    (df["GAME"] == selected_game) &
-    (df["TYPE"].isin(game_types))
-]
+# --- Filtering Logic ---
+if selected_player == "Team" and selected_game == "Season":
+    filtered = df[df["TYPE"].isin(game_types)]
+elif selected_player == "Team":
+    filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+elif selected_game == "Season":
+    filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+else:
+    filtered = df[
+        (df["PLAYER"] == selected_player) &
+        (df["GAME"] == selected_game) &
+        (df["TYPE"].isin(game_types))
+    ]
+
+# df['ZONE'] = df['ZONE'].str.strip()
+# df['SHOT_TYPE'] = df['SHOT_TYPE'].str.strip()
+
+# # Sidebar filters
+# st.sidebar.header("Filters")
+# players = df["PLAYER"].unique()
+# selected_player = st.sidebar.selectbox("Select Player", players)
+# games = df[df["PLAYER"] == selected_player]["GAME"].unique()
+# selected_game = st.sidebar.selectbox("Select Game", games)
+# game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
+
+# filtered = df[
+#     (df["PLAYER"] == selected_player) &
+#     (df["GAME"] == selected_game) &
+#     (df["TYPE"].isin(game_types))
+# ]
 
 # -----------------------------
 # Court Drawing Functions
@@ -300,49 +335,3 @@ with right_col:
 fig = plot_zone_chart(filtered)
 st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
 st.pyplot(fig, use_container_width=True)
-
-# with st.container():
-#     left_col, right_col = st.columns([1, 2])
-
-#     # -----------------------------
-#     # Left Column: Player Image
-#     # -----------------------------
-#     with left_col:
-#         image_path = f"photos/{selected_player}.JPG"
-#         if os.path.exists(image_path):
-#             st.image(image_path, width=250)
-#         else:
-#             st.warning(f"No image found for {selected_player}")
-#             placeholder_url = "https://via.placeholder.com/250x250.png?text=No+Image"
-#             st.image(placeholder_url, width=250)
-
-#     # -----------------------------
-#     # Right Column: Player Name + Metrics
-#     # -----------------------------
-#     with right_col:
-#         st.header(selected_player)
-
-#         col1, col2, col3 = st.columns(3)
-
-#         def calc_zone_pct(df: pd.DataFrame, type: str) -> str:
-#             zone: pd.DataFrame = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
-#             if zone.empty:
-#                 return "0%"
-#             fg_pct: float = zone['SHOT_MADE_FLAG'].mean() * 100
-#             return f"{fg_pct:.1f}%"
-
-#         col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
-#         col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
-#         col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
-
-#     # st.markdown(
-#     #     "<hr style='margin-top:10px; margin-bottom:0px; border:1px solid #ddd;'>",
-#     #     unsafe_allow_html=True
-#     # )
-
-#     # -----------------------------
-#     # Shot Chart
-#     # -----------------------------
-#     fig = plot_zone_chart(filtered)
-
-#     st.pyplot(fig, use_container_width=True)
