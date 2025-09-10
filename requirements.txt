@@ -3,5 +3,3 @@ pandas
 matplotlib
 numpy
 requests
-math
-base64
