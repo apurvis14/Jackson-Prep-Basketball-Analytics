@@ -213,7 +213,7 @@ def plot_zone_chart(df):
 
     zone_polys = get_updated_zones()
 
-    fig, ax = plt.subplots(figsize=(18, 14), dpi = 200)
+    fig, ax = plt.subplots(figsize=(18, 8), dpi = 200)
     draw_hs_half_court(ax)
     ax.set_xlim(-250, 250)
     ax.set_ylim(-47.5, 422.5)
@@ -300,4 +300,4 @@ st.markdown("---")
 # Shot chart
 fig = plot_zone_chart(filtered)
 st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
-st.pyplot(fig)
+st.pyplot(fig, use_container_width=True)
