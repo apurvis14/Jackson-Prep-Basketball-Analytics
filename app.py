@@ -257,7 +257,7 @@ def plot_zone_chart(df):
         if zone_name not in zone_stats['ZONE'].values:
             continue
         stats = zone_stats[zone_stats['ZONE'] == zone_name].iloc[0]
-        color = 'green' if stats['FG%'] >= overall_fg else 'red'
+        color = 'green' if stats['FG%'] > overall_fg else 'red'
         ax.add_patch(Polygon(poly.get_xy(), closed=True, facecolor=color, alpha=0.4, edgecolor='black', linestyle = '--'))
         xs = poly.get_xy()[:, 0]
         ys = poly.get_xy()[:, 1]
