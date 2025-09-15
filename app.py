@@ -144,7 +144,7 @@ else:
 # st.pyplot(fig, use_container_width=True)
 
 # Create two tabs
-tab1, tab2 = st.tabs(["Shot Chart", "Player Stats"])
+tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
 
 # -----------------------------
 # Tab 1: Original Shot Chart
