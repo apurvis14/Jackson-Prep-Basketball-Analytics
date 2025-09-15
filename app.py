@@ -348,6 +348,9 @@ def calc_zone_stats(df: pd.DataFrame, shot_type: str):
     pct = makes / attempts * 100 if attempts > 0 else 0
     return makes, attempts, pct
 
+def styled_text(text, size=22, weight="bold", margin="0px"):
+    return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin};'>{text}</div>"
+
 with left_col:
     if selected_player == "Team":
         st.image("photos/team_logo.JPG", width=250)
@@ -364,9 +367,9 @@ with right_col:
 
     # ---- Layup ----
     makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
-    col1.markdown("### Layup")                           # zone name
-    col1.markdown(f"**{makesL}/{attL}**")                 # makes / attempts
-    col1.metric("", f"{pctL:.1f}%")                       # FG %
+    col1.markdown(styled_text("Layup", size=28, margin="4px"), unsafe_allow_html=True)
+    col1.markdown(styled_text(f"{makesL}/{attL}", size=22, margin="0px"), unsafe_allow_html=True)
+    col1.metric("", f"{pctL:.1f}%")               # FG %
 
     # ---- Midrange ----
     makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
