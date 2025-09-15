@@ -157,7 +157,7 @@ with tab1:
         col_empty, col_img, col_empty2 = st.columns([1,2,1])
         with col_img:
             if selected_player == "Team":
-                st.image('photos/team_logo.png', width=175)
+                st.image('photos/team_logo.png', width=200)
             else:
                 st.image(f"photos/{selected_player}.JPG", width=200)
 
