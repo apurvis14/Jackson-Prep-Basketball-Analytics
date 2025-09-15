@@ -157,19 +157,19 @@ with tab1:
         makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
         col1.markdown(styled_text("Layup", size=24, margin="2px", underline=True), unsafe_allow_html=True)
         col1.markdown(styled_text(f"{makesL}/{attL}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-        col1.markdown(styled_text(f"{pctL:.1f}%", size=20, weight="normal", margin="4px"), unsafe_allow_html=True)
+        col1.markdown(styled_text(f"{pctL:.1f}%", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
 
         # --- Midrange ---
         makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
         col2.markdown(styled_text("Midrange", size=24, margin="2px", underline=True), unsafe_allow_html=True)
         col2.markdown(styled_text(f"{makesM}/{attM}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-        col2.markdown(styled_text(f"{pctM:.1f}%", size=20, weight="normal", margin="4px"), unsafe_allow_html=True)
+        col2.markdown(styled_text(f"{pctM:.1f}%", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
 
         # --- 3PT ---
         makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
         col3.markdown(styled_text("3PT", size=24, margin="2px", underline=True), unsafe_allow_html=True)
         col3.markdown(styled_text(f"{makes3}/{att3}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-        col3.markdown(styled_text(f"{pct3:.1f}%", size=20, weight="normal", margin="4px"), unsafe_allow_html=True)
+        col3.markdown(styled_text(f"{pct3:.1f}%", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
 
     # Shot chart
     fig = plot_zone_chart(filtered, df)
