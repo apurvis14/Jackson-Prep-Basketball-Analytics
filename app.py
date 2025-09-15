@@ -75,13 +75,13 @@ game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"],
 if selected_player == "Team" and selected_game == "Season":
     filtered = df[df["TYPE"].isin(game_types)]
 elif selected_player == "Team":
-    filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+    filtered = df[(df["GAME"].isin(selected_game)) & (df["TYPE"].isin(game_types))]
 elif selected_game == "Season":
     filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
 else:
     filtered = df[
         (df["PLAYER"] == selected_player) &
-        (df["GAME"] == selected_game) &
+        (df["GAME"].isnin(selected_game)) &
         (df["TYPE"].isin(game_types))
     ]
 
