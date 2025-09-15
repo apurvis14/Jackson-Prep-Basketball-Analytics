@@ -368,19 +368,19 @@ with right_col:
     # ---- Layup ----
     makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
     col1.markdown(styled_text("Layup", size=28, margin="4px"), unsafe_allow_html=True)
-    col1.markdown(styled_text(f"{makesL}/{attL}", size=22, margin="0px"), unsafe_allow_html=True)
+    col1.markdown(styled_text(f"{makesL}/{attL}", size=22, margin="-10px"), unsafe_allow_html=True)
     col1.metric("", f"{pctL:.1f}%")               # FG %
 
     # ---- Midrange ----
     makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
-    col2.markdown("### Midrange")
-    col2.markdown(f"**{makesM}/{attM}**")
+    col2.markdown(styled_text("Midrange", size=28, margin="4px"), unsafe_allow_html=True)
+    col2.markdown(styled_text(f"{makesM}/{attM}", size=22, margin="-10px"), unsafe_allow_html=True)
     col2.metric("", f"{pctM:.1f}%")
 
     # ---- 3PT ----
     makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
-    col3.markdown("### 3PT")
-    col3.markdown(f"**{makes3}/{att3}**")
+    col3.markdown(styled_text("3PT", size=28, margin="4px"), unsafe_allow_html=True)
+    col3.markdown(styled_text(f"{makes3}/{att3}", size=22, margin="=10px"), unsafe_allow_html=True)
     col3.metric("", f"{pct3:.1f}%")
 
 # st.markdown("---")
