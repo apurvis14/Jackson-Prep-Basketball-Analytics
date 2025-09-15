@@ -129,6 +129,19 @@ else:
 # st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
 # st.pyplot(fig, use_container_width=True)
 
+st.markdown(
+    """
+    <style>
+    /* Remove padding/margin from the main container */
+    .css-18e3th9 {padding-top: 0rem; padding-bottom: 0rem; margin-top: 0rem;}
+
+    /* Optional: reduce padding inside the tabs */
+    .css-1lcbmhc {padding-top: 0rem; padding-bottom: 0rem;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Create two tabs
 tab1, tab2 = st.tabs(["Shot Chart", "Player Stats"])
 
