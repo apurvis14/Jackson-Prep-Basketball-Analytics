@@ -11,15 +11,23 @@ st.set_page_config(layout="centered", page_title="Jackson Prep Basketball Dashbo
 st.markdown(
     """
     <style>
-    /* Shrink the main header/top bar */
+    /* Shrink top bar */
     header[data-testid="stHeader"] {
-        height: 30px !important;       /* default is ~60px */
+        height: 40px !important;
         padding: 0 !important;
         min-height: 0 !important;
     }
 
-    /* Optionally hide the menu and title completely */
-    /* header[data-testid="stHeader"] .css-1v0mbdj {display: none;} */
+    /* Remove top padding from main container */
+    .css-1d391kg {
+        padding-top: 0rem !important;
+    }
+
+    /* Remove padding in tabs content */
+    .css-1v0mbdj {
+        padding-top: 0rem !important;
+        padding-bottom: 0rem !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
