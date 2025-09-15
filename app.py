@@ -159,10 +159,23 @@ with tab1:
             st.image(f"photos/{selected_player}.JPG", width=200)
 
     with right_col:
+        st.markdown(
+            """
+            <style>
+            .no-bottom-margin {
+                margin-bottom: 0px !important;
+                padding-bottom: 0px !important;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Then render the header like this:
         if selected_player == "Team":
-            st.header("Jackson Prep Team")
+            st.markdown('<div class="no-bottom-margin"><h2>Jackson Prep Team</h2></div>', unsafe_allow_html=True)
         else:
-            st.header(selected_player)
+            st.markdown(f'<div class="no-bottom-margin"><h2>{selected_player}</h2></div>', unsafe_allow_html=True)
 
         col1, col2, col3 = st.columns(3)
         # Layup, Midrange, 3PT metrics
