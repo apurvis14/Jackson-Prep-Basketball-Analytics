@@ -66,7 +66,7 @@ else:
     games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
 games.sort()
 games = ["Season"] + games  # Add "Season" option at top
-selected_game = st.sidebar.multiselect("Select Game", options=games, default=["Season"])
+selected_game = st.sidebar.selectbox("Select Game", games)
 
 # --- Type Dropdown ---
 game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
@@ -75,13 +75,13 @@ game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"],
 if selected_player == "Team" and selected_game == "Season":
     filtered = df[df["TYPE"].isin(game_types)]
 elif selected_player == "Team":
-    filtered = df[(df["GAME"].isin(selected_game)) & (df["TYPE"].isin(game_types))]
+    filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
 elif selected_game == "Season":
     filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
 else:
     filtered = df[
         (df["PLAYER"] == selected_player) &
-        (df["GAME"].isin(selected_game)) &
+        (df["GAME"] == selected_game) &
         (df["TYPE"].isin(game_types))
     ]
 
