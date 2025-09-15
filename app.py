@@ -154,7 +154,7 @@ with tab1:
     left_col, right_col = st.columns([1, 2])
 
     with left_col:
-        col_empty, col_img, col_empty2 = st.columns([0.5,2,0.5])
+        col_empty, col_img, col_empty2 = st.columns([1,4,1])
         st.write("\n")
         st.write("\n")
         with col_img:
