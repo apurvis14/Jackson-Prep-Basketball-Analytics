@@ -254,7 +254,7 @@ def plot_zone_chart(filtered_df, df_team):
         ax.text(cx, cy, f"{zone_fg:.1f}%",
                 ha='center', va='center', fontsize=16,
                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
-
+    plt.tight_layout()
     return fig
 
 
