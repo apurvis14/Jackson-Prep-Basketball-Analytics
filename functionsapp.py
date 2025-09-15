@@ -265,6 +265,7 @@ def calc_zone_stats(df: pd.DataFrame, shot_type: str):
     pct = makes / attempts * 100 if attempts > 0 else 0
     return makes, attempts, pct
 
-def styled_text(text, size=22, weight="bold", margin="0px", underline=False):
+def styled_text(text, size=22, weight="bold", margin="0px", underline=False, center=False):
     underline_css = "text-decoration: underline;" if underline else ""
-    return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin}; {underline_css}'>{text}</div>"
+    center_css = "text-align: center;" if center else ""
+    return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin}; {center_css} {underline_css}'>{text}</div>"
