@@ -354,7 +354,7 @@ def styled_text(text, size=22, weight="bold", margin="0px", underline=False):
 
 with left_col:
     if selected_player == "Team":
-        st.image("photos/team_logo.JPG", width=250)
+        st.image("photos/team_logo.JPG", width=200)
     else:
         st.image(f"photos/{selected_player}.JPG", width=250)
 
