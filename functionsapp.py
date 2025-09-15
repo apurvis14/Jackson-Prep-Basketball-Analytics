@@ -274,4 +274,4 @@ def styled_text(text, size=22, weight="bold", margin="0px", underline=False, cen
 def markdown_image(image_path, width=None, center=False):
     align_css = "display: block; margin-left: auto; margin-right: auto;" if center else ""
     width_css = f"width:{width}px;" if width else ""
-    return f"<img src='{image_path}' style='{width_css} {align_css}'/>"
+    return f"<img src='file://{image_path}' style='{width_css} {align_css}'/>"
