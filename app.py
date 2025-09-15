@@ -161,9 +161,9 @@ with tab1:
 
     with right_col:
         if selected_player == "Team":
-            st.markdown(styled_text("Jackson Prep Team", size=28, weight='bold', margin="0px"), unsafe_allow_html=True)
+            st.markdown(styled_text("Jackson Prep Team", size=28, weight='bold', margin="4px"), unsafe_allow_html=True)
         else:
-            st.markdown(styled_text(f"{selected_player}", size=28, weight='bold', margin="0px"), unsafe_allow_html=True)
+            st.markdown(styled_text(f"{selected_player}", size=28, weight='bold', margin="4px"), unsafe_allow_html=True)
 
         col1, col2, col3 = st.columns(3)
         # Layup, Midrange, 3PT metrics
