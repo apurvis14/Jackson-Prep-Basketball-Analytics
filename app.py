@@ -6,7 +6,7 @@ from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
 # -----------------------------
 # Page Config
 # --------------------------
-st.set_page_config(layout="wide", page_title="HS Basketball Dashboard")
+st.set_page_config(layout="centered", page_title="HS Basketball Dashboard")
 
 # -----------------------------
 # Simple base64 authentication
