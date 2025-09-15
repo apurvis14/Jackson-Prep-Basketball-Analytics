@@ -17,40 +17,9 @@ st.markdown(
         padding: 0 !important;
         min-height: 0 !important;
     }
-
-    /* Remove top padding from main container */
-    .css-1d391kg {
-        padding-top: 0rem !important;
-    }
-
-    /* Remove padding in tabs content */
-    .css-1v0mbdj {
-        padding-top: 0rem !important;
-        padding-bottom: 0rem !important;
-    }
     </style>
     """,
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    """
-    <style>
-    /* Remove top padding above everything */
-    main > div {
-        padding-top: 0rem !important;
-    }
-
-    /* Optional: reduce spacing between tabs and top content */
-    .stTabs {
-        margin-top: 0rem !important;
-        padding-top: 0rem !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
+    unsafe_allow_html=True)
 
 # -----------------------------
 # Simple base64 authentication
