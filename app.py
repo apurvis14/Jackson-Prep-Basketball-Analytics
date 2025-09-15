@@ -21,98 +21,39 @@ st.markdown(
     """,
     unsafe_allow_html=True)
 
-# # -----------------------------
-# # Simple base64 authentication
-# # -----------------------------
-# ENCODED_USERS = {
-#     "Y29hY2g6MTIzNDU=": "coach",
-#     "YXNzaXN0YW50OmxldG1laW4=": "assistant"
-# }
-
-# if "auth" not in st.session_state:
-#     st.session_state.auth = False
-#     st.session_state.username = None
-
-# if not st.session_state.auth:
-#     st.sidebar.header("Coach Login")
-#     username_input = st.sidebar.text_input("Username")
-#     password_input = st.sidebar.text_input("Password", type="password")
-#     if st.sidebar.button("Login"):
-#         combined = f"{username_input}:{password_input}"
-#         encoded = base64.b64encode(combined.encode()).decode()
-#         if encoded in ENCODED_USERS:
-#             st.session_state.auth = True
-#             st.session_state.username = username_input
-#             st.sidebar.success(f"Logged in as {username_input}")
-#         else:
-#             st.sidebar.error("Invalid username or password")
-#     st.stop()
-
-# if st.session_state.auth:
-#     if st.sidebar.button("Logout"):
-#         st.session_state.auth = False
-#         st.session_state.username = None
-#         st.experimental_rerun()
-
 # -----------------------------
-# Users & passwords (base64)
+# Simple base64 authentication
 # -----------------------------
 ENCODED_USERS = {
-    "Y29hY2g6MTIzNDU=": "coach",         # coach:12345
-    "YXNzaXN0YW50OmxldG1laW4=": "assistant", # assistant:letmein
+    "Y29hY2g6MTIzNDU=": "coach",
+    "YXNzaXN0YW50OmxldG1laW4=": "assistant"
 }
 
-# Initialize session state
 if "auth" not in st.session_state:
     st.session_state.auth = False
     st.session_state.username = None
-if "login_attempt" not in st.session_state:
-    st.session_state.login_attempt = False
 
-# -----------------------------
-# Sidebar Login (always visible)
-# -----------------------------
-st.sidebar.header("Coach Login")
+if not st.session_state.auth:
+    st.sidebar.header("Coach Login")
+    username_input = st.sidebar.text_input("Username")
+    password_input = st.sidebar.text_input("Password", type="password")
+    if st.sidebar.button("Login"):
+        combined = f"{username_input}:{password_input}"
+        encoded = base64.b64encode(combined.encode()).decode()
+        if encoded in ENCODED_USERS:
+            st.session_state.auth = True
+            st.session_state.username = username_input
+            st.sidebar.success(f"Logged in as {username_input}")
+        else:
+            st.sidebar.error("Invalid username or password")
+    st.stop()
 
-username_input = st.sidebar.text_input("Username", key="login_user")
-password_input = st.sidebar.text_input("Password", type="password", key="login_pass")
-
-login_clicked = st.sidebar.button("Login")
-
-# -----------------------------
-# Handle login once
-# -----------------------------
-if login_clicked or st.session_state.login_attempt:
-    combined = f"{username_input}:{password_input}"
-    encoded = base64.b64encode(combined.encode()).decode()
-
-    if encoded in ENCODED_USERS:
-        st.session_state.auth = True
-        st.session_state.username = username_input
-        st.sidebar.success(f"Logged in as {username_input}")
-        st.session_state.login_attempt = False
-    else:
-        st.session_state.auth = False
-        st.sidebar.error("Invalid username or password")
-        st.session_state.login_attempt = True  # remember attempt so user doesn't need 2 clicks
-
-# -----------------------------
-# Logout Button
-# -----------------------------
 if st.session_state.auth:
     if st.sidebar.button("Logout"):
         st.session_state.auth = False
         st.session_state.username = None
         st.experimental_rerun()
 
-# -----------------------------
-# Show content based on login
-# -----------------------------
-if st.session_state.auth:
-    st.write(f"Welcome, {st.session_state.username}!")
-    # Place the rest of your dashboard code here
-else:
-    st.warning("Please login to access the dashboard.")
 
 # -----------------------------
 # Load Data
