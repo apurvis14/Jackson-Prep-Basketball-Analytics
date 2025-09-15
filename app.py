@@ -348,8 +348,9 @@ def calc_zone_stats(df: pd.DataFrame, shot_type: str):
     pct = makes / attempts * 100 if attempts > 0 else 0
     return makes, attempts, pct
 
-def styled_text(text, size=22, weight="bold", margin="0px", underline=False):
-    return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin};'>{text}</div>"
+def styled_text(text, size=22, weight="normal", margin="0px", underline=False):
+    underline_css = "text-decoration: underline;" if underline else ""
+    return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin}; {underline_css}'>{text}</div>"
 
 with left_col:
     if selected_player == "Team":
@@ -373,13 +374,13 @@ with right_col:
 
     # --- Midrange ---
     makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
-    col2.markdown(styled_text("Midrange", size=24, margin="2px"), unsafe_allow_html=True)
+    col2.markdown(styled_text("Midrange", size=24, margin="2px", underline=True), unsafe_allow_html=True)
     col2.markdown(styled_text(f"{makesM}/{attM}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
     col2.markdown(styled_text(f"{pctM:.1f}%", size=20, weight="normal", margin="4px"), unsafe_allow_html=True)
 
     # --- 3PT ---
     makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
-    col3.markdown(styled_text("3PT", size=24, margin="2px"), unsafe_allow_html=True)
+    col3.markdown(styled_text("3PT", size=24, margin="2px", underline=True), unsafe_allow_html=True)
     col3.markdown(styled_text(f"{makes3}/{att3}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
     col3.markdown(styled_text(f"{pct3:.1f}%", size=20, weight="normal", margin="4px"), unsafe_allow_html=True)
 
