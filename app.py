@@ -133,10 +133,10 @@ st.markdown(
     """
     <style>
     /* Remove padding/margin from the main container */
-    .css-18e3th9 {padding-top: 0rem; padding-bottom: 0rem; margin-top: 0rem;}
+    .css-18e3th9 {padding-top: -10rem; padding-bottom: 0rem; margin-top: -10rem;}
 
     /* Optional: reduce padding inside the tabs */
-    .css-1lcbmhc {padding-top: 0rem; padding-bottom: 0rem;}
+    .css-1lcbmhc {padding-top: -10rem; padding-bottom: 0rem;}
     </style>
     """,
     unsafe_allow_html=True
