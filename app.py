@@ -92,9 +92,9 @@ left_col, right_col = st.columns([1, 2])
 
 with left_col:
     if selected_player == "Team":
-        st.image("photos/team_logo.JPG", width=200)
+        st.image("photos/team_logo.JPG", width=225)
     else:
-        st.image(f"photos/{selected_player}.JPG", width=200)
+        st.image(f"photos/{selected_player}.JPG", width=225)
 
 with right_col:
     if selected_player == "Team":
