@@ -249,10 +249,10 @@ def plot_zone_chart(filtered_df, df_team):
             cx += 3
 
         ax.text(cx, cy + 20, f"{int(stats['makes'])}/{int(stats['attempts'])}",
-                ha='center', va='center', fontsize=16, weight='bold',
+                ha='center', va='center', fontsize=20, weight='bold',
                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
         ax.text(cx, cy, f"{zone_fg:.1f}%",
-                ha='center', va='center', fontsize=16,
+                ha='center', va='center', fontsize=20,
                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
     plt.tight_layout()
     return fig
