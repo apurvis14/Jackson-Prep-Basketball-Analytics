@@ -154,7 +154,7 @@ with tab1:
     left_col, right_col = st.columns([1, 2])
 
     with left_col:
-        col_empty, col_img, col_empty2 = st.columns([1,4,1])
+        col_empty, col_img, col_empty2 = st.columns([1,2,1])
         with col_img:
             if selected_player == "Team":
                 st.image('photos/team_logo.png', width=175)
