@@ -6,7 +6,25 @@ from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
 # -----------------------------
 # Page Config
 # --------------------------
-st.set_page_config(layout="centered", page_title="HS Basketball Dashboard")
+st.set_page_config(layout="centered", page_title="Jackson Prep Basketball Dashboard")
+
+st.markdown(
+    """
+    <style>
+    /* Shrink the main header/top bar */
+    header[data-testid="stHeader"] {
+        height: 30px !important;       /* default is ~60px */
+        padding: 0 !important;
+        min-height: 0 !important;
+    }
+
+    /* Optionally hide the menu and title completely */
+    /* header[data-testid="stHeader"] .css-1v0mbdj {display: none;} */
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # -----------------------------
 # Simple base64 authentication
