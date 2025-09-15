@@ -155,7 +155,7 @@ with tab1:
 
     with left_col:
         if selected_player == "Team":
-            st.markdown(markdown_image("photos/team_logo.png", width=200, center=True), unsafe_allow_html=True)
+            st.image('photos/team_logo.png', width=175)
         else:
             st.image(f"photos/{selected_player}.JPG", width=200)
 
