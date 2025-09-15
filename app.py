@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import base64
-from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
+from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, markdown_image
 # -----------------------------
 # Page Config
 # --------------------------
@@ -155,7 +155,7 @@ with tab1:
 
     with left_col:
         if selected_player == "Team":
-            st.image("photos/team_logo.png", width=175)
+            st.markdown(markdown_image("photos/team_logo.JPG", width=200, center=True), unsafe_allow_html=True)
         else:
             st.image(f"photos/{selected_player}.JPG", width=200)
 
