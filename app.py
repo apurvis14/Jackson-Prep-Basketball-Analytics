@@ -33,6 +33,24 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown(
+    """
+    <style>
+    /* Remove top padding above everything */
+    main > div {
+        padding-top: 0rem !important;
+    }
+
+    /* Optional: reduce spacing between tabs and top content */
+    .stTabs {
+        margin-top: 0rem !important;
+        padding-top: 0rem !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # -----------------------------
 # Simple base64 authentication
