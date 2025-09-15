@@ -160,9 +160,9 @@ with tab1:
 
     with right_col:
         if selected_player == "Team":
-            st.header("Jackson Prep Team")
+            st.markdown("Jackson Prep Team")
         else:
-            st.header(selected_player)
+            st.markdown(selected_player)
 
         col1, col2, col3 = st.columns(3)
         # Layup, Midrange, 3PT metrics
