@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import base64
-from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, markdown_image
+from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
 # -----------------------------
 # Page Config
 # --------------------------
