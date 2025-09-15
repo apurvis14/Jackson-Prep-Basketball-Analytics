@@ -216,86 +216,6 @@ def get_updated_zones():
     poly_zones = {name: Polygon(coords, closed=True) for name, coords in zones.items()}
     return poly_zones
 
-# -----------------------------
-# Plot Zones
-# -----------------------------
-# def plot_zone_chart(df):
-#     zone_stats = df.groupby('ZONE').agg(
-#         makes=('SHOT_MADE_FLAG', 'sum'),
-#         attempts=('SHOT_MADE_FLAG', 'count')
-#     ).reset_index()
-#     zone_stats['FG%'] = (zone_stats['makes'] / zone_stats['attempts']) * 100
-#     overall_fg = df['SHOT_MADE_FLAG'].mean() * 100
-
-#     zone_polys = get_updated_zones()
-
-#     fig, ax = plt.subplots(figsize=(18, 14), dpi = 200)
-#     draw_hs_half_court(ax)
-#     ax.set_xlim(-250, 250)
-#     ax.set_ylim(-47.5, 422.5)
-#     ax.axis('off')
-
-#     for zone_name, poly in zone_polys.items():
-#         if zone_name not in zone_stats['ZONE'].values:
-#             continue
-
-#         stats = zone_stats[zone_stats['ZONE'] == zone_name].iloc[0]
-#         zone_fg = round(stats['FG%'], 2)
-#         overall_fg_rounded = round(overall_fg, 2)
-
-#         # Color logic: red if overall FG% is 0
-#         if overall_fg_rounded == 0:
-#             color = 'red'
-#         elif overall_fg_rounded == 100:
-#             color = 'green'
-#         else:
-#             color = 'green' if zone_fg >= overall_fg_rounded else 'red'
-
-#         ax.add_patch(Polygon(
-#             poly.get_xy(), closed=True,
-#             facecolor=color, alpha=0.4, edgecolor='black', linestyle='--'
-#         ))
-
-#         xs = poly.get_xy()[:, 0]
-#         ys = poly.get_xy()[:, 1]
-#         cx,cy = np.mean(xs), np.mean(ys)
-
-
-#         # Offset LW and RW Midrange text slightly
-#         if zone_name in ['LW Midrange', 'RW Midrange']:
-#             cy -= 30 
-
-#         if zone_name in ['RW Midrange']:
-#             cx -= 20 
-        
-#         if zone_name in ['LW Midrange']:
-#             cx += 20
-
-#         if zone_name in ['Left Midrange BL']:
-#             cx +=20
-
-#         if zone_name in ['Top of Key 3','Left Center Midrange', 'Right Center Midrange']:
-#             cy -= 10
-
-#         if zone_name in ['Left Layup']:
-#             cx += 10
-
-#         if zone_name in ['Right Layup']:
-#             cx += 10
-        
-#         if zone_name in ['Left Corner 3', 'Right Corner 3']:
-#             cx += 3
-
-#         ax.text(cx, cy+20, f"{int(stats['makes'])}/{int(stats['attempts'])}",
-#                 ha='center', va='center', fontsize=16, weight='bold',
-#                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
-
-#         ax.text(cx, cy, f"{stats['FG%']:.1f}%",
-#                 ha='center', va='center', fontsize=16,
-#                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
-
-#     return fig
-
 def plot_zone_chart(filtered_df, df_team):
     """
     Plot a basketball shot chart by zone with:
@@ -421,6 +341,13 @@ def plot_zone_chart(filtered_df, df_team):
 # -----------------------------
 left_col, right_col = st.columns([1, 2])
 
+def calc_zone_stats(df: pd.DataFrame, shot_type: str):
+    zone = df[df["SHOT_TYPE"].str.contains(shot_type, case=False, na=False)]
+    makes = int(zone["SHOT_MADE_FLAG"].sum())
+    attempts = int(zone.shape[0])
+    pct = makes / attempts * 100 if attempts > 0 else 0
+    return makes, attempts, pct
+
 with left_col:
     if selected_player == "Team":
         st.image("photos/team_logo.JPG", width=250)
@@ -435,22 +362,23 @@ with right_col:
 
     col1, col2, col3 = st.columns(3)
 
-    def calc_zone_pct(df: pd.DataFrame, type: str) -> str:
-        """
-        Calculate the field goal percentage for a specific zone.
-        Returns a string with percentage formatted to 1 decimal place.
-        """
-        zone = df[df["SHOT_TYPE"].str.contains(type, case=False, na=False)]
-        if zone.empty:
-            return "0%"
-        
-        fg_pct = zone['SHOT_MADE_FLAG'].mean() * 100
-        return f"{fg_pct:.1f}%"
+    # ---- Layup ----
+    makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
+    col1.markdown("### Layup")                           # zone name
+    col1.markdown(f"**{makesL}/{attL}**")                 # makes / attempts
+    col1.metric("", f"{pctL:.1f}%")                       # FG %
 
-    # Display metrics (use filtered for both Player and Team cases)
-    col1.metric("3PT %", calc_zone_pct(filtered, "3PT"))
-    col2.metric("Midrange %", calc_zone_pct(filtered, "Midrange"))
-    col3.metric("Layup %", calc_zone_pct(filtered, "Layup"))
+    # ---- Midrange ----
+    makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
+    col2.markdown("### Midrange")
+    col2.markdown(f"**{makesM}/{attM}**")
+    col2.metric("", f"{pctM:.1f}%")
+
+    # ---- 3PT ----
+    makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
+    col3.markdown("### 3PT")
+    col3.markdown(f"**{makes3}/{att3}**")
+    col3.metric("", f"{pct3:.1f}%")
 
 # st.markdown("---")
 
