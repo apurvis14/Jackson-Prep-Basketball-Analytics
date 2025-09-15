@@ -173,7 +173,7 @@ def plot_zone_chart(filtered_df, df_team):
     # -----------------------------
     zone_polys = get_updated_zones()
 
-    fig, ax = plt.subplots(figsize=(16.5, 14), dpi=200)
+    fig, ax = plt.subplots(figsize=(12, 9), dpi=250)
     draw_hs_half_court(ax)
     ax.set_xlim(-250, 250)
     ax.set_ylim(-47.5, 422.5)
