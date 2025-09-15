@@ -81,7 +81,7 @@ elif selected_game == "Season":
 else:
     filtered = df[
         (df["PLAYER"] == selected_player) &
-        (df["GAME"].isnin(selected_game)) &
+        (df["GAME"].isin(selected_game)) &
         (df["TYPE"].isin(game_types))
     ]
 
