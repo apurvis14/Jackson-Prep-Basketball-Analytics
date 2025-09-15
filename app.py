@@ -141,9 +141,9 @@ with tab1:
 
     with left_col:
         if selected_player == "Team":
-            st.image("photos/team_logo.JPG", width=200)
+            st.image("photos/team_logo.JPG", width=225)
         else:
-            st.image(f"photos/{selected_player}.JPG", width=200)
+            st.image(f"photos/{selected_player}.JPG", width=225)
 
     with right_col:
         if selected_player == "Team":
@@ -155,21 +155,21 @@ with tab1:
         # Layup, Midrange, 3PT metrics
             # --- Layup ---
         makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
-        col1.markdown(styled_text("Layup", size=24, margin="2px", underline=True), unsafe_allow_html=True)
-        col1.markdown(styled_text(f"{makesL}/{attL}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-        col1.markdown(styled_text(f"{pctL:.1f}%", size=20, weight="normal", margin="-10px"), unsafe_allow_html=True)
+        col1.markdown(styled_text("Layup", size=22, margin="2px", underline=True), unsafe_allow_html=True)
+        col1.markdown(styled_text(f"{makesL}/{attL}", size=18, weight="normal", margin="0px"), unsafe_allow_html=True)
+        col1.markdown(styled_text(f"{pctL:.1f}%", size=18, weight="normal", margin="-10px"), unsafe_allow_html=True)
 
         # --- Midrange ---
         makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
-        col2.markdown(styled_text("Midrange", size=24, margin="2px", underline=True), unsafe_allow_html=True)
-        col2.markdown(styled_text(f"{makesM}/{attM}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-        col2.markdown(styled_text(f"{pctM:.1f}%", size=20, weight="normal", margin="-10px"), unsafe_allow_html=True)
+        col2.markdown(styled_text("Midrange", size=22, margin="2px", underline=True), unsafe_allow_html=True)
+        col2.markdown(styled_text(f"{makesM}/{attM}", size=18, weight="normal", margin="0px"), unsafe_allow_html=True)
+        col2.markdown(styled_text(f"{pctM:.1f}%", size=18, weight="normal", margin="-10px"), unsafe_allow_html=True)
 
         # --- 3PT ---
         makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
-        col3.markdown(styled_text("3PT", size=24, margin="2px", underline=True), unsafe_allow_html=True)
-        col3.markdown(styled_text(f"{makes3}/{att3}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-        col3.markdown(styled_text(f"{pct3:.1f}%", size=20, weight="normal", margin="-10px"), unsafe_allow_html=True)
+        col3.markdown(styled_text("3PT", size=22, margin="2px", underline=True), unsafe_allow_html=True)
+        col3.markdown(styled_text(f"{makes3}/{att3}", size=18, weight="normal", margin="0px"), unsafe_allow_html=True)
+        col3.markdown(styled_text(f"{pct3:.1f}%", size=18, weight="normal", margin="-10px"), unsafe_allow_html=True)
 
     # Shot chart
     fig = plot_zone_chart(filtered, df)
