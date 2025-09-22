@@ -197,7 +197,7 @@ with tab3:
     # st.dataframe(hustle, use_container_width=True, height=775)
 
     fig, ax = plt.subplots(figsize=(32, 40))
-    fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=36, fontweight='bold', y=0.985)
+    fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=36, color='#0033A0', fontweight='bold', y=0.975)
     ax.axis('off')
 
     # Create table with Formatted DataFrame
@@ -219,8 +219,9 @@ with tab3:
         if row == 0:  # header row
             cell.set_facecolor('#da1a32')
             cell.set_linewidth(2.5)
-            cell.set_edgecolor('black')
+            cell.set_edgecolor('#0033A0')
             cell.get_text().set_fontweight('bold')
+            cell.get_text().set_color('#0033A0')
             cell.set_fontsize(28)
 
     st.pyplot(fig)
