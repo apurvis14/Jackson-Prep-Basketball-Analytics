@@ -8,7 +8,7 @@ from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
 # -----------------------------
 # Page Config
 # --------------------------
-st.set_page_config(layout="wide", page_title="Jackson Prep Basketball Dashboard")
+st.set_page_config(layout="centered", page_title="Jackson Prep Basketball Dashboard")
 
 st.markdown(
     """
@@ -113,8 +113,6 @@ tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
 # Tab 1: Original Shot Chart
 # -----------------------------
 with tab1:
-    left, center, right = st.columns([2,5,2])
-    with center:
     # Left + Right columns for image and stats
         left_col, right_col = st.columns([1, 2])
 
@@ -161,8 +159,6 @@ with tab1:
 # Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
-    left, center, right = st.columns([2,5,2])
-    with center:
         st.header("Additional Player Stats")
         
         # Example: show a table of season stats
