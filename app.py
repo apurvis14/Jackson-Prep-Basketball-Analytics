@@ -212,4 +212,4 @@ with tab3:
             cell.set_edgecolor('black')
             cell.get_text().set_fontweight('bold')
 
-    st.dataframe(hustle)
+    st.dataframe(hustle, use_container_width=True, height=800)
