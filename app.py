@@ -175,11 +175,45 @@ with tab2:
     top_3pt = filtered[filtered["SHOT_TYPE"].str.contains("3PT")].groupby("PLAYER")["SHOT_MADE_FLAG"].mean().sort_values(ascending=False).head(5)
     st.bar_chart(top_3pt)
 
+# with tab3:
+#         # Create a full-width container only in this tab
+#     wide_tab = st.container()
+#     with wide_tab:
+#         hustle = df_hustle.groupby('Player').agg(
+#             {'Charges': 'sum',
+#             'Deflections': 'sum',
+#             'Loose Ball Recovery': 'sum',
+#             'Steals': 'sum',
+#             'Off. Rebs': 'sum',
+#             'Effective Box-Out': 'sum',
+#             'Contested Shot': 'sum'}
+#         ).reset_index()
+
+#         st.dataframe(
+#             hustle.reset_index(drop=True),
+#             use_container_width=True,
+#             height=775
+#         )
+
 with tab3:
-        # Create a full-width container only in this tab
-    wide_tab = st.container()
-    with wide_tab:
-        hustle = df_hustle.groupby('Player').agg(
+    st.markdown(
+        """
+        <style>
+        /* Widen only the 3rd tab’s panel */
+        div[data-baseweb="tab-panel"]:nth-of-type(3) {
+            max-width: 100% !important;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Example wide content
+    st.markdown("### Hustle Table")
+
+    hustle = df_hustle.groupby('Player').agg(
             {'Charges': 'sum',
             'Deflections': 'sum',
             'Loose Ball Recovery': 'sum',
@@ -188,12 +222,8 @@ with tab3:
             'Effective Box-Out': 'sum',
             'Contested Shot': 'sum'}
         ).reset_index()
-
-        st.dataframe(
-            hustle.reset_index(drop=True),
-            use_container_width=True,
-            height=775
-        )
+    
+    st.dataframe(df_hustle, use_container_width=True, height=775)
 
     # fig, ax = plt.subplots(figsize=(32, 20))
     # fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=24, fontweight='bold', y=0.985)
