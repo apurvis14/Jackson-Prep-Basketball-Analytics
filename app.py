@@ -212,7 +212,7 @@ with tab3:
 
     # Resize to ensure fit and readability
     table.auto_set_font_size(False)
-    table.set_fontsize(26)
+    table.set_fontsize(30)
     table.scale(1.4, 2.5)
 
     # Change Color the header row
@@ -224,7 +224,7 @@ with tab3:
             cell.set_edgecolor('#0033A0')
             cell.get_text().set_fontweight('bold')
             cell.get_text().set_color('#0033A0')
-            cell.set_fontsize(28)
+            cell.set_fontsize(30)
 
     for key, cell in table.get_celld().items():
         cell.get_text().set_color('#0033A0')
