@@ -186,7 +186,13 @@ with tab3:
             'Contested Shot': 'sum'}
         ).reset_index()
     # st.dataframe(hustle, use_container_width=True, height=775)
-    hustle.columns = ['Charges', 'Deflections', 'Loose Ball\nRecovery', 'Steals', 'Off.\nRebs', 'Effective\nBox-Out', 'Contested\nShot']
+    hustle = hustle.rename(columns={
+    "Loose Ball Recovery": "Loose Ball\nRecovery",
+    "Off. Rebs": "Off.\nRebs",
+    "Effective Box-Out": "Effective\nBox-Out",
+    "Contested Shot": "Contested\nShot"
+    })
+    
     st.table(hustle)
 
     fig, ax = plt.subplots(figsize=(32, 22))
