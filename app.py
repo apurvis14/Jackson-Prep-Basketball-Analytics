@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import base64
+import matplotlib as plt
 from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
 # -----------------------------
 # Page Config
@@ -60,9 +61,11 @@ if st.session_state.auth:
 # -----------------------------
 # Direct CSV URL
 csv_url = "https://drive.google.com/uc?export=download&id=1ANJJdJJpgiwECxwXIKXTkt_KPOmqRemY"
+csv_url_hustle = "https://drive.google.com/file/d/1Hyf7kpSVtHk4tT9H3BrpFUI04giMRPYj/view?usp=sharing"
 
 # Load CSV into DataFrame
 df = pd.read_csv(csv_url)
+df_hustle = pd.read_csv(csv_url_hustle)
 
 # Sidebar filters
 st.sidebar.header("Filters")
@@ -102,48 +105,7 @@ else:
 # -----------------------------
 # Layout: Image + Info + Scoreboard
 # -----------------------------
-# left_col, right_col = st.columns([1, 2])
-
-# with left_col:
-#     if selected_player == "Team":
-#         st.image("photos/team_logo.JPG", width=225)
-#     else:
-#         st.image(f"photos/{selected_player}.JPG", width=225)
-
-# with right_col:
-#     if selected_player == "Team":
-#         st.header("Jackson Prep Team")
-#     else:
-#         st.header(selected_player)
-
-#     col1, col2, col3 = st.columns(3)
-
-#     # --- Layup ---
-#     makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
-#     col1.markdown(styled_text("Layup", size=24, margin="2px", underline=True), unsafe_allow_html=True)
-#     col1.markdown(styled_text(f"{makesL}/{attL}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-#     col1.markdown(styled_text(f"{pctL:.1f}%", size=20, weight="normal", margin="4px"), unsafe_allow_html=True)
-
-#     # --- Midrange ---
-#     makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
-#     col2.markdown(styled_text("Midrange", size=24, margin="2px", underline=True), unsafe_allow_html=True)
-#     col2.markdown(styled_text(f"{makesM}/{attM}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-#     col2.markdown(styled_text(f"{pctM:.1f}%", size=20, weight="normal", margin="4px"), unsafe_allow_html=True)
-
-#     # --- 3PT ---
-#     makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
-#     col3.markdown(styled_text("3PT", size=24, margin="2px", underline=True), unsafe_allow_html=True)
-#     col3.markdown(styled_text(f"{makes3}/{att3}", size=20, weight="normal", margin="0px"), unsafe_allow_html=True)
-#     col3.markdown(styled_text(f"{pct3:.1f}%", size=20, weight="normal", margin="4px"), unsafe_allow_html=True)
-
-# # st.markdown("---")
-
-# # Shot chart
-# fig = plot_zone_chart(filtered, df)
-# st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
-# st.pyplot(fig, use_container_width=True)
-
-# Create two tabs
+# Create three tabs
 tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
 
 # -----------------------------
@@ -193,7 +155,7 @@ with tab1:
     st.pyplot(fig, use_container_width=True)
 
 # -----------------------------
-# Tab 2: New Information
+# Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
     st.header("Additional Player Stats")
@@ -211,3 +173,31 @@ with tab2:
     st.markdown("### Top 3PT Shooters")
     top_3pt = filtered[filtered["SHOT_TYPE"].str.contains("3PT")].groupby("PLAYER")["SHOT_MADE_FLAG"].mean().sort_values(ascending=False).head(5)
     st.bar_chart(top_3pt)
+
+with tab3:
+    hustle = df_hustle.groupby('Player')
+
+    fig, ax = plt.subplots(figsize=(28, 16))
+    fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=24, fontweight='bold', y=0.985)
+    ax.axis('off')
+
+    # Create table with Formatted DataFrame
+    table = plt.table(
+        cellText=hustle.values,
+        colLabels=hustle.columns,
+        cellLoc='center',
+        bbox=[-0.05, 0.13, 1.05, 0.95]
+    )
+
+    # Resize to ensure fit and readability
+    table.auto_set_font_size(False)
+    table.set_fontsize(14)
+    table.scale(1.4, 1.5)
+
+    # Change Color the header row
+    for col_idx in range(len(df_hustle.columns)):
+        cell = table[0, col_idx]
+        cell.set_facecolor('gray')
+        cell.set_linewidth(2.5)
+        cell.set_edgecolor('black')
+        cell.get_text().set_fontweight('bold')
