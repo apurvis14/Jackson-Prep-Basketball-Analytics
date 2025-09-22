@@ -195,7 +195,7 @@ with tab3:
 
     st.table(hustle)
     st.dataframe(hustle, use_container_width=True, height=775)
-    
+
     fig, ax = plt.subplots(figsize=(32, 22))
     fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=30, fontweight='bold', y=0.985)
     ax.axis('off')
@@ -211,7 +211,7 @@ with tab3:
     # Resize to ensure fit and readability
     table.auto_set_font_size(False)
     table.set_fontsize(20)
-    table.scale(1.4, 2)
+    table.scale(1.4, 2.5)
 
     # Change Color the header row
     for key, cell in table.get_celld().items():
