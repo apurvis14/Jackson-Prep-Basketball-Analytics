@@ -208,7 +208,7 @@ with tab3:
     for key, cell in table.get_celld().items():
         row, col = key
         if row == 0:  # header row
-            cell.set_facecolor('gray')
+            cell.set_facecolor('#da1a32')
             cell.set_linewidth(2.5)
             cell.set_edgecolor('black')
             cell.get_text().set_fontweight('bold')
