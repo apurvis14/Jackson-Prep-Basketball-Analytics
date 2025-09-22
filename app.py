@@ -201,7 +201,7 @@ with tab3:
 
     # Resize to ensure fit and readability
     table.auto_set_font_size(False)
-    table.set_fontsize(18)
+    table.set_fontsize(20)
     table.scale(1.4, 1.5)
 
     # Change Color the header row
