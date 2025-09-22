@@ -196,8 +196,8 @@ with tab3:
     st.table(hustle)
     st.dataframe(hustle, use_container_width=True, height=775)
 
-    fig, ax = plt.subplots(figsize=(32, 32))
-    fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=30, fontweight='bold', y=0.985)
+    fig, ax = plt.subplots(figsize=(32, 48))
+    fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=36, fontweight='bold', y=0.985)
     ax.axis('off')
 
     # Create table with Formatted DataFrame
@@ -210,7 +210,7 @@ with tab3:
 
     # Resize to ensure fit and readability
     table.auto_set_font_size(False)
-    table.set_fontsize(20)
+    table.set_fontsize(24)
     table.scale(1.4, 2.5)
 
     # Change Color the header row
@@ -221,6 +221,6 @@ with tab3:
             cell.set_linewidth(2.5)
             cell.set_edgecolor('black')
             cell.get_text().set_fontweight('bold')
-            cell.set_fontsize(22)
+            cell.set_fontsize(28)
 
     st.pyplot(fig)
