@@ -270,3 +270,16 @@ def styled_text(text, size=22, weight="bold", margin="0px", underline=False, cen
     center_css = "text-align: center;" if center else ""
     return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin}; {center_css} {underline_css}'>{text}</div>"
 
+def split_name(name):
+    parts = name.split()  # split by spaces
+    if len(parts) == 2:
+        # First and Last
+        return f"{parts[0]}\n{parts[1]}"
+    elif len(parts) > 2:
+        # More than 2 parts, put everything except last on first line
+        first_line = " ".join(parts[:-1])
+        last_line = parts[-1]
+        return f"{first_line}\n{last_line}"
+    else:
+        # Single name
+        return name

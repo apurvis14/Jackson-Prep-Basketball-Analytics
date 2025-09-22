@@ -4,7 +4,7 @@ import pandas as pd
 import base64
 import matplotlib as matplotlib
 import matplotlib.pyplot as plt
-from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
+from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, split_name
 # -----------------------------
 # Page Config
 # --------------------------
@@ -192,6 +192,8 @@ with tab3:
     "Effective Box-Out": "Effective\nBox-Out",
     "Contested Shot": "Contested\nShot"
     })
+
+    hustle['Player'] = hustle['Player'].apply(split_name)
 
     # st.table(hustle)
     # st.dataframe(hustle, use_container_width=True, height=775)
