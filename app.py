@@ -176,6 +176,7 @@ with tab2:
     st.bar_chart(top_3pt)
 
 with tab3:
+    st.set_page_config(layout="wide")
     hustle = df_hustle.groupby('Player').agg(
         {'Charges': 'sum',
         'Deflections': 'sum',
