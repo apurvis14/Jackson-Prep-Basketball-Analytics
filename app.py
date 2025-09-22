@@ -223,7 +223,7 @@ with tab3:
             'Contested Shot': 'sum'}
         ).reset_index()
     
-    st.dataframe(df_hustle, use_container_width=True, height=775)
+    st.dataframe(hustle, use_container_width=True, height=775)
 
     # fig, ax = plt.subplots(figsize=(32, 20))
     # fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=24, fontweight='bold', y=0.985)
