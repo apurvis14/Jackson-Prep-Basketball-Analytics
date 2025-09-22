@@ -186,7 +186,7 @@ with tab3:
         'Contested Shot': 'sum'}
         ).reset_index()
 
-    fig, ax = plt.subplots(figsize=(28, 16))
+    fig, ax = plt.subplots(figsize=(32, 20))
     fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=24, fontweight='bold', y=0.985)
     ax.axis('off')
 
@@ -200,7 +200,7 @@ with tab3:
 
     # Resize to ensure fit and readability
     table.auto_set_font_size(False)
-    table.set_fontsize(14)
+    table.set_fontsize(20)
     table.scale(1.4, 1.5)
 
     # Change Color the header row
