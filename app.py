@@ -8,7 +8,7 @@ from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
 # -----------------------------
 # Page Config
 # --------------------------
-st.set_page_config(layout="centered", page_title="Jackson Prep Basketball Dashboard")
+st.set_page_config(layout="wide", page_title="Jackson Prep Basketball Dashboard")
 
 st.markdown(
     """
@@ -113,67 +113,71 @@ tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
 # Tab 1: Original Shot Chart
 # -----------------------------
 with tab1:
+    left, center, right = st.columns([1,6,1])
+    with center:
     # Left + Right columns for image and stats
-    left_col, right_col = st.columns([1, 2])
+        left_col, right_col = st.columns([1, 2])
 
-    with left_col:
-        col_empty, col_img, col_empty2 = st.columns([0.25,3.5,0.25])
-        with col_img:
+        with left_col:
+            col_empty, col_img, col_empty2 = st.columns([0.25,3.5,0.25])
+            with col_img:
+                if selected_player == "Team":
+                    st.image('photos/team_logo.png', width=175)
+                else:
+                    st.image(f"photos/{selected_player}.JPG", width=200)
+
+        with right_col:
             if selected_player == "Team":
-                st.image('photos/team_logo.png', width=175)
+                st.markdown(styled_text("Jackson Prep Team", size=28, weight='bold', margin="8px",underline=False, center=True), unsafe_allow_html=True)
             else:
-                st.image(f"photos/{selected_player}.JPG", width=200)
+                st.markdown(styled_text(f"{selected_player}", size=28, weight='bold', margin="8px",underline=False, center=True), unsafe_allow_html=True)
 
-    with right_col:
-        if selected_player == "Team":
-            st.markdown(styled_text("Jackson Prep Team", size=28, weight='bold', margin="8px",underline=False, center=True), unsafe_allow_html=True)
-        else:
-            st.markdown(styled_text(f"{selected_player}", size=28, weight='bold', margin="8px",underline=False, center=True), unsafe_allow_html=True)
+            col1, col2, col3 = st.columns(3)
+            # Layup, Midrange, 3PT metrics
+                # --- Layup ---
+            makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
+            col1.markdown(styled_text("Layup", size=22, margin="0px", underline=True, center=True), unsafe_allow_html=True)
+            col1.markdown(styled_text(f"{makesL}/{attL}", size=18, weight="normal", margin="0px",underline=False, center=True), unsafe_allow_html=True)
+            col1.markdown(styled_text(f"{pctL:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
 
-        col1, col2, col3 = st.columns(3)
-        # Layup, Midrange, 3PT metrics
-            # --- Layup ---
-        makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
-        col1.markdown(styled_text("Layup", size=22, margin="0px", underline=True, center=True), unsafe_allow_html=True)
-        col1.markdown(styled_text(f"{makesL}/{attL}", size=18, weight="normal", margin="0px",underline=False, center=True), unsafe_allow_html=True)
-        col1.markdown(styled_text(f"{pctL:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
+            # --- Midrange ---
+            makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
+            col2.markdown(styled_text("Midrange", size=22, margin="0px", underline=True, center=True), unsafe_allow_html=True)
+            col2.markdown(styled_text(f"{makesM}/{attM}", size=18, weight="normal", margin="0px",underline=False, center=True), unsafe_allow_html=True)
+            col2.markdown(styled_text(f"{pctM:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
 
-        # --- Midrange ---
-        makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
-        col2.markdown(styled_text("Midrange", size=22, margin="0px", underline=True, center=True), unsafe_allow_html=True)
-        col2.markdown(styled_text(f"{makesM}/{attM}", size=18, weight="normal", margin="0px",underline=False, center=True), unsafe_allow_html=True)
-        col2.markdown(styled_text(f"{pctM:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
+            # --- 3PT ---
+            makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
+            col3.markdown(styled_text("3PT", size=22, margin="0px", underline=True, center=True), unsafe_allow_html=True)
+            col3.markdown(styled_text(f"{makes3}/{att3}", size=18, weight="normal", margin="0px",underline=False, center=True), unsafe_allow_html=True)
+            col3.markdown(styled_text(f"{pct3:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
 
-        # --- 3PT ---
-        makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
-        col3.markdown(styled_text("3PT", size=22, margin="0px", underline=True, center=True), unsafe_allow_html=True)
-        col3.markdown(styled_text(f"{makes3}/{att3}", size=18, weight="normal", margin="0px",underline=False, center=True), unsafe_allow_html=True)
-        col3.markdown(styled_text(f"{pct3:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
-
-    # Shot chart
-    fig = plot_zone_chart(filtered, df)
-    st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
-    st.pyplot(fig, use_container_width=True)
+        # Shot chart
+        fig = plot_zone_chart(filtered, df)
+        st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
+        st.pyplot(fig, use_container_width=True)
 
 # -----------------------------
 # Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
-    st.header("Additional Player Stats")
-    
-    # Example: show a table of season stats
-    season_stats = filtered.groupby("PLAYER").agg(
-        Total_Makes=('SHOT_MADE_FLAG', 'sum'),
-        Total_Attempts=('SHOT_MADE_FLAG', 'count'),
-        FG_Pct=('SHOT_MADE_FLAG', 'mean')
-    ).reset_index()
-    
-    st.dataframe(season_stats)
+    left, center, right = st.columns([1,6,1])
+    with center:
+        st.header("Additional Player Stats")
+        
+        # Example: show a table of season stats
+        season_stats = filtered.groupby("PLAYER").agg(
+            Total_Makes=('SHOT_MADE_FLAG', 'sum'),
+            Total_Attempts=('SHOT_MADE_FLAG', 'count'),
+            FG_Pct=('SHOT_MADE_FLAG', 'mean')
+        ).reset_index()
+        
+        st.dataframe(season_stats)
 
-    # You can also add new charts, metrics, or text here
-    st.markdown("### Top 3PT Shooters")
-    top_3pt = filtered[filtered["SHOT_TYPE"].str.contains("3PT")].groupby("PLAYER")["SHOT_MADE_FLAG"].mean().sort_values(ascending=False).head(5)
-    st.bar_chart(top_3pt)
+        # You can also add new charts, metrics, or text here
+        st.markdown("### Top 3PT Shooters")
+        top_3pt = filtered[filtered["SHOT_TYPE"].str.contains("3PT")].groupby("PLAYER")["SHOT_MADE_FLAG"].mean().sort_values(ascending=False).head(5)
+        st.bar_chart(top_3pt)
 
 # with tab3:
 #         # Create a full-width container only in this tab
