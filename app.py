@@ -196,7 +196,7 @@ with tab3:
     st.table(hustle)
     st.dataframe(hustle, use_container_width=True, height=775)
 
-    fig, ax = plt.subplots(figsize=(32, 48))
+    fig, ax = plt.subplots(figsize=(32, 40))
     fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=36, fontweight='bold', y=0.985)
     ax.axis('off')
 
