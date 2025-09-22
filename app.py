@@ -176,7 +176,15 @@ with tab2:
     st.bar_chart(top_3pt)
 
 with tab3:
-    hustle = df_hustle.groupby('Player')
+    hustle = df_hustle.groupby('Player').agg(
+        {'Charges': 'sum'},
+        {'Deflections': 'sum'},
+        {'Loose Ball Recovery': 'sum'},
+        {'Steals': 'sum'},
+        {'Off. Rebs': 'sum'},
+        {'Effective Box-Out': 'sum'},
+        {'Contested Shot': 'sum'}
+        ).reset_index()
 
     fig, ax = plt.subplots(figsize=(28, 16))
     fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=24, fontweight='bold', y=0.985)
