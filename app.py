@@ -204,7 +204,7 @@ with tab3:
             'Off. Rebs': 'sum',
             'Effective Box-Out': 'sum',
             'Contested Shot': 'sum'}
-        ).reset_index(drop=True)
+        ).reset_index()
     st.dataframe(hustle, use_container_width=True, height=775)
 
     # fig, ax = plt.subplots(figsize=(32, 20))
