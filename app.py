@@ -196,23 +196,6 @@ with tab2:
 #         )
 
 with tab3:
-    st.markdown(
-        """
-        <style>
-        /* Widen only the 3rd tab’s panel */
-        div[data-baseweb="tab-panel"]:nth-of-type(3) {
-            max-width: 100% !important;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Example wide content
-    st.markdown("### Hustle Table")
-
     hustle = df_hustle.groupby('Player').agg(
             {'Charges': 'sum',
             'Deflections': 'sum',
@@ -221,8 +204,7 @@ with tab3:
             'Off. Rebs': 'sum',
             'Effective Box-Out': 'sum',
             'Contested Shot': 'sum'}
-        ).reset_index()
-    
+        ).reset_index(drop=True)
     st.dataframe(hustle, use_container_width=True, height=775)
 
     # fig, ax = plt.subplots(figsize=(32, 20))
