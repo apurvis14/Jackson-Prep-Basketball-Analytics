@@ -270,4 +270,3 @@ def styled_text(text, size=22, weight="bold", margin="0px", underline=False, cen
     center_css = "text-align: center;" if center else ""
     return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin}; {center_css} {underline_css}'>{text}</div>"
 
-
