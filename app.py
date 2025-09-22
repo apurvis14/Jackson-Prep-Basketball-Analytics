@@ -202,7 +202,7 @@ with tab3:
     # Resize to ensure fit and readability
     table.auto_set_font_size(False)
     table.set_fontsize(20)
-    table.scale(1.4, 1.5)
+    table.scale(1.4, 2)
 
     # Change Color the header row
     for key, cell in table.get_celld().items():
@@ -212,6 +212,6 @@ with tab3:
             cell.set_linewidth(2.5)
             cell.set_edgecolor('black')
             cell.get_text().set_fontweight('bold')
-            cell.set_fontsize(24)
+            cell.set_fontsize(22)
 
     st.pyplot(fig)
