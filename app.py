@@ -204,9 +204,10 @@ with tab3:
     table.scale(1.4, 1.5)
 
     # Change Color the header row
-    for col_idx in range(len(df_hustle.columns)):
-        cell = table[0, col_idx]
-        cell.set_facecolor('gray')
-        cell.set_linewidth(2.5)
-        cell.set_edgecolor('black')
-        cell.get_text().set_fontweight('bold')
+    for key, cell in table.get_celld().items():
+        row, col = key
+        if row == 0:  # header row
+            cell.set_facecolor('gray')
+            cell.set_linewidth(2.5)
+            cell.set_edgecolor('black')
+            cell.get_text().set_fontweight('bold')
