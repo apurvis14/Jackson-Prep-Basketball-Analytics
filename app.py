@@ -225,9 +225,13 @@ with tab3:
             cell.get_text().set_fontweight('bold')
             cell.get_text().set_color('#0033A0')
             cell.set_fontsize(30)
-
-    for key, cell in table.get_celld().items():
-        cell.get_text().set_color('#0033A0')
-        cell.set_edgecolor('#0033A0')
+        else:
+            cell.get_text().set_color('#0033A0')
+            cell.set_edgecolor('#0033A0')
+    
+            if row % 2 == 0:
+                cell.set_facecolor('#f2f2f2')  # light gray
+            else:
+                cell.set_facecolor('white')    # default white
 
     st.pyplot(fig)
