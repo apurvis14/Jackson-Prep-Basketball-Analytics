@@ -185,7 +185,7 @@ with tab3:
             'Effective Box-Out': 'sum',
             'Contested Shot': 'sum'}
         ).reset_index()
-    st.dataframe(hustle, use_container_width=True, height=775)
+    # st.dataframe(hustle, use_container_width=True, height=775)
 
     fig, ax = plt.subplots(figsize=(32, 22))
     fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=30, fontweight='bold', y=0.985)
