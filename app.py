@@ -61,7 +61,7 @@ if st.session_state.auth:
 # -----------------------------
 # Direct CSV URL
 csv_url = "https://drive.google.com/uc?export=download&id=1ANJJdJJpgiwECxwXIKXTkt_KPOmqRemY"
-csv_url_hustle = "https://drive.google.com/file/d/1Hyf7kpSVtHk4tT9H3BrpFUI04giMRPYj/view?usp=sharing"
+csv_url_hustle = "https://drive.google.com/uc?export=download&id=1Hyf7kpSVtHk4tT9H3BrpFUI04giMRPYj"
 
 # Load CSV into DataFrame
 df = pd.read_csv(csv_url)
