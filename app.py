@@ -176,40 +176,49 @@ with tab2:
     st.bar_chart(top_3pt)
 
 with tab3:
-    hustle = df_hustle.groupby('Player').agg(
-        {'Charges': 'sum',
-        'Deflections': 'sum',
-        'Loose Ball Recovery': 'sum',
-        'Steals': 'sum',
-        'Off. Rebs': 'sum',
-        'Effective Box-Out': 'sum',
-        'Contested Shot': 'sum'}
+        # Create a full-width container only in this tab
+    wide_tab = st.container()
+    with wide_tab:
+        hustle = df_hustle.groupby('Player').agg(
+            {'Charges': 'sum',
+            'Deflections': 'sum',
+            'Loose Ball Recovery': 'sum',
+            'Steals': 'sum',
+            'Off. Rebs': 'sum',
+            'Effective Box-Out': 'sum',
+            'Contested Shot': 'sum'}
         ).reset_index()
 
-    fig, ax = plt.subplots(figsize=(32, 20))
-    fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=24, fontweight='bold', y=0.985)
-    ax.axis('off')
+        st.dataframe(
+            hustle.reset_index(drop=True),
+            use_container_width=True,
+            height=900
+        )
 
-    # Create table with Formatted DataFrame
-    table = plt.table(
-        cellText=hustle.values,
-        colLabels=hustle.columns,
-        cellLoc='center',
-        bbox=[-0.05, 0.13, 1.05, 0.95]
-    )
+    # fig, ax = plt.subplots(figsize=(32, 20))
+    # fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=24, fontweight='bold', y=0.985)
+    # ax.axis('off')
 
-    # Resize to ensure fit and readability
-    table.auto_set_font_size(False)
-    table.set_fontsize(20)
-    table.scale(1.4, 1.5)
+    # # Create table with Formatted DataFrame
+    # table = plt.table(
+    #     cellText=hustle.values,
+    #     colLabels=hustle.columns,
+    #     cellLoc='center',
+    #     bbox=[-0.05, 0.13, 1.05, 0.95]
+    # )
 
-    # Change Color the header row
-    for key, cell in table.get_celld().items():
-        row, col = key
-        if row == 0:  # header row
-            cell.set_facecolor('gray')
-            cell.set_linewidth(2.5)
-            cell.set_edgecolor('black')
-            cell.get_text().set_fontweight('bold')
+    # # Resize to ensure fit and readability
+    # table.auto_set_font_size(False)
+    # table.set_fontsize(20)
+    # table.scale(1.4, 1.5)
 
-    st.dataframe(hustle.reset_index(drop=True), use_container_width=True, height=775)
+    # # Change Color the header row
+    # for key, cell in table.get_celld().items():
+    #     row, col = key
+    #     if row == 0:  # header row
+    #         cell.set_facecolor('gray')
+    #         cell.set_linewidth(2.5)
+    #         cell.set_edgecolor('black')
+    #         cell.get_text().set_fontweight('bold')
+
+    # st.dataframe(hustle.reset_index(drop=True), use_container_width=True, height=775)
