@@ -224,4 +224,8 @@ with tab3:
             cell.get_text().set_color('#0033A0')
             cell.set_fontsize(28)
 
+    for key, cell in table.get_celld().items():
+        cell.get_text().set_color('#0033A0')
+        cell.set_edgecolor('#0033A0')
+
     st.pyplot(fig)
