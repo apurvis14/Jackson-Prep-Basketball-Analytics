@@ -2,7 +2,8 @@
 import streamlit as st
 import pandas as pd
 import base64
-import matplotlib as plt
+import matplotlib as matplotlib
+import matplotlib.pyplot as plt
 from functionsapp import plot_zone_chart, calc_zone_stats, styled_text
 # -----------------------------
 # Page Config
