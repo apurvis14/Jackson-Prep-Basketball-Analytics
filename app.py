@@ -185,16 +185,17 @@ with tab3:
             'Effective Box-Out': 'sum',
             'Contested Shot': 'sum'}
         ).reset_index()
-    # st.dataframe(hustle, use_container_width=True, height=775)
+    
     hustle = hustle.rename(columns={
     "Loose Ball Recovery": "Loose Ball\nRecovery",
     "Off. Rebs": "Off.\nRebs",
     "Effective Box-Out": "Effective\nBox-Out",
     "Contested Shot": "Contested\nShot"
     })
-    
-    st.table(hustle)
 
+    st.table(hustle)
+    st.dataframe(hustle, use_container_width=True, height=775)
+    
     fig, ax = plt.subplots(figsize=(32, 22))
     fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=30, fontweight='bold', y=0.985)
     ax.axis('off')
