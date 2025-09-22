@@ -177,13 +177,13 @@ with tab2:
 
 with tab3:
     hustle = df_hustle.groupby('Player').agg(
-        {'Charges': 'sum'},
-        {'Deflections': 'sum'},
-        {'Loose Ball Recovery': 'sum'},
-        {'Steals': 'sum'},
-        {'Off. Rebs': 'sum'},
-        {'Effective Box-Out': 'sum'},
-        {'Contested Shot': 'sum'}
+        {'Charges': 'sum',
+        'Deflections': 'sum',
+        'Loose Ball Recovery': 'sum',
+        'Steals': 'sum',
+        'Off. Rebs': 'sum',
+        'Effective Box-Out': 'sum',
+        'Contested Shot': 'sum'}
         ).reset_index()
 
     fig, ax = plt.subplots(figsize=(28, 16))
