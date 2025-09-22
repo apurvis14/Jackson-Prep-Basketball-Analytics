@@ -192,7 +192,7 @@ with tab3:
         st.dataframe(
             hustle.reset_index(drop=True),
             use_container_width=True,
-            height=900
+            height=775
         )
 
     # fig, ax = plt.subplots(figsize=(32, 20))
