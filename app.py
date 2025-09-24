@@ -189,14 +189,29 @@ with tab3:
             'Daggers': 'sum'}
         ).reset_index()
     
+    hustle['Hustle Score'] = (hustle['Charges']* 3 
+                        + hustle['Steals/Deflections'] * 1
+                       + hustle['Ball Secured'] * 1
+                       + hustle['Wallups'] * 1
+                       + hustle['Floor Dives'] * 1
+                       + hustle['Blocks'] * 1
+                       + hustle['Screen Ast'] * 1
+                       + hustle['Helps Ups'] * 1
+                       + hustle['O Rebs'] * 1
+                       + hustle['Daggers'] * 1)
+    
     hustle = hustle.rename(columns={
     "Steals/Deflections": "Steals\nDeflections",
     "Ball Secured": "Ball\nSecured",
     "Floor Dives": "Floor\nDives",
     "Screen Ast": "Screen\nAst",
+    "Hustle Score": "Hustle\nScore"
     })
 
+    hustle = hustle.sort_values(by='Hustle\nScore', ascending=False)
+
     hustle['Player'] = hustle['Player'].apply(split_name)
+
 
     # st.table(hustle)
     # st.dataframe(hustle, use_container_width=True, height=775)
