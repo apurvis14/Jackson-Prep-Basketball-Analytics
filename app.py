@@ -190,10 +190,10 @@ with tab3:
         ).reset_index()
     
     hustle = hustle.rename(columns={
-    "Loose Ball Recovery": "Loose Ball\nRecovery",
-    "Off. Rebs": "Off.\nRebs",
-    "Effective Box-Out": "Effective\nBox-Out",
-    "Contested Shot": "Contested\nShot"
+    "Steals/Deflections": "Steals\nDeflections",
+    "Ball Secured": "Ball\nSecured",
+    "Floor Dives": "Floor\nDives",
+    "Screen Ast": "Screen\nAst",
     })
 
     hustle['Player'] = hustle['Player'].apply(split_name)
