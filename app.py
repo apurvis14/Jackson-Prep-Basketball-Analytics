@@ -209,6 +209,10 @@ with tab3:
     })
 
     hustle = hustle.sort_values(by='Hustle\nScore', ascending=False)
+    
+    cols = hustle.columns.tolist()
+    cols.insert(1, cols.pop(cols.index('Hustle\nScore')))
+    hustle = hustle[cols]
 
     hustle['Player'] = hustle['Player'].apply(split_name)
 
