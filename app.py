@@ -178,12 +178,15 @@ with tab2:
 with tab3:
     hustle = df_hustle.groupby('Player').agg(
             {'Charges': 'sum',
-            'Deflections': 'sum',
-            'Loose Ball Recovery': 'sum',
-            'Steals': 'sum',
-            'Off. Rebs': 'sum',
-            'Effective Box-Out': 'sum',
-            'Contested Shot': 'sum'}
+            'Steals/Deflections': 'sum',
+            'Ball Secured': 'sum',
+            'Wallups': 'sum',
+            'Floor Dives': 'sum',
+            'Blocks': 'sum',
+            'Screen Ast': 'sum',
+            'Help Ups': 'sum',
+            'O Rebs': 'sum',
+            'Daggers': 'sum'}
         ).reset_index()
     
     hustle = hustle.rename(columns={
