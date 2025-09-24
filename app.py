@@ -196,7 +196,7 @@ with tab3:
                        + hustle['Floor Dives'] * 1
                        + hustle['Blocks'] * 1
                        + hustle['Screen Ast'] * 1
-                       + hustle['Helps Ups'] * 1
+                       + hustle['Help Ups'] * 1
                        + hustle['O Rebs'] * 1
                        + hustle['Daggers'] * 1)
     
