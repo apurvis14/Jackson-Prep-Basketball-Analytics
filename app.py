@@ -205,7 +205,9 @@ with tab3:
     "Ball Secured": "Ball\nSecured",
     "Floor Dives": "Floor\nDives",
     "Screen Ast": "Screen\nAst",
-    "Hustle Score": "Hustle\nScore"
+    "Hustle Score": "Hustle\nScore",
+    "Help Ups": "Help\nUps",
+    "O Rebs": 'OFF\nRebs'
     })
 
     hustle = hustle.sort_values(by='Hustle\nScore', ascending=False)
