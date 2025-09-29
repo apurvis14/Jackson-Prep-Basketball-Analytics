@@ -201,7 +201,7 @@ with tab3:
                        + hustle['Daggers'] * 1)
     
     hustle = hustle.rename(columns={
-    "Steals/Deflections": "Steals\nDeflections",
+    "Steals/Deflections": "Steals\nDEFs",
     "Ball Secured": "Ball\nSecured",
     "Floor Dives": "Floor\nDives",
     "Screen Ast": "Screen\nAst",
