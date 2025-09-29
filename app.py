@@ -218,6 +218,13 @@ with tab3:
 
     hustle['Player'] = hustle['Player'].apply(split_name)
 
+    # Create a copy for display purposes
+    hustle_display = hustle.copy()
+
+    # Replace 0s with empty strings for display
+    cols_to_replace = hustle_display.columns[1:]  # skip 'Player' column
+    hustle_display[cols_to_replace] = hustle_display[cols_to_replace].replace(0, "")
+
 
     # st.table(hustle)
     # st.dataframe(hustle, use_container_width=True, height=775)
@@ -228,8 +235,8 @@ with tab3:
 
     # Create table with Formatted DataFrame
     table = plt.table(
-        cellText=hustle.values,
-        colLabels=hustle.columns,
+        cellText=hustle_display.values,
+        colLabels=hustle_display.columns,
         cellLoc='center',
         bbox=[-0.05, 0.13, 1.05, 0.95]
     )
