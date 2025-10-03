@@ -299,6 +299,7 @@ def centered_metric(label, value, delta=None):
         margin: 0 auto;             /* centers inside column */
         width: 150px;               /* fixed width so all are equal */
         text-align: center;
+        margin-top: 4px;
     '>
         <div style='font-size: 16px; font-weight: bold;'>{label}</div>
         <div style='font-size: 26px; font-weight: bold; color: black;'>{value}</div>
