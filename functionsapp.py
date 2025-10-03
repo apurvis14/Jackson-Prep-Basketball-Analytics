@@ -266,11 +266,35 @@ def calc_zone_stats(df: pd.DataFrame, shot_type: str):
     pct = makes / attempts * 100 if attempts > 0 else 0
     return makes, attempts, pct
 
-def styled_text(text, size=22, weight="bold", margin="0px", underline=False, center=False, vertical=False):
+# def styled_text(text, size=22, weight="bold", margin="0px", underline=False, center=False, vertical=False):
+#     underline_css = "text-decoration: underline;" if underline else ""
+#     center_css = "text-align: center;" if center else ""
+#     vertical_css = "display: flex; align-items: center; justify-content: center;" if vertical else ""
+#     return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin};,{center_css} {underline_css } {vertical_css}'>{text}</div>"
+
+def styled_text(
+    text, 
+    size=22, 
+    weight="bold", 
+    margin="0px 0px 8px 0px",  # top right bottom left
+    underline=False, 
+    center=False, 
+    vertical=False
+):
     underline_css = "text-decoration: underline;" if underline else ""
     center_css = "text-align: center;" if center else ""
     vertical_css = "display: flex; align-items: center; justify-content: center;" if vertical else ""
-    return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin};,{center_css} {underline_css } {vertical_css}'>{text}</div>"
+
+    return f"""
+    <div style='
+        font-size:{size}px; 
+        font-weight:{weight}; 
+        margin:{margin}; 
+        {center_css} {underline_css} {vertical_css}'
+    >
+        {text}
+    </div>
+    """
 
 def split_name(name):
     parts = name.split()  # split by spaces
