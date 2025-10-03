@@ -201,7 +201,7 @@ with tab1:
 with tab2:
         st.markdown(
         """
-        <h2 style='text-align: center; text-decoration:underline; font-weight:bold'>Season Stats</h2>
+        <h4 style='text-align: center; text-decoration:underline; font-weight:bold'>Season Stats</h4>
         """,
         unsafe_allow_html=True
     )
