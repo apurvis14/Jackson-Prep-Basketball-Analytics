@@ -249,17 +249,50 @@ with tab2:
 
         st.markdown(styled_text("Efficiency Ratings", size=28, weight='normal', margin="2px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
 
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            centered_metric("Points Per Game", 15)
+
+        with col2:
+            centered_metric("Assists Per Game", 2)
+
+        with col3:
+            centered_metric("Rebs. Per Game", 6)
+
         st.markdown(
             "<hr style='border: 1px solid #0033A0; margin-top: 1rem; margin-bottom: 0rem;'>",
             unsafe_allow_html=True)
 
         st.markdown(styled_text("Shooting %", size=28, weight='normal', margin="2px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
 
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            centered_metric("Points Per Game", 15)
+
+        with col2:
+            centered_metric("Assists Per Game", 2)
+
+        with col3:
+            centered_metric("Rebs. Per Game", 6)
+
         st.markdown(
             "<hr style='border: 1px solid #0033A0; margin-top: 1rem; margin-bottom: 0rem;'>",
             unsafe_allow_html=True)
 
         st.markdown(styled_text("Advanced Stats", size=28, weight='normal', margin="2px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True) 
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            centered_metric("Points Per Game", 15)
+
+        with col2:
+            centered_metric("Assists Per Game", 2)
+
+        with col3:
+            centered_metric("Rebs. Per Game", 6)
         
         # # Example: show a table of season stats
         # season_stats = filtered.groupby("PLAYER").agg(
