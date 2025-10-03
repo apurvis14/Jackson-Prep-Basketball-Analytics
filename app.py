@@ -4,7 +4,7 @@ import pandas as pd
 import base64
 import matplotlib as matplotlib
 import matplotlib.pyplot as plt
-from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, split_name
+from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, split_name, centered_metric
 # -----------------------------
 # Page Config
 # --------------------------
@@ -183,16 +183,16 @@ with tab2:
             else:
                 st.markdown(styled_text(f"{selected_player}", size=36, weight='bold', margin="0px", margin1="8px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
 
-        col1, col2, col3 = st.columns([1,1,1]) 
+        col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.metric("Points Per Game", 15, border=True, width="content")
-            
+            centered_metric("Points Per Game", 15)
+
         with col2:
-            st.metric("Assists Per Game", 2, border=True, width="content")
+            centered_metric("Assists Per Game", 2)
 
         with col3:
-            st.metric("Rebounds Per Game", 6, border=True, width="content")    
+            centered_metric("Rebounds Per Game", 6)   
         
         # # Example: show a table of season stats
         # season_stats = filtered.groupby("PLAYER").agg(

@@ -4,6 +4,7 @@ from matplotlib.patches import Circle, Rectangle, Arc, Polygon
 import numpy as np
 import math
 import base64
+import streamlit as st
 
 # -----------------------------
 # Court Drawing Functions
@@ -284,3 +285,24 @@ def split_name(name):
     else:
         # Single name
         return name
+    
+def centered_metric(label, value, delta=None):
+    html = f"""
+    <div style='
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #ccc;      /* equal border width */
+        border-radius: 12px;
+        padding: 12px;
+        margin: 0 auto;             /* centers inside column */
+        width: 150px;               /* fixed width so all are equal */
+        text-align: center;
+    '>
+        <div style='font-size: 16px; font-weight: bold;'>{label}</div>
+        <div style='font-size: 26px; font-weight: bold; color: black;'>{value}</div>
+        {f"<div style='font-size:14px; color: gray;'>{delta}</div>" if delta else ""}
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)
