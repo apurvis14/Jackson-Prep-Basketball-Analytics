@@ -219,10 +219,10 @@ with tab2:
 
         with right_col:
             if selected_player == "Team":
-                st.markdown(styled_text("Jackson Prep Team", size=36, weight='normal', margin="8px 0px 12px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text("Jackson Prep Team", size=32, weight='normal', margin="8px 0px 12px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
                 st.markdown(styled_text("3-4 (0-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
             else:
-                st.markdown(styled_text(f"{selected_player}", size=36, weight='normal', margin="8px 0px 8px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text(f"{selected_player}", size=32, weight='normal', margin="8px 0px 8px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
                 st.markdown(styled_text("#14 Power Forward", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
 
 
@@ -230,7 +230,7 @@ with tab2:
             "<hr style='border: 2px solid #0033A0; margin-top: 0.25rem; margin-bottom: 0rem;'>",
             unsafe_allow_html=True) 
         
-        st.markdown(styled_text("Basic Stats", size=24, weight='normal', margin="0px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
+        st.markdown(styled_text("Basic Stats", size=28, weight='normal', margin="0px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
 
         col1, col2, col3 = st.columns(3)
 
