@@ -229,6 +229,8 @@ with tab2:
         st.markdown(
             "<hr style='border: 2px solid #0033A0; margin-top: 0.25rem; margin-bottom: 0rem;'>",
             unsafe_allow_html=True) 
+        
+        st.header("Basic Stats")
 
         col1, col2, col3 = st.columns(3)
 
