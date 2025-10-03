@@ -270,7 +270,7 @@ def styled_text(text, size=22, weight="bold", margin="0px", margin1="0px", under
     underline_css = "text-decoration: underline;" if underline else ""
     center_css = "text-align: center;" if center else ""
     vertical_css = "display: flex; align-items: center; justify-content: center;" if vertical else ""
-    return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin}; margin-top:{margin1},{center_css} {underline_css } {vertical_css}'>{text}</div>"
+    return f"<div style='font-size:{size}px; font-weight:{weight}; margin-bottom:{margin}; margin-top:{margin1},{center_css} {underline_css } {vertical_css}'>\n{text}\n</div>"
 
 def split_name(name):
     parts = name.split()  # split by spaces
