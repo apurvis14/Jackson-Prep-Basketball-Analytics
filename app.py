@@ -183,6 +183,11 @@ with tab2:
             else:
                 st.markdown(styled_text(f"{selected_player}", size=36, weight='bold', margin="0px", margin1="8px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
 
+
+        st.markdown(
+            "<hr style='border: 2px solid #da1a32; margin-top: 0.25rem; margin-bottom: 0rem;'>",
+            unsafe_allow_html=True)
+
         col1, col2, col3 = st.columns(3)
 
         with col1:
