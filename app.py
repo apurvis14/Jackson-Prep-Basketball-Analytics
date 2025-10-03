@@ -220,8 +220,10 @@ with tab2:
         with right_col:
             if selected_player == "Team":
                 st.markdown(styled_text("Jackson Prep Team", size=36, weight='bold', margin="0px", margin1="8px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown("3-4")
             else:
                 st.markdown(styled_text(f"{selected_player}", size=36, weight='bold', margin="0px", margin1="8px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown("#14 Power Forward")
 
 
         st.markdown(
