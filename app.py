@@ -192,7 +192,7 @@ with tab2:
             centered_metric("Assists Per Game", 2)
 
         with col3:
-            centered_metric("Rebounds Per Game", 6)   
+            centered_metric("Rebs. Per Game", 6)   
         
         # # Example: show a table of season stats
         # season_stats = filtered.groupby("PLAYER").agg(
