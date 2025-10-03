@@ -293,7 +293,7 @@ def centered_metric(label, value, delta=None):
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border: 4px solid #ccc;      /* equal border width */
+        border: 3px solid #da1a32;      /* equal border width */
         border-radius: 12px;
         padding: 12px;
         margin: 0 auto;             /* centers inside column */
