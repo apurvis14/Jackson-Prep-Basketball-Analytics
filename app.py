@@ -219,7 +219,7 @@ with tab2:
 
         with right_col:
             if selected_player == "Team":
-                st.markdown(styled_text("Jackson Prep Team", size=36, weight='normal', margin="8px 0px 8px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text("Jackson Prep Team", size=36, weight='normal', margin="8px 0px 12px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
                 st.markdown(styled_text("3-4 (0-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
             else:
                 st.markdown(styled_text(f"{selected_player}", size=36, weight='normal', margin="8px 0px 8px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
