@@ -159,7 +159,12 @@ with tab1:
 # Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
-        st.header("Season Stats")
+        st.markdown(
+        """
+        <h2 style='text-align: center;'>Season Stats</h2>
+        """,
+        unsafe_allow_html=True
+    )
 
             # Left + Right columns for image and stats
         left_col, right_col = st.columns([1, 2])
