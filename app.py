@@ -230,7 +230,7 @@ with tab2:
             "<hr style='border: 2px solid #0033A0; margin-top: 0.25rem; margin-bottom: 0rem;'>",
             unsafe_allow_html=True) 
         
-        st.header("Basic Stats")
+        st.markdown(styled_text("Basic Stats", size=24, weight='normal', margin="0px 0px 0px 0px",underline=False, center=False, vertical=True), unsafe_allow_html=True)
 
         col1, col2, col3 = st.columns(3)
 
