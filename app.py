@@ -159,21 +159,38 @@ with tab1:
 # Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
-        st.header("Additional Player Stats")
-        
-        # Example: show a table of season stats
-        season_stats = filtered.groupby("PLAYER").agg(
-            Total_Makes=('SHOT_MADE_FLAG', 'sum'),
-            Total_Attempts=('SHOT_MADE_FLAG', 'count'),
-            FG_Pct=('SHOT_MADE_FLAG', 'mean')
-        ).reset_index()
-        
-        st.dataframe(season_stats)
+        st.header("Season Stats")
 
-        # You can also add new charts, metrics, or text here
-        st.markdown("### Top 3PT Shooters")
-        top_3pt = filtered[filtered["SHOT_TYPE"].str.contains("3PT")].groupby("PLAYER")["SHOT_MADE_FLAG"].mean().sort_values(ascending=False).head(5)
-        st.bar_chart(top_3pt)
+            # Left + Right columns for image and stats
+        left_col, right_col = st.columns([1, 2])
+
+        with left_col:
+            col_empty, col_img, col_empty2 = st.columns([0.25,3.5,0.25])
+            with col_img:
+                if selected_player == "Team":
+                    st.image('photos/team_logo.png', width=175)
+                else:
+                    st.image(f"photos/{selected_player}.JPG", width=200)
+
+        with right_col:
+            if selected_player == "Team":
+                st.markdown(styled_text("Jackson Prep Team", size=28, weight='bold', margin="8px",underline=False, center=True), unsafe_allow_html=True)
+            else:
+                st.markdown(styled_text(f"{selected_player}", size=28, weight='bold', margin="8px",underline=False, center=True), unsafe_allow_html=True)
+        
+        # # Example: show a table of season stats
+        # season_stats = filtered.groupby("PLAYER").agg(
+        #     Total_Makes=('SHOT_MADE_FLAG', 'sum'),
+        #     Total_Attempts=('SHOT_MADE_FLAG', 'count'),
+        #     FG_Pct=('SHOT_MADE_FLAG', 'mean')
+        # ).reset_index()
+        
+        # st.dataframe(season_stats)
+
+        # # You can also add new charts, metrics, or text here
+        # st.markdown("### Top 3PT Shooters")
+        # top_3pt = filtered[filtered["SHOT_TYPE"].str.contains("3PT")].groupby("PLAYER")["SHOT_MADE_FLAG"].mean().sort_values(ascending=False).head(5)
+        # st.bar_chart(top_3pt)
 
 with tab3:
     hustle = df_hustle.groupby('Player').agg(
