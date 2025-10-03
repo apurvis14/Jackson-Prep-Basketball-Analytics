@@ -243,9 +243,9 @@ with tab2:
         with col3:
             centered_metric("Rebs. Per Game", 6)  
 
-        st.markdown(styled_text("Efficiency Ratings", size=28, weight='normal', margin="0px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
-        st.markdown(styled_text("Shooting %", size=28, weight='normal', margin="0px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
-        st.markdown(styled_text("Advanced Stats", size=28, weight='normal', margin="0px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True) 
+        st.markdown(styled_text("Efficiency Ratings", size=28, weight='normal', margin="4px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
+        st.markdown(styled_text("Shooting %", size=28, weight='normal', margin="4px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
+        st.markdown(styled_text("Advanced Stats", size=28, weight='normal', margin="4px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True) 
         
         # # Example: show a table of season stats
         # season_stats = filtered.groupby("PLAYER").agg(
