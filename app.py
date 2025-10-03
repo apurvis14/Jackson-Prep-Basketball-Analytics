@@ -181,7 +181,7 @@ with tab2:
             if selected_player == "Team":
                 st.markdown(styled_text("Jackson Prep Team", size=28, weight='bold', margin="8px",underline=False, center=True), unsafe_allow_html=True)
             else:
-                st.markdown(styled_text(f"{selected_player}", size=28, weight='bold', margin="0px",underline=False, center=True), unsafe_allow_html=True)
+                st.markdown(styled_text(f"{selected_player}", size=36, weight='bold', margin="0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
         
         # # Example: show a table of season stats
         # season_stats = filtered.groupby("PLAYER").agg(
