@@ -186,13 +186,13 @@ with tab2:
         col1, col2, col3 = st.columns([1,1,1]) 
 
         with col1:
-            st.metric("PPG", 15, border=True)
+            st.metric("PPG", 15, border=True, width="content")
             
         with col2:
-            st.metric("Assists", 2, border=True)
+            st.metric("Assists", 2, border=True, width="content")
 
         with col3:
-            st.metric("RPG", 6, border=True)    
+            st.metric("RPG", 6, border=True, width="content")    
         
         # # Example: show a table of season stats
         # season_stats = filtered.groupby("PLAYER").agg(
