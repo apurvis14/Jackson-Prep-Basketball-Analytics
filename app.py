@@ -175,7 +175,7 @@ with tab1:
                 # --- Layup ---
             makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
             col1.markdown(styled_text("Layup", size=22, margin="0px 0px 0px 0px", underline=True, center=True), unsafe_allow_html=True)
-            col1.markdown(styled_text(f"{makesL}/{attL}", size=18, weight="normal", margin="8px 0px 16px 0px",underline=False, center=True), unsafe_allow_html=True)
+            col1.markdown(styled_text(f"{makesL}/{attL}", size=18, weight="normal", margin="0px 0px 16px 0px",underline=False, center=True), unsafe_allow_html=True)
             col1.markdown(styled_text(f"{pctL:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
 
             # --- Midrange ---
@@ -186,7 +186,7 @@ with tab1:
 
             # --- 3PT ---
             makes3, att3, pct3 = calc_zone_stats(filtered, "3PT")
-            col3.markdown(styled_text("3PT", size=22, margin="0px 0px 4px 0px", underline=True, center=True), unsafe_allow_html=True)
+            col3.markdown(styled_text("3PT", size=22, margin="0px 0px 0px 0px", underline=True, center=True), unsafe_allow_html=True)
             col3.markdown(styled_text(f"{makes3}/{att3}", size=18, weight="normal", margin="0px 0px 16px 0px",underline=False, center=True), unsafe_allow_html=True)
             col3.markdown(styled_text(f"{pct3:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
 
