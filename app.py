@@ -174,13 +174,13 @@ with tab1:
             # Layup, Midrange, 3PT metrics
                 # --- Layup ---
             makesL, attL, pctL = calc_zone_stats(filtered, "Layup")
-            col1.markdown(styled_text("Layup", size=22, margin="0px 0px 4px 0px", underline=True, center=True), unsafe_allow_html=True)
+            col1.markdown(styled_text("Layup", size=22, margin="0px 0px 0px 0px", underline=True, center=True), unsafe_allow_html=True)
             col1.markdown(styled_text(f"{makesL}/{attL}", size=18, weight="normal", margin="8px 0px 16px 0px",underline=False, center=True), unsafe_allow_html=True)
             col1.markdown(styled_text(f"{pctL:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
 
             # --- Midrange ---
             makesM, attM, pctM = calc_zone_stats(filtered, "Midrange")
-            col2.markdown(styled_text("Midrange", size=22, margin="0px 0px 4px 0px", underline=True, center=True), unsafe_allow_html=True)
+            col2.markdown(styled_text("Midrange", size=22, margin="0px 0px 0px 0px", underline=True, center=True), unsafe_allow_html=True)
             col2.markdown(styled_text(f"{makesM}/{attM}", size=18, weight="normal", margin="8px 0px 16px 0px",underline=False, center=True), unsafe_allow_html=True)
             col2.markdown(styled_text(f"{pctM:.1f}%", size=18, weight="normal", margin="-10px",underline=False, center=True), unsafe_allow_html=True)
 
