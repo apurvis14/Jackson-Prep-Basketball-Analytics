@@ -122,9 +122,18 @@ else:
     ]
 
 st.sidebar.header("Hustle Filters")
-week = ["Week 1"] + ["Week 2"]
-selected_week = st.sidebar.selectbox("Select Week", week)
+weeks = df_hustle["Week"].dropna().unique().tolist()
+weeks.sort()
+weeks = ["Team"] + players  # Add "Team" option at top
+weeks = ["Season"] + weeks
+selected_week = st.sidebar.selectbox("Select Week", weeks)
 
+# --- Filtering Logic ---
+if selected_week == "Season":
+    df_hustle = df_hustle
+else:
+    df_hustle = df_hustle[
+        (df_hustle["Week"] == selected_week)]
 
 # Create Tabs
 tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
