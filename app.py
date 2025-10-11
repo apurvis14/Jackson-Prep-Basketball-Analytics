@@ -201,7 +201,7 @@ with tab2:
             border-radius: 15px;
             padding: 5px 5px;
             width: 350px;              /* fixed width to ensure centering */
-            margin: 20px auto;         /* auto horizontal margin centers the div */
+            margin: 10px auto;         /* auto horizontal margin centers the div */
             text-align: center;
         ">
             <h1 style='margin: 0; font-size: 48px; text-decoration: underline; font-weight: bold;'>Game Stats</h1>
