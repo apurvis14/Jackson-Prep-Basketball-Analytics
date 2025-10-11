@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import base64
+import hashlib
 import matplotlib as matplotlib
 import matplotlib.pyplot as plt
 from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, split_name, centered_metric
@@ -26,73 +27,99 @@ st.markdown(
 # -----------------------------
 # Simple base64 authentication
 # -----------------------------
-ENCODED_USERS = {
-    "Y29hY2g6MTIzNDU=": "coach",
-    "YXNzaXN0YW50OmxldG1laW4=": "assistant"
-}
+# ENCODED_USERS = {
+#     "Y29hY2g6MTIzNDU=": "coach",
+#     "YXNzaXN0YW50OmxldG1laW4=": "assistant"
+# }
 
+# # ---------- SESSION STATE INIT ----------
 # if "auth" not in st.session_state:
 #     st.session_state.auth = False
 #     st.session_state.username = None
 
+# def do_login():
+#     """Callback to validate and set session state."""
+#     combined = f"{st.session_state.u}:{st.session_state.p}"
+#     encoded = base64.b64encode(combined.encode()).decode()
+#     if encoded in ENCODED_USERS:
+#         st.session_state.auth = True
+#         st.session_state.username = st.session_state.u
+#     else:
+#         st.session_state.login_error = "Invalid username or password"
+
+# def do_logout():
+#     st.session_state.auth = False
+#     st.session_state.username = None
+
+# # ---------- UI ----------
 # if not st.session_state.auth:
-#     st.sidebar.header("Coach Login")
-#     username_input = st.sidebar.text_input("Username")
-#     password_input = st.sidebar.text_input("Password", type="password")
-#     if st.sidebar.button("Login"):
-#         combined = f"{username_input}:{password_input}"
-#         encoded = base64.b64encode(combined.encode()).decode()
-#         if encoded in ENCODED_USERS:
-#             st.session_state.auth = True
-#             st.session_state.username = username_input
-#             st.sidebar.success(f"Logged in as {username_input}")
-#         else:
-#             st.sidebar.error("Invalid username or password")
-#     st.stop()
+#     st.sidebar.header("Login")
 
-# if st.session_state.auth:
-#     if st.sidebar.button("Logout"):
-#         st.session_state.auth = False
-#         st.session_state.username = None
-#         st.experimental_rerun()
+#     # Text inputs with keys so values persist across reruns
+#     st.sidebar.text_input("Username", key="u", on_change=None)
+#     st.sidebar.text_input("Password", type="password", key="p", on_change=None)
 
-# ---------- SESSION STATE INIT ----------
+#     # Single button triggers the callback once
+#     st.sidebar.button("Login", on_click=do_login)
+
+#     # Show any login error
+#     if st.session_state.get("login_error"):
+#         st.sidebar.error(st.session_state.login_error)
+
+#     st.stop()  # Nothing below runs until logged in
+
+# # ---------- PROTECTED CONTENT ----------
+# st.sidebar.success(f"Welcome **{st.session_state.username}**!")
+# st.sidebar.button("Logout", on_click=do_logout)
+
+# -----------------------------
+# SESSION STATE INIT
+# -----------------------------
 if "auth" not in st.session_state:
     st.session_state.auth = False
     st.session_state.username = None
 
+# -----------------------------
+# HELPER FUNCTIONS
+# -----------------------------
+def hash_credentials(username: str, password: str) -> str:
+    """Return a SHA256 hash of 'username:password'."""
+    combo = f"{username}:{password}"
+    return hashlib.sha256(combo.encode()).hexdigest()
+
 def do_login():
     """Callback to validate and set session state."""
-    combined = f"{st.session_state.u}:{st.session_state.p}"
-    encoded = base64.b64encode(combined.encode()).decode()
-    if encoded in ENCODED_USERS:
+    hashed = hash_credentials(st.session_state.u, st.session_state.p)
+    if hashed in st.secrets["auth"]:
         st.session_state.auth = True
-        st.session_state.username = st.session_state.u
+        st.session_state.username = st.secrets["auth"][hashed]
     else:
         st.session_state.login_error = "Invalid username or password"
 
 def do_logout():
+    """Log out and clear session state."""
     st.session_state.auth = False
     st.session_state.username = None
+    st.session_state.login_error = None
 
-# ---------- UI ----------
+# -----------------------------
+# LOGIN UI
+# -----------------------------
 if not st.session_state.auth:
     st.sidebar.header("Login")
 
-    # Text inputs with keys so values persist across reruns
-    st.sidebar.text_input("Username", key="u", on_change=None)
-    st.sidebar.text_input("Password", type="password", key="p", on_change=None)
-
-    # Single button triggers the callback once
+    st.sidebar.text_input("Username", key="u")
+    st.sidebar.text_input("Password", type="password", key="p")
     st.sidebar.button("Login", on_click=do_login)
 
-    # Show any login error
     if st.session_state.get("login_error"):
         st.sidebar.error(st.session_state.login_error)
 
-    st.stop()  # Nothing below runs until logged in
+    st.stop()  # Halt app execution until logged in
 
-# ---------- PROTECTED CONTENT ----------
+# -----------------------------
+# PROTECTED CONTENT
+# -----------------------------
 st.sidebar.success(f"Welcome **{st.session_state.username}**!")
 st.sidebar.button("Logout", on_click=do_logout)
 
