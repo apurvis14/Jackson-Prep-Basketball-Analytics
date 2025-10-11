@@ -141,8 +141,8 @@ st.markdown(
     """
     <style>
     @media print {
-        /* Only hide the tabs themselves */
-        .stTabs {
+        /* Hide the tab buttons/headers only */
+        .stTabs [role="tablist"] {
             display: none !important;
         }
     }
