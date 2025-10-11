@@ -86,111 +86,48 @@ csv_url_hustle = st.secrets["data"]["hustle_url"]
 df = pd.read_csv(csv_url)
 df_hustle = pd.read_csv(csv_url_hustle)
 
-# # Sidebar filters
-# st.sidebar.header("Filters")
+# Sidebar filters
+st.sidebar.header("Filters")
 
-# # --- Player Dropdown ---
-# players = df["PLAYER"].dropna().unique().tolist()
-# players.sort()
-# players = ["Team"] + players  # Add "Team" option at top
-# selected_player = st.sidebar.selectbox("Select Player", players)
+# --- Player Dropdown ---
+players = df["PLAYER"].dropna().unique().tolist()
+players.sort()
+players = ["Team"] + players  # Add "Team" option at top
+selected_player = st.sidebar.selectbox("Select Player", players)
 
-# # --- Game Dropdown ---
-# if selected_player == "Team":
-#     games = df["GAME"].dropna().unique().tolist()
-# else:
-#     games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
-# games.sort()
-# games = ["Season"] + games  # Add "Season" option at top
-# selected_game = st.sidebar.selectbox("Select Game", games)
+# --- Game Dropdown ---
+if selected_player == "Team":
+    games = df["GAME"].dropna().unique().tolist()
+else:
+    games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
+games.sort()
+games = ["Season"] + games  # Add "Season" option at top
+selected_game = st.sidebar.selectbox("Select Game", games)
 
-# # --- Type Dropdown ---
-# game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
+# --- Type Dropdown ---
+game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
 
-# # --- Filtering Logic ---
-# if selected_player == "Team" and selected_game == "Season":
-#     filtered = df[df["TYPE"].isin(game_types)]
-# elif selected_player == "Team":
-#     filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
-# elif selected_game == "Season":
-#     filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
-# else:
-#     filtered = df[
-#         (df["PLAYER"] == selected_player) &
-#         (df["GAME"] == selected_game) &
-#         (df["TYPE"].isin(game_types))
-#     ]
+# --- Filtering Logic ---
+if selected_player == "Team" and selected_game == "Season":
+    filtered = df[df["TYPE"].isin(game_types)]
+elif selected_player == "Team":
+    filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+elif selected_game == "Season":
+    filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+else:
+    filtered = df[
+        (df["PLAYER"] == selected_player) &
+        (df["GAME"] == selected_game) &
+        (df["TYPE"].isin(game_types))
+    ]
 
+# Create Tabs
 tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
-
-if "active_tab" not in st.session_state:
-    st.session_state.active_tab = "Shot Chart"
-
-tab_mapping = {"Shot Chart": tab1, "Player Stats": tab2, "Hustle Stats": tab3}
-
-with st.sidebar:
-    st.markdown("---")
-
-    if st.session_state.active_tab == "Shot Chart":
-        players = ["Team"] + sorted(df["PLAYER"].dropna().unique().tolist())
-        selected_player = st.selectbox("Select Player", players, key="player_select_shotchart")
-
-        if selected_player == "Team":
-            games = sorted(df["GAME"].dropna().unique().tolist())
-        else:
-            games = sorted(df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist())
-
-        games = ["Season"] + games
-        selected_game = st.selectbox("Select Game", games, key="game_select_shotchart")
-
-        game_types = st.multiselect(
-            "Select Type", options=["Game", "Practice"], default=["Game"], key="type_select_shotchart"
-        )
-
-    elif st.session_state.active_tab == "Player Stats":
-        players = ["Team"] + sorted(df["PLAYER"].dropna().unique().tolist())
-        selected_player = st.selectbox("Select Player", players, key="player_select_shotchart")
-
-        if selected_player == "Team":
-            games = sorted(df["GAME"].dropna().unique().tolist())
-        else:
-            games = sorted(df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist())
-
-        games = ["Season"] + games
-        selected_game = st.selectbox("Select Game", games, key="game_select_shotchart")
-
-        game_types = st.multiselect(
-            "Select Type", options=["Game", "Practice"], default=["Game"], key="type_select_shotchart"
-        )
-
-    elif st.session_state.active_tab == "Hustle Stats":
-        selected_metrics = st.multiselect(
-            "Select Hustle Metrics",
-            options=["Steals", "Deflections", "Charges", "Loose Balls", "Blocks", "Screen Assists"],
-            default=["Steals", "Deflections"],
-            key="hustle_metrics_select",
-        )
 
 # -----------------------------
 # Tab 1: Original Shot Chart
 # -----------------------------
 with tab1:
-        set_active_tab("Shot Chart")
-
-        # Filter DataFrame
-        if selected_player == "Team" and selected_game == "Season":
-            filtered = df[df["TYPE"].isin(game_types)]
-        elif selected_player == "Team":
-            filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
-        elif selected_game == "Season":
-            filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
-        else:
-            filtered = df[
-                (df["PLAYER"] == selected_player)
-                & (df["GAME"] == selected_game)
-                & (df["TYPE"].isin(game_types))
-            ]
-
     # Left + Right columns for image and stats
         left_col, right_col = st.columns([1, 2])
 
@@ -237,22 +174,6 @@ with tab1:
 # Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
-        set_active_tab("Player Stats")
-
-        # Filter DataFrame
-        if selected_player == "Team" and selected_game == "Season":
-            filtered = df[df["TYPE"].isin(game_types)]
-        elif selected_player == "Team":
-            filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
-        elif selected_game == "Season":
-            filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
-        else:
-            filtered = df[
-                (df["PLAYER"] == selected_player)
-                & (df["GAME"] == selected_game)
-                & (df["TYPE"].isin(game_types))
-            ]
-
         st.markdown(
         """
         <h1 style='text-align: center; text-decoration:underline; font-weight:bold'>Season Stats</h1>
@@ -352,10 +273,6 @@ with tab2:
             centered_metric("STL + BLK / 100", 23)
 
 with tab3:
-    set_active_tab("Hustle Stats")
-
-    # Sidebar filters
-    st.sidebar.header("Filters")
 
     hustle = df_hustle.groupby('Player').agg(
             {'Charges': 'sum',
