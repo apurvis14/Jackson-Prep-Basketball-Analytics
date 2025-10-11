@@ -199,15 +199,16 @@ with tab2:
         <div style="
             border: 3px solid red;
             border-radius: 15px;
-            padding: 5px 5px;
-            width: fit-content;
-            margin: 0px auto;
+            padding: 5px 20px;
+            width: 400px;              /* fixed width to ensure centering */
+            margin: 20px auto;         /* auto horizontal margin centers the div */
             text-align: center;
         ">
-            <h1 style='margin: 0; font-size: 48px; text-align:center; text-decoration: underline; font-weight: bold;'>Game Stats</h1>
+            <h1 style='margin: 0; font-size: 48px; text-decoration: underline; font-weight: bold;'>Game Stats</h1>
         </div>
         """,
-        unsafe_allow_html=True)
+        unsafe_allow_html=True
+    )
 
             # Left + Right columns for image and stats
         left_col, right_col = st.columns([1, 2])
