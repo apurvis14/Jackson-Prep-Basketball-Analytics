@@ -194,7 +194,6 @@ with tab1:
 
         # Shot chart
         fig = plot_zone_chart(filtered, df)
-        st.markdown("<div style='margin-top:-1000px'></div>", unsafe_allow_html=True)
         st.pyplot(fig, use_container_width=True)
 
 # -----------------------------
