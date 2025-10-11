@@ -25,54 +25,6 @@ st.markdown(
     unsafe_allow_html=True)
 
 # -----------------------------
-# Simple base64 authentication
-# -----------------------------
-# ENCODED_USERS = {
-#     "Y29hY2g6MTIzNDU=": "coach",
-#     "YXNzaXN0YW50OmxldG1laW4=": "assistant"
-# }
-
-# # ---------- SESSION STATE INIT ----------
-# if "auth" not in st.session_state:
-#     st.session_state.auth = False
-#     st.session_state.username = None
-
-# def do_login():
-#     """Callback to validate and set session state."""
-#     combined = f"{st.session_state.u}:{st.session_state.p}"
-#     encoded = base64.b64encode(combined.encode()).decode()
-#     if encoded in ENCODED_USERS:
-#         st.session_state.auth = True
-#         st.session_state.username = st.session_state.u
-#     else:
-#         st.session_state.login_error = "Invalid username or password"
-
-# def do_logout():
-#     st.session_state.auth = False
-#     st.session_state.username = None
-
-# # ---------- UI ----------
-# if not st.session_state.auth:
-#     st.sidebar.header("Login")
-
-#     # Text inputs with keys so values persist across reruns
-#     st.sidebar.text_input("Username", key="u", on_change=None)
-#     st.sidebar.text_input("Password", type="password", key="p", on_change=None)
-
-#     # Single button triggers the callback once
-#     st.sidebar.button("Login", on_click=do_login)
-
-#     # Show any login error
-#     if st.session_state.get("login_error"):
-#         st.sidebar.error(st.session_state.login_error)
-
-#     st.stop()  # Nothing below runs until logged in
-
-# # ---------- PROTECTED CONTENT ----------
-# st.sidebar.success(f"Welcome **{st.session_state.username}**!")
-# st.sidebar.button("Logout", on_click=do_logout)
-
-# -----------------------------
 # SESSION STATE INIT
 # -----------------------------
 if "auth" not in st.session_state:
