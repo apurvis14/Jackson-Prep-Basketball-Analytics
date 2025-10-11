@@ -337,11 +337,13 @@ with tab3:
     hustle_display[cols_to_replace] = hustle_display[cols_to_replace].replace(0, "")
 
 
-    # st.table(hustle)
-    # st.dataframe(hustle, use_container_width=True, height=775)
+    if selected_week == "Season":
+        title = "Season Hustle Stats"
+    else:
+        title = f"Week {selected_week} Hustle Stats"
 
     fig, ax = plt.subplots(figsize=(32, 40))
-    fig.suptitle("Jackson Prep Basketball Hustle Stats", fontsize=36, color='#0033A0', fontweight='bold', y=0.975)
+    fig.suptitle(title, fontsize=36, color='#0033A0', fontweight='bold', y=0.975)
     ax.axis('off')
 
     # Create table with Formatted DataFrame
