@@ -187,12 +187,27 @@ with tab1:
 # Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
+        # st.markdown(
+        # """
+        # <h1 style='text-align: center; text-decoration:underline; font-weight:bold'>Game Stats</h1>
+        # """,
+        # unsafe_allow_html=True
+        # )
+
         st.markdown(
         """
-        <h1 style='text-align: center; text-decoration:underline; font-weight:bold'>Game Stats</h1>
+        <div style="
+            border: 3px solid red;
+            border-radius: 15px;
+            padding: 10px;
+            text-align: center;
+            display: inline-block;
+        ">
+            <h1 style='margin: 0; text-decoration: underline; font-weight: bold;'>Game Stats</h1>
+        </div>
         """,
         unsafe_allow_html=True
-        )
+    )
 
             # Left + Right columns for image and stats
         left_col, right_col = st.columns([1, 2])
