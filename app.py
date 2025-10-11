@@ -197,14 +197,14 @@ with tab2:
         st.markdown(
         """
         <div style="
-            border: 3px solid goldenrod;
+            border: 3px solid red;
             border-radius: 15px;
-            padding: 5px 20px;
+            padding: 5px 5px;
             width: fit-content;
-            margin: 20px auto;
+            margin: 0px auto;
             text-align: center;
         ">
-            <h1 style='margin: 0; font-size: 32px; text-decoration: underline; font-weight: bold;'>Game Stats</h1>
+            <h1 style='margin: 0; font-size: 48px; text-decoration: underline; font-weight: bold;'>Game Stats</h1>
         </div>
         """,
         unsafe_allow_html=True)
