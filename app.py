@@ -137,6 +137,20 @@ else:
 # Create Tabs
 tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
 
+st.markdown(
+    """
+    <style>
+    @media print {
+        /* Hide Streamlit tabs when printing */
+        .stTabs, .css-1d391kg {  /* the exact class may vary depending on Streamlit version */
+            display: none !important;
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # -----------------------------
 # Tab 1: Original Shot Chart
 # -----------------------------
