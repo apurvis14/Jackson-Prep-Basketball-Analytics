@@ -87,7 +87,7 @@ df = pd.read_csv(csv_url)
 df_hustle = pd.read_csv(csv_url_hustle)
 
 # Sidebar filters
-st.sidebar.header("Filters")
+st.sidebar.header("Shot/Player Filters")
 
 # --- Player Dropdown ---
 players = df["PLAYER"].dropna().unique().tolist()
@@ -120,6 +120,40 @@ else:
         (df["GAME"] == selected_game) &
         (df["TYPE"].isin(game_types))
     ]
+
+st.sidebar.header("Hustle Filters")
+# --- Player Dropdown ---
+players = df["PLAYER"].dropna().unique().tolist()
+players.sort()
+players = ["Team"] + players  # Add "Team" option at top
+selected_player = st.sidebar.selectbox("Select Player", players)
+
+# --- Game Dropdown ---
+if selected_player == "Team":
+    games = df["GAME"].dropna().unique().tolist()
+else:
+    games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
+games.sort()
+games = ["Season"] + games  # Add "Season" option at top
+selected_game = st.sidebar.selectbox("Select Game", games)
+
+# --- Type Dropdown ---
+game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
+
+# --- Filtering Logic ---
+if selected_player == "Team" and selected_game == "Season":
+    filtered = df[df["TYPE"].isin(game_types)]
+elif selected_player == "Team":
+    filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+elif selected_game == "Season":
+    filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+else:
+    filtered = df[
+        (df["PLAYER"] == selected_player) &
+        (df["GAME"] == selected_game) &
+        (df["TYPE"].isin(game_types))
+    ]
+
 
 # Create Tabs
 tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
