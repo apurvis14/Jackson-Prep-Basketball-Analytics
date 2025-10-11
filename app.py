@@ -164,7 +164,6 @@ with st.sidebar:
         )
 
     elif st.session_state.active_tab == "Hustle Stats":
-        st.header("Hustle Metrics Filters")
         selected_metrics = st.multiselect(
             "Select Hustle Metrics",
             options=["Steals", "Deflections", "Charges", "Loose Balls", "Blocks", "Screen Assists"],
