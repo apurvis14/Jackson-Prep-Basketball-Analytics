@@ -256,7 +256,7 @@ def plot_zone_chart(filtered_df, df_team):
                 ha='center', va='center', fontsize=20,
                 bbox=dict(facecolor='lightgray', alpha=0.6, edgecolor='none', pad=2))
     plt.tight_layout()
-    fig.subplots_adjust(top=0.95, bottom=0.05)
+    fig.subplots_adjust(top=1, bottom=0.05)
 
     return fig
 
