@@ -101,10 +101,10 @@ st.sidebar.button("Logout", on_click=do_logout)
 # Load Data
 # -----------------------------
 # Direct CSV URL
-csv_url = "https://drive.google.com/uc?export=download&id=1ANJJdJJpgiwECxwXIKXTkt_KPOmqRemY"
-csv_url_hustle = "https://drive.google.com/uc?export=download&id=1Hyf7kpSVtHk4tT9H3BrpFUI04giMRPYj"
+csv_url = st.secrets["data"]["shooting_url"]
+csv_url_hustle = st.secrets["data"]["hustle_url"]
 
-# Load CSV into DataFrame
+# Set DF Variable
 df = pd.read_csv(csv_url)
 df_hustle = pd.read_csv(csv_url_hustle)
 
