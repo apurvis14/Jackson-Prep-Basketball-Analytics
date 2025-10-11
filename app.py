@@ -199,11 +199,11 @@ with tab2:
         <div style="
             border: 3px solid red;
             border-radius: 15px;
-            padding: 10px;
+            padding: 4px;
             text-align: center;
             display: inline-block;
         ">
-            <h1 style='margin: 0; text-decoration: underline; font-weight: bold;'>Game Stats</h1>
+            <h1 style='margin: 0; text-align: center; font-weight: bold;'>Game Stats</h1>
         </div>
         """,
         unsafe_allow_html=True
