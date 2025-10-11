@@ -199,7 +199,7 @@ with tab2:
         <div style="
             border: 3px solid red;
             border-radius: 15px;
-            padding: 5px 5px;
+            padding: 10px 5px;
             width: fit-content;
             margin: 0px auto;
             text-align: center;
