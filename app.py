@@ -124,7 +124,6 @@ else:
 st.sidebar.header("Hustle Filters")
 weeks = df_hustle["Week"].dropna().unique().tolist()
 weeks.sort()
-weeks = ["Team"] + players  # Add "Team" option at top
 weeks = ["Season"] + weeks
 selected_week = st.sidebar.selectbox("Select Week", weeks)
 
