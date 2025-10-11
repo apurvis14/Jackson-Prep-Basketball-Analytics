@@ -1,11 +1,10 @@
 # app.py
 import streamlit as st
 import pandas as pd
-import base64
 import hashlib
 import matplotlib as matplotlib
 import matplotlib.pyplot as plt
-from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, split_name, centered_metric
+from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, split_name, centered_metric, set_active_tab
 # -----------------------------
 # Page Config
 # --------------------------
@@ -87,44 +86,44 @@ csv_url_hustle = st.secrets["data"]["hustle_url"]
 df = pd.read_csv(csv_url)
 df_hustle = pd.read_csv(csv_url_hustle)
 
-# Sidebar filters
-st.sidebar.header("Filters")
+# # Sidebar filters
+# st.sidebar.header("Filters")
 
-# --- Player Dropdown ---
-players = df["PLAYER"].dropna().unique().tolist()
-players.sort()
-players = ["Team"] + players  # Add "Team" option at top
-selected_player = st.sidebar.selectbox("Select Player", players)
+# # --- Player Dropdown ---
+# players = df["PLAYER"].dropna().unique().tolist()
+# players.sort()
+# players = ["Team"] + players  # Add "Team" option at top
+# selected_player = st.sidebar.selectbox("Select Player", players)
 
-# --- Game Dropdown ---
-if selected_player == "Team":
-    games = df["GAME"].dropna().unique().tolist()
-else:
-    games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
-games.sort()
-games = ["Season"] + games  # Add "Season" option at top
-selected_game = st.sidebar.selectbox("Select Game", games)
+# # --- Game Dropdown ---
+# if selected_player == "Team":
+#     games = df["GAME"].dropna().unique().tolist()
+# else:
+#     games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
+# games.sort()
+# games = ["Season"] + games  # Add "Season" option at top
+# selected_game = st.sidebar.selectbox("Select Game", games)
 
-# --- Type Dropdown ---
-game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
+# # --- Type Dropdown ---
+# game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
 
-# --- Filtering Logic ---
-if selected_player == "Team" and selected_game == "Season":
-    filtered = df[df["TYPE"].isin(game_types)]
-elif selected_player == "Team":
-    filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
-elif selected_game == "Season":
-    filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
-else:
-    filtered = df[
-        (df["PLAYER"] == selected_player) &
-        (df["GAME"] == selected_game) &
-        (df["TYPE"].isin(game_types))
-    ]
+# # --- Filtering Logic ---
+# if selected_player == "Team" and selected_game == "Season":
+#     filtered = df[df["TYPE"].isin(game_types)]
+# elif selected_player == "Team":
+#     filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+# elif selected_game == "Season":
+#     filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+# else:
+#     filtered = df[
+#         (df["PLAYER"] == selected_player) &
+#         (df["GAME"] == selected_game) &
+#         (df["TYPE"].isin(game_types))
+#     ]
 
-# -----------------------------
-# Layout: Image + Info + Scoreboard
-# -----------------------------
+if "active_tab" not in st.session_state:
+    st.session_state.active_tab = "Shot Chart"
+
 # Create three tabs
 tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
 
@@ -132,6 +131,42 @@ tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
 # Tab 1: Original Shot Chart
 # -----------------------------
 with tab1:
+        set_active_tab("Shot Chart")
+
+        # Sidebar filters
+        st.sidebar.header("Filters")
+
+        # --- Player Dropdown ---
+        players = df["PLAYER"].dropna().unique().tolist()
+        players.sort()
+        players = ["Team"] + players  # Add "Team" option at top
+        selected_player = st.sidebar.selectbox("Select Player", players)
+
+        # --- Game Dropdown ---
+        if selected_player == "Team":
+            games = df["GAME"].dropna().unique().tolist()
+        else:
+            games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
+        games.sort()
+        games = ["Season"] + games  # Add "Season" option at top
+        selected_game = st.sidebar.selectbox("Select Game", games)
+
+        # --- Type Dropdown ---
+        game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
+
+        # --- Filtering Logic ---
+        if selected_player == "Team" and selected_game == "Season":
+            filtered = df[df["TYPE"].isin(game_types)]
+        elif selected_player == "Team":
+            filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+        elif selected_game == "Season":
+            filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+        else:
+            filtered = df[
+                (df["PLAYER"] == selected_player) &
+                (df["GAME"] == selected_game) &
+                (df["TYPE"].isin(game_types))
+            ]
     # Left + Right columns for image and stats
         left_col, right_col = st.columns([1, 2])
 
@@ -178,12 +213,49 @@ with tab1:
 # Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
+        set_active_tab("Player Stats")
+
+        # Sidebar filters
+        st.sidebar.header("Filters")
+
+        # --- Player Dropdown ---
+        players = df["PLAYER"].dropna().unique().tolist()
+        players.sort()
+        players = ["Team"] + players  # Add "Team" option at top
+        selected_player = st.sidebar.selectbox("Select Player", players)
+
+        # --- Game Dropdown ---
+        if selected_player == "Team":
+            games = df["GAME"].dropna().unique().tolist()
+        else:
+            games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
+        games.sort()
+        games = ["Season"] + games  # Add "Season" option at top
+        selected_game = st.sidebar.selectbox("Select Game", games)
+
+        # --- Type Dropdown ---
+        game_types = st.sidebar.multiselect("Select Type", options=["Game", "Practice"], default=["Game"])
+
+        # --- Filtering Logic ---
+        if selected_player == "Team" and selected_game == "Season":
+            filtered = df[df["TYPE"].isin(game_types)]
+        elif selected_player == "Team":
+            filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+        elif selected_game == "Season":
+            filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+        else:
+            filtered = df[
+                (df["PLAYER"] == selected_player) &
+                (df["GAME"] == selected_game) &
+                (df["TYPE"].isin(game_types))
+            ]
+
         st.markdown(
         """
         <h1 style='text-align: center; text-decoration:underline; font-weight:bold'>Season Stats</h1>
         """,
         unsafe_allow_html=True
-    )
+        )
 
             # Left + Right columns for image and stats
         left_col, right_col = st.columns([1, 2])
@@ -275,22 +347,13 @@ with tab2:
 
         with col3:
             centered_metric("STL + BLK / 100", 23)
-        
-        # # Example: show a table of season stats
-        # season_stats = filtered.groupby("PLAYER").agg(
-        #     Total_Makes=('SHOT_MADE_FLAG', 'sum'),
-        #     Total_Attempts=('SHOT_MADE_FLAG', 'count'),
-        #     FG_Pct=('SHOT_MADE_FLAG', 'mean')
-        # ).reset_index()
-        
-        # st.dataframe(season_stats)
-
-        # # You can also add new charts, metrics, or text here
-        # st.markdown("### Top 3PT Shooters")
-        # top_3pt = filtered[filtered["SHOT_TYPE"].str.contains("3PT")].groupby("PLAYER")["SHOT_MADE_FLAG"].mean().sort_values(ascending=False).head(5)
-        # st.bar_chart(top_3pt)
 
 with tab3:
+    set_active_tab("Hustle Stats")
+
+    # Sidebar filters
+    st.sidebar.header("Filters")
+
     hustle = df_hustle.groupby('Player').agg(
             {'Charges': 'sum',
             'Steals/Deflections': 'sum',

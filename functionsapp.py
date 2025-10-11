@@ -331,3 +331,6 @@ def centered_metric(label, value, delta=None):
     </div>
     """
     st.markdown(html, unsafe_allow_html=True)
+
+def set_active_tab(tab_name):
+    st.session_state.active_tab = tab_name
