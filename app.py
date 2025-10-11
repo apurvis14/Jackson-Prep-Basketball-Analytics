@@ -141,8 +141,8 @@ st.markdown(
     """
     <style>
     @media print {
-        /* Hide Streamlit tabs when printing */
-        .stTabs, .css-1d391kg {  /* the exact class may vary depending on Streamlit version */
+        /* Only hide the tabs themselves */
+        .stTabs {
             display: none !important;
         }
     }
