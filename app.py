@@ -132,7 +132,6 @@ with st.sidebar:
     st.markdown("---")
 
     if st.session_state.active_tab == "Shot Chart":
-        st.header("Filters (Shot Chart)")
         players = ["Team"] + sorted(df["PLAYER"].dropna().unique().tolist())
         selected_player = st.selectbox("Select Player", players, key="player_select_shotchart")
 
@@ -149,7 +148,6 @@ with st.sidebar:
         )
 
     elif st.session_state.active_tab == "Player Stats":
-        st.header("Filters (Shot Chart)")
         players = ["Team"] + sorted(df["PLAYER"].dropna().unique().tolist())
         selected_player = st.selectbox("Select Player", players, key="player_select_shotchart")
 
