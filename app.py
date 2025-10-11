@@ -199,8 +199,8 @@ with tab2:
         <div style="
             border: 3px solid red;
             border-radius: 15px;
-            padding: 5px 20px;
-            width: 400px;              /* fixed width to ensure centering */
+            padding: 5px 5px;
+            width: 350px;              /* fixed width to ensure centering */
             margin: 20px auto;         /* auto horizontal margin centers the div */
             text-align: center;
         ">
