@@ -143,7 +143,7 @@ else:
         (df_hustle["Week"] == selected_week)]
 
 # Create Tabs
-tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Hustle Stats'])
+tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Lunch Pail Stats'])
 
 st.markdown(
     """
