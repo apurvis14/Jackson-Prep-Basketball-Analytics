@@ -128,7 +128,7 @@ def get_updated_zones():
     zones['LW Midrange'] = midrange_arc_top_polygon_fixed(72, 220, top_of_6_7)
 
     # Center midrange
-    zones['Right Center Midrange'] = midrange_center_arc_top_polygon(-72, 0, 47.5)
+    zones['Right Center Midrange'] = midrange_center_arc_top_polygon(-72, 0, 60)
     zones['Left Center Midrange'] = midrange_center_arc_top_polygon(0, 72, 60)
 
     # Convert to Polygon objects
