@@ -105,7 +105,7 @@ def get_updated_zones():
     y_leftcorner = arc_y_at_x(-220)
     y_rightcorner = arc_y_at_x(220)
     zones['Right Corner 3'] = [(-250, -47.5), (-220, -47.5), (-220, y_leftcorner), (-250, y_leftcorner)]
-    zones['Corner Corner 3'] = [(220, -47.5), (250, -47.5), (250, y_rightcorner), (220, y_rightcorner)]
+    zones['Left Corner 3'] = [(220, -47.5), (250, -47.5), (250, y_rightcorner), (220, y_rightcorner)]
 
     # 3PT wings/top
     A_right_corner = math.degrees(math.atan2(y_rightcorner - ARC_CY, 220 - ARC_CX))
