@@ -104,8 +104,8 @@ def get_updated_zones():
     # Corners
     y_leftcorner = arc_y_at_x(-220)
     y_rightcorner = arc_y_at_x(220)
-    zones['Left Corner 3'] = [(-250, -47.5), (-220, -47.5), (-220, y_leftcorner), (-250, y_leftcorner)]
-    zones['Right Corner 3'] = [(220, -47.5), (250, -47.5), (250, y_rightcorner), (220, y_rightcorner)]
+    zones['Right Corner 3'] = [(-250, -47.5), (-220, -47.5), (-220, y_leftcorner), (-250, y_leftcorner)]
+    zones['Corner Corner 3'] = [(220, -47.5), (250, -47.5), (250, y_rightcorner), (220, y_rightcorner)]
 
     # 3PT wings/top
     A_right_corner = math.degrees(math.atan2(y_rightcorner - ARC_CY, 220 - ARC_CX))
@@ -115,21 +115,21 @@ def get_updated_zones():
     zones['Top of Key 3'] = threept_sector(70, 110)
 
     # Baseline midrange
-    zones['Left Midrange BL'] = [(-220, -47.5), (-72, -47.5), (-72, y_leftcorner), (-220, y_leftcorner)]
-    zones['Right Midrange BL'] = [(72, -47.5), (220, -47.5), (220, y_rightcorner), (72, y_rightcorner)]
+    zones['Right Midrange BL'] = [(-220, -47.5), (-72, -47.5), (-72, y_leftcorner), (-220, y_leftcorner)]
+    zones['Left Midrange BL'] = [(72, -47.5), (220, -47.5), (220, y_rightcorner), (72, y_rightcorner)]
 
     # Layups
-    zones['Left Layup'] = [(-72, -47.5), (0, -47.5), (0, 60), (-72, 60)]
-    zones['Right Layup'] = [(0, -47.5), (72, -47.5), (72, 60), (0, 60)]
+    zones['Right Layup'] = [(-72, -47.5), (0, -47.5), (0, 60), (-72, 60)]
+    zones['Left Layup'] = [(0, -47.5), (72, -47.5), (72, 60), (0, 60)]
 
-    # Wing midrange
+    # Wing midrange -- CHECK THIS
     top_of_6_7 = max(max(y for x,y in zones['Left Midrange BL']), max(y for x,y in zones['Right Midrange BL']))
-    zones['LW Midrange'] = midrange_arc_top_polygon_fixed(-220, -72, top_of_6_7)
-    zones['RW Midrange'] = midrange_arc_top_polygon_fixed(72, 220, top_of_6_7)
+    zones['RW Midrange'] = midrange_arc_top_polygon_fixed(-220, -72, top_of_6_7)
+    zones['LW Midrange'] = midrange_arc_top_polygon_fixed(72, 220, top_of_6_7)
 
     # Center midrange
-    zones['Left Center Midrange'] = midrange_center_arc_top_polygon(-72, 0, -47.5)
-    zones['Right Center Midrange'] = midrange_center_arc_top_polygon(0, 72, -47.5)
+    zones['Right Center Midrange'] = midrange_center_arc_top_polygon(-72, 0, -47.5)
+    zones['Left Center Midrange'] = midrange_center_arc_top_polygon(0, 72, -47.5)
 
     # Convert to Polygon objects
     poly_zones = {name: Polygon(coords, closed=True) for name, coords in zones.items()}
