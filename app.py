@@ -172,11 +172,7 @@ with tab1:
                 if selected_player == "Team":
                     st.image('photos/team_logo.png', width=175)
                 else:
-                    player_photo_path = f"photos/{selected_player}.JPG"
-                    if os.path.exists(player_photo_path):
-                        st.image(player_photo_path, width=200)
-                    else:
-                        st.image("photos/team_logo.png", width=175)
+                        st.image(f"photos/{selected_player}.JPG", width=175)
 
         with right_col:
             if selected_player == "Team":
