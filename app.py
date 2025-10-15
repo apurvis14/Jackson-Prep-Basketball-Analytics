@@ -381,9 +381,9 @@ with tab3:
 
 
     if selected_week == "Season":
-        title = "Season Hustle Stats"
+        title = "Season Lunch Pail Stats"
     else:
-        title = f"Week {selected_week} Hustle Stats"
+        title = f"Week {selected_week} Lunch Pail Stats"
 
     fig, ax = plt.subplots(figsize=(32, 40))
     fig.suptitle(title, fontsize=36, color='#0033A0', fontweight='bold', y=0.975)
