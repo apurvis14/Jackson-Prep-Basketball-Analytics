@@ -110,8 +110,8 @@ def get_updated_zones():
     # 3PT wings/top
     A_right_corner = math.degrees(math.atan2(y_rightcorner - ARC_CY, 220 - ARC_CX))
     A_left_corner = math.degrees(math.atan2(y_leftcorner - ARC_CY, -220 - ARC_CX))
-    zones['Left Wing 3'] = threept_sector(110, A_left_corner)
-    zones['Right Wing 3'] = threept_sector(A_right_corner, 70)
+    zones['Right Wing 3'] = threept_sector(110, A_left_corner)
+    zones['Left Wing 3'] = threept_sector(A_right_corner, 70)
     zones['Top of Key 3'] = threept_sector(70, 110)
 
     # Baseline midrange
