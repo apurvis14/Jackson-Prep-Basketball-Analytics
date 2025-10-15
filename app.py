@@ -172,7 +172,7 @@ with tab1:
                 if selected_player == "Team":
                     st.image('photos/team_logo.png', width=175)
                 else:
-                        st.image(f"photos/{selected_player}.JPG", width=175)
+                    st.image(f"photos/{selected_player}.JPG", width=175)
 
         with right_col:
             if selected_player == "Team":
