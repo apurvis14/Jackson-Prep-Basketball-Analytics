@@ -4,6 +4,7 @@ import pandas as pd
 import hashlib
 import matplotlib as matplotlib
 import matplotlib.pyplot as plt
+import os
 from functionsapp import plot_zone_chart, calc_zone_stats, styled_text, split_name, centered_metric
 # -----------------------------
 # Page Config
@@ -171,7 +172,11 @@ with tab1:
                 if selected_player == "Team":
                     st.image('photos/team_logo.png', width=175)
                 else:
-                    st.image(f"photos/{selected_player}.JPG", width=200)
+                    player_photo_path = f"photos/{selected_player}.JPG"
+                    if os.path.exists(player_photo_path):
+                        st.image(player_photo_path, width=200)
+                    else:
+                        st.image("photos/team_logo.png", width=175)
 
         with right_col:
             if selected_player == "Team":
