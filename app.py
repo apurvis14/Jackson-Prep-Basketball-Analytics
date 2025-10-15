@@ -240,10 +240,13 @@ with tab2:
         with left_col:
             col_empty, col_img, col_empty2 = st.columns([0.25,3.5,0.25])
             with col_img:
+                photo_path = f"photos/{selected_player}.JPG"
                 if selected_player == "Team":
-                    st.image('photos/team_logo.png', width=150)
+                    st.image("photos/team_logo.png", width=175)
+                elif os.path.exists(photo_path):
+                    st.image(photo_path, width=175)
                 else:
-                    st.image(f"photos/{selected_player}.JPG", width=200)
+                    st.image("photos/team_logo.png", width=175)  # fallback image
 
         with right_col:
             if selected_player == "Team":
