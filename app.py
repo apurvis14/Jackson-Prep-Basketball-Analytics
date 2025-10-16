@@ -129,7 +129,7 @@ else:
         (df["TYPE"].isin(game_types))
     ]
 
-st.sidebar.header("Hustle Filters")
+st.sidebar.header("Lunch Pail Week Filter")
 weeks = df_hustle["Week"].dropna().unique().tolist()
 weeks.sort()
 weeks = ["Season"] + weeks
