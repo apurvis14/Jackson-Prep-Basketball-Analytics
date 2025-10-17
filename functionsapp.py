@@ -207,7 +207,7 @@ def plot_zone_chart(filtered_df, df_team):
         elif ratio < 0.7: 
             color = 'orange'
         elif ratio < 1.0:
-            color = 'greenyellow'
+            color = 'yellowgreen'
         elif ratio < 1.2:
             color = 'green'
         else:
