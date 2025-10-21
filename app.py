@@ -455,7 +455,7 @@ player_info = {
 }
 
 stats_df["Player Info"] = stats_df["Player"].apply(
-    lambda x: f"#{player_info[x]['number']} {x} — {player_info[x]['position']}"
+    lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}"
     if x in player_info else x
 )
 
