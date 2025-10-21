@@ -433,7 +433,7 @@ with tab4:
 
             # Sum the stats for that player
             total_assists = player_df["Ast"].sum()
-            total_turnovers = player_df["TOs"].sum()
+            total_turnovers = player_df["TO"].sum()
             total_off_rebs = player_df["OFF_Reb"].sum()
             total_def_rebs = player_df["DEF_Reb"].sum()
 
@@ -442,7 +442,7 @@ with tab4:
         else:
             # For "Team", sum all players
             total_assists = stats_df["Ast"].sum()
-            total_turnovers = stats_df["TOs"].sum()
+            total_turnovers = stats_df["TO"].sum()
             total_off_rebs = stats_df["OFF_Reb"].sum()
             total_def_rebs = stats_df["DEF_Reb"].sum()
             ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "∞"
