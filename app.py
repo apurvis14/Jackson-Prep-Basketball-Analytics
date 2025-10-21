@@ -143,7 +143,7 @@ else:
         (df_hustle["Week"] == selected_week)]
 
 # Create Tabs
-tab1, tab2, tab3 = st.tabs(["Shot Chart", "Player Stats", 'Lunch Pail Stats'])
+tab1, tab2, tab3, tab4 = st.tabs(["Shot Chart", "Player Game Stats", 'Lunch Pail Stats', "Player Practice Stats"])
 
 st.markdown(
     """
@@ -422,3 +422,77 @@ with tab3:
                 cell.set_facecolor('white')    # default white
 
     st.pyplot(fig)
+
+with tab4:
+        st.markdown(
+        """
+        <div style="
+            border: 3px solid red;
+            border-radius: 15px;
+            padding: 5px 5px;
+            width: 350px;              /* fixed width to ensure centering */
+            margin: 10px auto;         /* auto horizontal margin centers the div */
+            text-align: center;
+        ">
+            <h1 style='margin: 0; font-size: 48px; text-decoration: underline; font-weight: bold;'>Practice Stats</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+            # Left + Right columns for image and stats
+        left_col, right_col = st.columns([1, 2])
+
+        with left_col:
+            col_empty, col_img, col_empty2 = st.columns([0.25,3.5,0.25])
+            with col_img:
+                photo_path = f"photos/{selected_player}.JPG"
+                if selected_player == "Team":
+                    st.image("photos/team_logo.png", width=175)
+                elif os.path.exists(photo_path):
+                    st.image(photo_path, width=175)
+                else:
+                    st.image("photos/team_logo.png", width=175)  # fallback image
+
+        with right_col:
+            if selected_player == "Team":
+                st.markdown(styled_text("Jackson Prep Team", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text("0-0 (0-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
+            else:
+                st.markdown(styled_text(f"{selected_player}", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text("#14 Power Forward", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
+
+
+        st.markdown(
+            "<hr style='border: 2px solid #0033A0; margin-top: 0.25rem; margin-bottom: 0rem;'>",
+            unsafe_allow_html=True) 
+        
+        st.markdown(styled_text("Playmaking Stats", size=28, weight='normal', margin="0px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            centered_metric("Total Assists", 15)
+
+        with col2:
+            centered_metric("Total Turnovers", 2)
+
+        with col3:
+            centered_metric("Ast/TO Ratio", 7.5)
+
+        st.markdown(
+            "<hr style='border: 1px solid #0033A0; margin-top: 1rem; margin-bottom: 0rem;'>",
+            unsafe_allow_html=True)  
+
+        st.markdown(styled_text("Rebound Stats", size=28, weight='normal', margin="2px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            centered_metric("OFF Rebs", 6)
+
+        with col2:
+            centered_metric("DEF Rebs", 20)
+
+        with col3:
+            centered_metric("Total Rebs", 26)
