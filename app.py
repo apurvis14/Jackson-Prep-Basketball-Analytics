@@ -426,8 +426,42 @@ with tab3:
 practice_url = st.secrets["data"]["practice_url"]
 stats_df = pd.read_csv(practice_url)
 
+player_info = {
+    "Asher Reynolds": {"number": 4, "position": "Guard"},
+    "Ben Roberts Smith": {"number": 12, "position": "Guard"},
+    "Clark Smith": {"number": 11, "position": "Guard"},
+    "Cray Luckett": {"number": 3, "position": "Guard/Forward"},
+    "Ejay Napier": {"number": 2, "position": "Guard"},
+    "Hemming Williamson": {"number": 5, "position": "Forward"},
+    "Joseph Chaney": {"number": 0, "position": "Center"},
+    "Judson Colley": {"number": 15, "position": "Center"},
+    "Kaden Griffin": {"number": 22, "position": "Forward"},
+    "Kendrick Rogers": {"number": 14, "position": "Forward"},
+    "Manning Parks": {"number": 34, "position": "Center"},
+    "Miles Burkhalter": {"number": 20, "position": "Guard"},
+    "William Thornton": {"number": 1, "position": "Forward"},
+    "Abney Moss": {"number": 21, "position": "Forward"},
+    "Bennett Rooker": {"number": 35, "position": "Center"},
+    "Garrett Bridgers": {"number": 23, "position": "Forward"},
+    "Henry Russ": {"number": 25, "position": "Guard"},
+    "Herrin Goodman": {"number": 24, "position": "Guard"},
+    "IV Davidson": {"number": 20, "position": "Guard"},
+    "Johnny Fondren": {"number": 30, "position": "Guard"},
+    "Sam Milner": {"number": 13, "position": "Guard"},
+    "Knox Hassell": {"number": 99, "position": "Forward"},
+    "Hayes Grenfell": {"number": 98, "position": "Guard"},
+    "Bowen Jones": {"number": 97, "position": "Forward"},
+
+}
+
+stats_df["Player Info"] = stats_df["PLAYER"].apply(
+    lambda x: f"#{player_info[x]['number']} {x} — {player_info[x]['position']}"
+    if x in player_info else x
+)
+
 if selected_player != "Team":
     player_df = stats_df[stats_df["Player"] == selected_player]
+    player_info = stats_df[stats_df["Player"] == selected_player]["Player Info"].iloc[0]
 
             # Sum the stats for that player
     total_assists = player_df["Ast"].sum()
@@ -444,6 +478,8 @@ else:
     total_off_rebs = stats_df["OFF_Reb"].sum()
     total_def_rebs = stats_df["DEF_Reb"].sum()
     ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "0"
+
+
 
 with tab4:
         st.markdown(
@@ -482,7 +518,7 @@ with tab4:
                 st.markdown(styled_text("0-0 (0-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
             else:
                 st.markdown(styled_text(f"{selected_player}", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
-                st.markdown(styled_text("#14 Power Forward", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text(f"{player_info}", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
 
 
         st.markdown(
