@@ -423,13 +423,8 @@ with tab3:
 
     st.pyplot(fig)
 
-@st.cache_data
-def load_stats_data():
-    url = st.secrets["data"]["practice_url"]
-    df = pd.read_csv(url)
-    return df
-
-stats_df = load_stats_data()
+practice_url = st.secrets["data"]["practice_url"]
+stats_df = pd.read_csv(practice_url)
 
 with tab4:
 
