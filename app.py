@@ -423,14 +423,15 @@ with tab3:
 
     st.pyplot(fig)
 
-with tab4:
-        @st.cache_data
-        def load_stats_data():
-            url = st.secrets["data"]["practice_url"]
-            df = pd.read_csv(url)
-            return df
+@st.cache_data
+def load_stats_data():
+    url = st.secrets["data"]["practice_url"]
+    df = pd.read_csv(url)
+    return df
 
-        stats_df = load_stats_data()
+stats_df = load_stats_data()
+
+with tab4:
 
         if selected_player != "Team":
             player_df = stats_df[stats_df["Name"] == selected_player]
