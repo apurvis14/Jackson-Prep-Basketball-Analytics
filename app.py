@@ -424,6 +424,33 @@ with tab3:
     st.pyplot(fig)
 
 with tab4:
+        @st.cache_data
+        def load_stats_data():
+            url = st.secrets["data"]["practice_url"]
+            df = pd.read_csv(url)
+            return df
+
+        stats_df = load_stats_data()
+
+        if selected_player != "Team":
+            player_df = stats_df[stats_df["Name"] == selected_player]
+
+            # Sum the stats for that player
+            total_assists = player_df["Ast"].sum()
+            total_turnovers = player_df["TOs"].sum()
+            total_off_rebs = player_df["OFF Rebs"].sum()
+            total_def_rebs = player_df["DEF Rebs"].sum()
+
+            # Derived metric
+            ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "∞"
+        else:
+            # For "Team", sum all players
+            total_assists = stats_df["Ast"].sum()
+            total_turnovers = stats_df["TOs"].sum()
+            total_off_rebs = stats_df["OFF Rebs"].sum()
+            total_def_rebs = stats_df["DEF Rebs"].sum()
+            ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "∞"
+
         st.markdown(
         """
         <div style="
@@ -472,13 +499,13 @@ with tab4:
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            centered_metric("Total Assists", 15)
+            centered_metric("Total Assists", total_assists)
 
         with col2:
-            centered_metric("Total Turnovers", 2)
+            centered_metric("Total Turnovers", total_turnovers)
 
         with col3:
-            centered_metric("Ast/TO Ratio", 7.5)
+            centered_metric("Ast/TO Ratio", ast_to_ratio)
 
         st.markdown(
             "<hr style='border: 1px solid #0033A0; margin-top: 1rem; margin-bottom: 0rem;'>",
@@ -489,10 +516,10 @@ with tab4:
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            centered_metric("OFF Rebs", 6)
+            centered_metric("OFF Rebs", total_off_rebs)
 
         with col2:
-            centered_metric("DEF Rebs", 20)
+            centered_metric("DEF Rebs", total_def_rebs)
 
         with col3:
-            centered_metric("Total Rebs", 26)
+            centered_metric("Total Rebs", total_off_rebs + total_def_rebs)
