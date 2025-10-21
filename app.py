@@ -461,7 +461,11 @@ stats_df["Player Info"] = stats_df["Player"].apply(
 
 if selected_player != "Team":
     player_df = stats_df[stats_df["Player"] == selected_player]
-    player_info = stats_df[stats_df["Player"] == selected_player]["Player Info"].iloc[0]
+    
+    if not player_df.empty:
+        selected_player_info = stats_df[stats_df["Player"] == selected_player]["Player Info"].iloc[0]
+    else:
+        selected_player_info = selected_player
 
             # Sum the stats for that player
     total_assists = player_df["Ast"].sum()
@@ -518,7 +522,7 @@ with tab4:
                 st.markdown(styled_text("0-0 (0-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
             else:
                 st.markdown(styled_text(f"{selected_player}", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
-                st.markdown(styled_text(f"{player_info}", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text(f"{selected_player_info}", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
 
 
         st.markdown(
