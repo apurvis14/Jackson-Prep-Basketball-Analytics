@@ -426,27 +426,26 @@ with tab3:
 practice_url = st.secrets["data"]["practice_url"]
 stats_df = pd.read_csv(practice_url)
 
-with tab4:
-
-        if selected_player != "Team":
-            player_df = stats_df[stats_df["Player"] == selected_player]
+if selected_player != "Team":
+    player_df = stats_df[stats_df["Player"] == selected_player]
 
             # Sum the stats for that player
-            total_assists = player_df["Ast"].sum()
-            total_turnovers = player_df["TO"].sum()
-            total_off_rebs = player_df["OFF_Reb"].sum()
-            total_def_rebs = player_df["DEF_Reb"].sum()
+    total_assists = player_df["Ast"].sum()
+    total_turnovers = player_df["TO"].sum()
+    total_off_rebs = player_df["OFF_Reb"].sum()
+    total_def_rebs = player_df["DEF_Reb"].sum()
 
             # Derived metric
-            ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "∞"
-        else:
-            # For "Team", sum all players
-            total_assists = stats_df["Ast"].sum()
-            total_turnovers = stats_df["TO"].sum()
-            total_off_rebs = stats_df["OFF_Reb"].sum()
-            total_def_rebs = stats_df["DEF_Reb"].sum()
-            ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "∞"
+    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "∞"
+else:
+    # For "Team", sum all players
+    total_assists = stats_df["Ast"].sum()
+    total_turnovers = stats_df["TO"].sum()
+    total_off_rebs = stats_df["OFF_Reb"].sum()
+    total_def_rebs = stats_df["DEF_Reb"].sum()
+    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "∞"
 
+with tab4:
         st.markdown(
         """
         <div style="
