@@ -241,13 +241,6 @@ selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info
 # Tab 2: Player Stats Dashboard
 # -----------------------------
 with tab2:
-        # st.markdown(
-        # """
-        # <h1 style='text-align: center; text-decoration:underline; font-weight:bold'>Game Stats</h1>
-        # """,
-        # unsafe_allow_html=True
-        # )
-
         st.markdown(
         """
         <div style="
@@ -497,14 +490,14 @@ if selected_player != "Team":
     total_def_rebs = player_df["DEF_Reb"].sum()
 
             # Derived metric
-    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "0"
+    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
 else:
     # For "Team", sum all players
     total_assists = stats_df["Ast"].sum()
     total_turnovers = stats_df["TO"].sum()
     total_off_rebs = stats_df["OFF_Reb"].sum()
     total_def_rebs = stats_df["DEF_Reb"].sum()
-    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else "0"
+    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
 
 
 
