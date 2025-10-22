@@ -206,6 +206,36 @@ with tab1:
         # Shot chart
         fig = plot_zone_chart(filtered, df)
         st.pyplot(fig, use_container_width=True)
+player_info = {
+    "Asher Reynolds": {"number": 4, "position": "Guard"},
+    "Ben Roberts Smith": {"number": 12, "position": "Guard"},
+    "Clark Smith": {"number": 11, "position": "Guard"},
+    "Cray Luckett": {"number": 3, "position": "Guard/Forward"},
+    "Ejay Napier": {"number": 2, "position": "Guard"},
+    "Hemming Williamson": {"number": 5, "position": "Forward"},
+    "Joseph Chaney": {"number": 0, "position": "Center"},
+    "Judson Colley": {"number": 15, "position": "Center"},
+    "Kaden Griffin": {"number": 22, "position": "Forward"},
+    "Kendrick Rogers": {"number": 14, "position": "Forward"},
+    "Manning Parks": {"number": 34, "position": "Center"},
+    "Miles Burkhalter": {"number": 20, "position": "Guard"},
+    "William Thornton": {"number": 1, "position": "Forward"},
+    "Abney Moss": {"number": 21, "position": "Forward"},
+    "Bennett Rooker": {"number": 35, "position": "Center"},
+    "Garrett Bridgers": {"number": 23, "position": "Forward"},
+    "Henry Russ": {"number": 25, "position": "Guard"},
+    "Herrin Goodman": {"number": 24, "position": "Guard"},
+    "IV Davidson": {"number": 20, "position": "Guard"},
+    "Johnny Fondren": {"number": 30, "position": "Guard"},
+    "Sam Milner": {"number": 13, "position": "Guard"},
+    "Knox Hassell": {"number": 99, "position": "Forward"},
+    "Hayes Grenfell": {"number": 98, "position": "Guard"},
+    "Bowen Jones": {"number": 97, "position": "Forward"},
+
+}
+
+selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}" 
+                        if x in player_info else x)(selected_player)
 
 # -----------------------------
 # Tab 2: Player Stats Dashboard
