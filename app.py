@@ -454,18 +454,11 @@ player_info = {
 
 }
 
-stats_df["Player Info"] = stats_df["Player"].apply(
-    lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}"
-    if x in player_info else x
-)
+selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}" 
+                        if x in player_info else x)(selected_player)
 
 if selected_player != "Team":
     player_df = stats_df[stats_df["Player"] == selected_player]
-    
-    if not player_df.empty:
-        selected_player_info = stats_df[stats_df["Player"] == selected_player]["Player Info"].iloc[0]
-    else:
-        selected_player_info = selected_player
 
             # Sum the stats for that player
     total_assists = player_df["Ast"].sum()
