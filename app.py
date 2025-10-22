@@ -284,7 +284,7 @@ with tab2:
                 st.markdown(styled_text("3-4 (0-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
             else:
                 st.markdown(styled_text(f"{selected_player}", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
-                st.markdown(styled_text("#14 Power Forward", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text(f"{selected_player_info}", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
 
 
         st.markdown(
