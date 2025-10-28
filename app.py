@@ -96,6 +96,9 @@ players.sort()
 players = ["Team"] + players  # Add "Team" option at top
 selected_player = st.sidebar.selectbox("Select Player", players)
 
+# --- Type Dropdown ---
+selected_type = st.sidebar.selectbox("Select Type", options=["Game", "Practice", "Season", "All Including Pickup", "Pickup"], index=2)
+
 # --- Game Dropdown ---
 if selected_player == "Team":
     games = df["GAME"].dropna().unique().tolist()
@@ -106,8 +109,7 @@ games = ["Season"] + games  # Add "Season" option at top
 selected_game = st.sidebar.selectbox("Select Game/Practice", games)
 
 
-# --- Type Dropdown ---
-selected_type = st.sidebar.selectbox("Select Type", options=["Game", "Practice", "Season", "All Including Pickup", "Pickup"], index=2)
+
 
 # --- Define filter for game types ---
 if selected_type == "Season":
