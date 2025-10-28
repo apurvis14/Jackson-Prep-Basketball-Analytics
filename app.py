@@ -96,6 +96,12 @@ players.sort()
 players = ["Team"] + players  # Add "Team" option at top
 selected_player = st.sidebar.selectbox("Select Player", players)
 
+# --- Week Filter (TRUMPS ALL) ---
+weeks_shot = df["WEEK"].dropna().unique().tolist()
+weeks_shot.sort()
+weeks_shot = ["Season"] + weeks_shot
+selected_week_shot = st.sidebar.selectbox("Select Week", weeks_shot)
+
 # --- Type Dropdown ---
 selected_type = st.sidebar.selectbox("Select Type", options=["Game", "Practice", "Season", "All Including Pickup", "Pickup"], index=2)
 
@@ -107,13 +113,6 @@ else:
 games.sort()
 games = ["Season"] + games  # Add "Season" option at top
 selected_game = st.sidebar.selectbox("Select Game/Practice", games)
-
-# --- Week Filter (TRUMPS ALL) ---
-st.sidebar.header("Week Filter (for Shot Data)")
-weeks_shot = df["WEEK"].dropna().unique().tolist()
-weeks_shot.sort()
-weeks_shot = ["Season"] + weeks_shot
-selected_week_shot = st.sidebar.selectbox("Select Week", weeks_shot)
 
 # --- Define filter for game types ---
 if selected_type == "Season":
