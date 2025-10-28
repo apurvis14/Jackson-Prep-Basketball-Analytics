@@ -102,7 +102,7 @@ if selected_player == "Team":
 else:
     games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
 games.sort()
-games = ["Season"] + games  # Add "Season" option at top
+games = ["Season"] + games + ["All inclduding Pickup"]  # Add "Season" option at top
 selected_game = st.sidebar.selectbox("Select Game/Practice", games)
 
 
@@ -112,11 +112,15 @@ selected_type = st.sidebar.selectbox("Select Type", options=["Game", "Practice",
 # --- Define filter for game types ---
 if selected_type == "Season":
     game_types = ["Game", "Practice"]  # Combine both
+elif selected_type == "All inclduding Pickup":
+    game_types = ["Pickup", "Practice", "Game"]
 else:
     game_types = [selected_type]
 
 # --- Filtering Logic ---
 if selected_player == "Team" and selected_game == "Season":
+    filtered = df[df["TYPE"].isin(game_types)]
+elif selected_player == "Team" and selected_game == "All inclduding Pickup":
     filtered = df[df["TYPE"].isin(game_types)]
 elif selected_player == "Team":
     filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
@@ -138,12 +142,13 @@ selected_week = st.sidebar.selectbox("Select Week", weeks)
 # --- Filtering Logic ---
 if selected_week == "Season":
     df_hustle = df_hustle
+
 else:
     df_hustle = df_hustle[
         (df_hustle["Week"] == selected_week)]
 
 # Create Tabs
-tab1, tab2, tab4, tab3 = st.tabs(["Shot Chart", "Player Game Stats", "Player Practice Stats",'Lunch Pail Stats'])
+tab1, tab2, tab4, tab5, tab3 = st.tabs(["Shot Chart", "Player Game Stats", "Player Practice Stats", "Pickup Stats", 'Lunch Pail Stats'])
 
 st.markdown(
     """
@@ -206,6 +211,7 @@ with tab1:
         # Shot chart
         fig = plot_zone_chart(filtered, df)
         st.pyplot(fig, use_container_width=True)
+
 player_info = {
     "Asher Reynolds": {"number": 4, "position": "Guard"},
     "Ben Roberts Smith": {"number": 12, "position": "Guard"},
@@ -499,8 +505,6 @@ else:
     total_def_rebs = stats_df["DEF_Reb"].sum()
     ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
 
-
-
 with tab4:
         st.markdown(
         """
@@ -574,3 +578,130 @@ with tab4:
 
         with col3:
             centered_metric("Total Rebs", total_off_rebs + total_def_rebs)
+
+pickup_url = st.secrets["data"]["pickup_url"]
+pickup_df = pd.read_csv(pickup_url)
+
+player_info = {
+    "Asher Reynolds": {"number": 4, "position": "Guard"},
+    "Ben Roberts Smith": {"number": 12, "position": "Guard"},
+    "Clark Smith": {"number": 11, "position": "Guard"},
+    "Cray Luckett": {"number": 3, "position": "Guard/Forward"},
+    "Ejay Napier": {"number": 2, "position": "Guard"},
+    "Hemming Williamson": {"number": 5, "position": "Forward"},
+    "Joseph Chaney": {"number": 0, "position": "Center"},
+    "Judson Colley": {"number": 15, "position": "Center"},
+    "Kaden Griffin": {"number": 22, "position": "Forward"},
+    "Kendrick Rogers": {"number": 14, "position": "Forward"},
+    "Manning Parks": {"number": 34, "position": "Center"},
+    "Miles Burkhalter": {"number": 20, "position": "Guard"},
+    "William Thornton": {"number": 1, "position": "Forward"},
+    "Abney Moss": {"number": 21, "position": "Forward"},
+    "Bennett Rooker": {"number": 35, "position": "Center"},
+    "Garrett Bridgers": {"number": 23, "position": "Forward"},
+    "Henry Russ": {"number": 25, "position": "Guard"},
+    "Herrin Goodman": {"number": 24, "position": "Guard"},
+    "IV Davidson": {"number": 20, "position": "Guard"},
+    "Johnny Fondren": {"number": 30, "position": "Guard"},
+    "Sam Milner": {"number": 13, "position": "Guard"},
+    "Knox Hassell": {"number": 99, "position": "Forward"},
+    "Hayes Grenfell": {"number": 98, "position": "Guard"},
+    "Bowen Jones": {"number": 97, "position": "Forward"},
+
+}
+
+selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}" 
+                        if x in player_info else x)(selected_player)
+
+if selected_player != "Team":
+    player_df = pickup_df[pickup_df["Player"] == selected_player]
+
+            # Sum the stats for that player
+    total_assists = player_df["Ast"].sum()
+    total_turnovers = player_df["TO"].sum()
+    total_off_rebs = player_df["OFF_Reb"].sum()
+    total_def_rebs = player_df["DEF_Reb"].sum()
+
+            # Derived metric
+    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
+else:
+    # For "Team", sum all players
+    total_assists = stats_df["Ast"].sum()
+    total_turnovers = stats_df["TO"].sum()
+    total_off_rebs = stats_df["OFF_Reb"].sum()
+    total_def_rebs = stats_df["DEF_Reb"].sum()
+    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
+
+with tab5:
+        st.markdown(
+        """
+        <div style="
+            border: 3px solid red;
+            border-radius: 15px;
+            padding: 5px 5px;
+            width: 350px;              /* fixed width to ensure centering */
+            margin: 10px auto;         /* auto horizontal margin centers the div */
+            text-align: center;
+        ">
+            <h1 style='margin: 0; font-size: 48px; text-decoration: underline; font-weight: bold;'>Pickup Stats</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+            # Left + Right columns for image and stats
+        left_col, right_col = st.columns([1, 2])
+
+        with left_col:
+            col_empty, col_img, col_empty2 = st.columns([0.25,3.5,0.25])
+            with col_img:
+                photo_path = f"photos/{selected_player}.JPG"
+                if selected_player == "Team":
+                    st.image("photos/team_logo.png", width=175)
+                elif os.path.exists(photo_path):
+                    st.image(photo_path, width=175)
+                else:
+                    st.image("photos/team_logo.png", width=175)  # fallback image
+
+        with right_col:
+            if selected_player == "Team":
+                st.markdown(styled_text("Jackson Prep Team", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text("0-0 (0-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
+            else:
+                st.markdown(styled_text(f"{selected_player}", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text(f"{selected_player_info}", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
+
+
+        st.markdown(
+            "<hr style='border: 2px solid #0033A0; margin-top: 0.25rem; margin-bottom: 0rem;'>",
+            unsafe_allow_html=True) 
+        
+        st.markdown(styled_text("Playmaking Stats", size=28, weight='normal', margin="0px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            centered_metric("Total Assists", total_assists)
+
+        with col2:
+            centered_metric("Total Turnovers", total_turnovers)
+
+        with col3:
+            centered_metric("Ast/TO Ratio", ast_to_ratio)
+
+        st.markdown(
+            "<hr style='border: 1px solid #0033A0; margin-top: 1rem; margin-bottom: 0rem;'>",
+            unsafe_allow_html=True)  
+
+        st.markdown(styled_text("Rebound Stats", size=28, weight='normal', margin="2px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True)
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            centered_metric("OFF Rebs", total_off_rebs)
+
+        with col2:
+            centered_metric("DEF Rebs", total_def_rebs)
+
+        with col3:
+            centered_metric("Total Rebs", total_off_rebs + total_def_rebs)    
