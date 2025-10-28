@@ -108,8 +108,12 @@ games.sort()
 games = ["Season"] + games  # Add "Season" option at top
 selected_game = st.sidebar.selectbox("Select Game/Practice", games)
 
-
-
+# --- Week Filter (TRUMPS ALL) ---
+st.sidebar.header("Week Filter (for Shot Data)")
+weeks_shot = df["WEEK"].dropna().unique().tolist()
+weeks_shot.sort()
+weeks_shot = ["Season"] + weeks_shot
+selected_week_shot = st.sidebar.selectbox("Select Week", weeks_shot)
 
 # --- Define filter for game types ---
 if selected_type == "Season":
@@ -119,21 +123,25 @@ elif selected_type == "All Including Pickup":
 else:
     game_types = [selected_type]
 
-# --- Filtering Logic ---
-if selected_player == "Team" and selected_game == "Season":
-    filtered = df[df["TYPE"].isin(game_types)]
-elif selected_player == "Team" and selected_game == "All inclduding Pickup":
-    filtered = df[df["TYPE"].isin(game_types)]
-elif selected_player == "Team":
-    filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
-elif selected_game == "Season":
-    filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+# -----------------------------
+# Apply week filter first (OVERRIDE)
+# -----------------------------
+if selected_week_shot != "Season":
+    filtered = df[df["WEEK"] == selected_week_shot]
 else:
-    filtered = df[
-        (df["PLAYER"] == selected_player) &
-        (df["GAME"] == selected_game) &
-        (df["TYPE"].isin(game_types))
-    ]
+    # --- Regular filtering logic ---
+    if selected_player == "Team" and selected_game == "Season":
+        filtered = df[df["TYPE"].isin(game_types)]
+    elif selected_player == "Team":
+        filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+    elif selected_game == "Season":
+        filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+    else:
+        filtered = df[
+            (df["PLAYER"] == selected_player)
+            & (df["GAME"] == selected_game)
+            & (df["TYPE"].isin(game_types))
+        ]
 
 st.sidebar.header("Lunch Pail Week Filter")
 weeks = df_hustle["Week"].dropna().unique().tolist()
