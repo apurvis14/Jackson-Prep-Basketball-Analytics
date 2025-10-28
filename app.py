@@ -129,10 +129,15 @@ else:
 # -----------------------------
 if selected_week_shot != "Season":
     filtered = df[df["WEEK"] == selected_week_shot]
-    if selected_week_shot in stats_df["Week"].unique():
-        stats_df = stats_df[stats_df["Week"] == selected_week_shot]
+    if "Week" in stats_df.columns:
+        week_values = stats_df["Week"].astype(str).unique().tolist()
+        if str(selected_week_shot) in week_values:
+            stats_df = stats_df[stats_df["Week"].astype(str) == str(selected_week_shot)]
+        else:
+            stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
     else:
         stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
+
 else:
     # --- Regular filtering logic ---
     if selected_player == "Team" and selected_game == "Season":
