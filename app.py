@@ -112,7 +112,7 @@ selected_type = st.sidebar.selectbox("Select Type", options=["Game", "Practice",
 # --- Define filter for game types ---
 if selected_type == "Season":
     game_types = ["Game", "Practice"]  # Combine both
-elif selected_type == "All inclduding Pickup":
+elif selected_type == "All Inclduding Pickup":
     game_types = ["Pickup", "Practice", "Game"]
 else:
     game_types = [selected_type]
