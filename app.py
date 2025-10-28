@@ -626,10 +626,10 @@ if selected_player != "Team":
     ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
 else:
     # For "Team", sum all players
-    total_assists = stats_df["Ast"].sum()
-    total_turnovers = stats_df["TO"].sum()
-    total_off_rebs = stats_df["OFF_Reb"].sum()
-    total_def_rebs = stats_df["DEF_Reb"].sum()
+    total_assists = pickup_df["Ast"].sum()
+    total_turnovers = pickup_df["TO"].sum()
+    total_off_rebs = pickup_df["OFF_Reb"].sum()
+    total_def_rebs = pickup_df["DEF_Reb"].sum()
     ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
 
 with tab5:
