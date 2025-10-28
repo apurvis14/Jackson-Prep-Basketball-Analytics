@@ -82,6 +82,8 @@ st.sidebar.button("Logout", on_click=do_logout)
 # Direct CSV URL
 csv_url = st.secrets["data"]["shooting_url"]
 csv_url_hustle = st.secrets["data"]["hustle_url"]
+practice_url = st.secrets["data"]["practice_url"]
+stats_df = pd.read_csv(practice_url)
 
 # Set DF Variable
 df = pd.read_csv(csv_url)
@@ -127,6 +129,10 @@ else:
 # -----------------------------
 if selected_week_shot != "Season":
     filtered = df[df["WEEK"] == selected_week_shot]
+    if selected_week_shot in stats_df["Week"].unique():
+        stats_df = stats_df[stats_df["Week"] == selected_week_shot]
+    else:
+        stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
 else:
     # --- Regular filtering logic ---
     if selected_player == "Team" and selected_game == "Season":
