@@ -102,7 +102,7 @@ if selected_player == "Team":
 else:
     games = df[df["PLAYER"] == selected_player]["GAME"].dropna().unique().tolist()
 games.sort()
-games = ["Season"] + games + ["All inclduding Pickup"]  # Add "Season" option at top
+games = ["Season"] + ["All inclduding Pickup"] + games  # Add "Season" option at top
 selected_game = st.sidebar.selectbox("Select Game/Practice", games)
 
 
