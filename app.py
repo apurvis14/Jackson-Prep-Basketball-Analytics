@@ -107,7 +107,7 @@ selected_game = st.sidebar.selectbox("Select Game/Practice", games)
 
 
 # --- Type Dropdown ---
-selected_type = st.sidebar.selectbox("Select Type", options=["Game", "Practice", "Season"], index=2)
+selected_type = st.sidebar.selectbox("Select Type", options=["Game", "Practice", "Season", "All Including Pickup"], index=2)
 
 # --- Define filter for game types ---
 if selected_type == "Season":
