@@ -467,9 +467,6 @@ with tab3:
 
     st.pyplot(fig)
 
-practice_url = st.secrets["data"]["practice_url"]
-stats_df = pd.read_csv(practice_url)
-
 player_info = {
     "Asher Reynolds": {"number": 4, "position": "Guard"},
     "Ben Roberts Smith": {"number": 12, "position": "Guard"},
