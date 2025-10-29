@@ -162,11 +162,20 @@ selected_week = st.sidebar.selectbox("Select Week", weeks)
 
 # --- Filtering Logic ---
 if selected_week == "Season":
-    df_hustle = df_hustle
+    if selected_game != "Season":
+        df_hustle = df_hustle[
+            (df_hustle["Game/Practice"] == str(selected_game))]
+    else:
+        df_hustle = df_hustle
 
 else:
-    df_hustle = df_hustle[
-        (df_hustle["Week"] == selected_week)]
+    if selected_game != "Season":
+        df_hustle = df_hustle[
+            (df_hustle["Game/Practice"] == str(selected_game))
+            & (df_hustle["Week"] == selected_week)]
+    else:
+        df_hustle = df_hustle[
+            (df_hustle["Week"] == selected_week)]
 
 # Create Tabs
 tab1, tab2, tab4, tab5, tab3 = st.tabs(["Shot Chart", "Player Game Stats", "Player Practice Stats", "Pickup Stats", 'Lunch Pail Stats'])
