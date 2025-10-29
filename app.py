@@ -156,7 +156,7 @@ else:
 # -----------------------------
     # Add Game/Practice filtering for practice stats
     # -----------------------------
-if selected_game != "Season" and "Game" in stats_df.columns:
+if selected_game != "Season" and "Practice" in stats_df.columns:
     game_values = stats_df["Practice"].dropna().astype(str).unique().tolist()
     if str(selected_game) in game_values:
         stats_df = stats_df[stats_df["Practice"].astype(str) == str(selected_game)]
