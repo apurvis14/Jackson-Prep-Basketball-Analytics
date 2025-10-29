@@ -153,6 +153,16 @@ else:
             & (df["TYPE"].isin(game_types))
         ]
 
+# -----------------------------
+    # Add Game/Practice filtering for practice stats
+    # -----------------------------
+if selected_game != "Season" and "Game" in stats_df.columns:
+    game_values = stats_df["Game"].dropna().astype(str).unique().tolist()
+    if str(selected_game) in game_values:
+        stats_df = stats_df[stats_df["Game"].astype(str) == str(selected_game)]
+    else:
+        st.sidebar.info(f"No practice stats found for {selected_game} — showing full season.")
+
 st.sidebar.header("Lunch Pail Week Filter")
 weeks = df_hustle["Week"].dropna().unique().tolist()
 weeks.sort()
