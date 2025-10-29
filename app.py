@@ -153,6 +153,14 @@ else:
             & (df["TYPE"].isin(game_types))
         ]
 
+        stats_df = stats_df.copy()
+
+    if selected_type != "Season":
+        stats_df = stats_df[stats_df['Type'] == selected_type]
+
+    if selected_game != "Season":
+        stats_df = stats_df[stats_df['Practice'] == selected_game]    
+
 st.sidebar.header("Lunch Pail Week Filter")
 weeks = df_hustle["Week"].dropna().unique().tolist()
 weeks.sort()
