@@ -506,7 +506,7 @@ selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info
 
 # Apply Game filter (if not "Season")
 if selected_game != "Season":
-    stats_filtered = stats_df[stats_df["Practice"] == selected_game]
+    stats_df = stats_df[stats_df["Practice"] == str(selected_game)]
 
 if selected_player != "Team":
     player_df = stats_df[stats_df["Player"] == selected_player]
