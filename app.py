@@ -151,15 +151,7 @@ else:
             (df["PLAYER"] == selected_player)
             & (df["GAME"] == selected_game)
             & (df["TYPE"].isin(game_types))
-        ]
-
-        stats_df = stats_df.copy()
-
-    if selected_type != "Season":
-        stats_df = stats_df[stats_df['Type'] == selected_type]
-
-    if selected_game != "Season":
-        stats_df = stats_df[stats_df['Practice'] == selected_game]    
+        ] 
 
 st.sidebar.header("Lunch Pail Week Filter")
 weeks = df_hustle["Week"].dropna().unique().tolist()
@@ -510,6 +502,10 @@ player_info = {
 
 selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}" 
                         if x in player_info else x)(selected_player)
+
+# Apply Game filter (if not "Season")
+if selected_game != "Season":
+    stats_filtered = stats_df[stats_df["Practice"] == selected_game]
 
 if selected_player != "Team":
     player_df = stats_df[stats_df["Player"] == selected_player]
