@@ -151,7 +151,8 @@ else:
             (df["PLAYER"] == selected_player)
             & (df["GAME"] == selected_game)
             & (df["TYPE"].isin(game_types))
-        ] 
+        ]
+    stats_df = stats_df.copy() 
 
 st.sidebar.header("Lunch Pail Week Filter")
 weeks = df_hustle["Week"].dropna().unique().tolist()
