@@ -83,17 +83,17 @@ st.sidebar.button("Logout", on_click=do_logout)
 csv_url = st.secrets["data"]["shooting_url"]
 csv_url_hustle = st.secrets["data"]["hustle_url"]
 practice_url = st.secrets["data"]["practice_url"]
-stats_df = pd.read_csv(practice_url)
 
 # Set DF Variable
 df = pd.read_csv(csv_url)
 df_hustle = pd.read_csv(csv_url_hustle)
+stats_df = pd.read_csv(practice_url)
 
 # Sidebar filters
 st.sidebar.header("Shot/Player Filters")
 
 # --- Player Dropdown ---
-players = df["PLAYER"].dropna().unique().tolist()
+players = stats_df["PLAYER"].dropna().unique().tolist()
 players.sort()
 players = ["Team"] + players  # Add "Team" option at top
 selected_player = st.sidebar.selectbox("Select Player", players)
