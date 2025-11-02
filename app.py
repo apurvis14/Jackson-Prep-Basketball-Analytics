@@ -187,7 +187,7 @@ if selected_player != "Team":
         filtered_player.loc[0] = [0 if np.issubdtype(dtype, np.number) else "" for dtype in df.dtypes]
 
     # Filter hustle data
-    filtered_hustle = df_hustle[df_hustle["PLAYER"] == selected_player]
+    filtered_hustle = df_hustle[df_hustle["Player"] == selected_player]
     if filtered_hustle.empty:
         filtered_hustle = pd.DataFrame(columns=df_hustle.columns)
         filtered_hustle.loc[0] = [0 if np.issubdtype(dtype, np.number) else "" for dtype in df_hustle.dtypes]
