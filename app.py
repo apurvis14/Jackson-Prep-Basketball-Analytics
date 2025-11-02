@@ -178,35 +178,7 @@ else:
         df_hustle = df_hustle[
             (df_hustle["Week"] == selected_week)]
 
-# --- Preserve selection context even if no data ---
-def safe_filter(df_source, filters, df_template):
-    """Applies filters, returns 0-filled df if empty"""
-    filtered_df = df_source.copy()
-    for col, val in filters.items():
-        if col in filtered_df.columns and val is not None:
-            filtered_df = filtered_df[filtered_df[col] == val]
-    # If no rows found, return zero-filled DataFrame (same columns)
-    if filtered_df.empty:
-        zero_df = pd.DataFrame(columns=df_template.columns)
-        if not zero_df.columns.empty:
-            zero_df.loc[0] = [
-                0 if np.issubdtype(dtype, np.number) else ""
-                for dtype in df_template.dtypes
-            ]
-        return zero_df
-    return filtered_df
 
-
-# --- Apply safe filtering logic for all datasets ---
-filters_common = {
-    "PLAYER": selected_player if selected_player != "Team" else None,
-    "GAME": selected_game if selected_game != "Season" else None,
-    "WEEK": selected_week_shot if selected_week_shot != "Season" else None,
-}
-
-filtered = safe_filter(df, filters_common, df)
-df_hustle = safe_filter(df_hustle, filters_common, df_hustle)
-stats_df = safe_filter(stats_df, filters_common, stats_df)
 
 # Create Tabs
 tab1, tab2, tab4, tab5, tab3 = st.tabs(["Shot Chart", "Player Game Stats", "Player Practice Stats", "Pickup Stats", 'Lunch Pail Stats'])
