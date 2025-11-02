@@ -93,7 +93,7 @@ stats_df = pd.read_csv(practice_url)
 st.sidebar.header("Shot/Player Filters")
 
 # --- Player Dropdown ---
-players = stats_df["Player"].dropna().unique().tolist()
+players = df["PLAYER"].dropna().unique().tolist()
 players.sort()
 players = ["Team"] + players  # Add "Team" option at top
 selected_player = st.sidebar.selectbox("Select Player", players)
