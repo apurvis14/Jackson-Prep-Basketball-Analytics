@@ -192,7 +192,7 @@ else:
 
 
 # Create Tabs
-tab1, tab2, tab4, tab5, tab3 = st.tabs(["Shot Chart", "Player Game Stats", "Player Practice Stats", "Pickup Stats", 'Lunch Pail Stats'])
+tab1, tab2, tab6, tab4, tab7, tab5, tab3 = st.tabs(["Shot Chart", "Player Game Dashboard", "Team Game Stats", "Player Practice Dashboard", "Team Practice Stats", "Pickup Stats", 'Lunch Pail Stats'])
 
 st.markdown(
     """
@@ -796,4 +796,43 @@ with tab5:
             centered_metric("DEF Rebs", total_def_rebs)
 
         with col3:
-            centered_metric("Total Rebs", total_off_rebs + total_def_rebs)    
+            centered_metric("Total Rebs", total_off_rebs + total_def_rebs)
+
+
+with tab6:
+    st.markdown(
+        """
+        <div style="
+            border: 3px solid red;
+            border-radius: 15px;
+            padding: 5px 5px;
+            width: 350px;              /* fixed width to ensure centering */
+            margin: 10px auto;         /* auto horizontal margin centers the div */
+            text-align: center;
+        ">
+            <h1 style='margin: 0; font-size: 48px; text-decoration: underline; font-weight: bold;'>Team Game Stats</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(styled_text("Coming Soon!", size=32, weight='bold', margin="200px 0px", underline=False, center=True), unsafe_allow_html=True)
+
+with tab7:
+    st.markdown(
+        """
+        <div style="
+            border: 3px solid red;
+            border-radius: 15px;
+            padding: 5px 5px;
+            width: 350px;              /* fixed width to ensure centering */
+            margin: 10px auto;         /* auto horizontal margin centers the div */
+            text-align: center;
+        ">
+            <h1 style='margin: 0; font-size: 48px; text-decoration: underline; font-weight: bold;'>Team Practice Stats</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(styled_text("Coming Soon!", size=32, weight='bold', margin="200px 0px", underline=False, center=True), unsafe_allow_html=True)    
