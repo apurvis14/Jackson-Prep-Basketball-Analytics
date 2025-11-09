@@ -860,14 +860,16 @@ with tab7:
     cols.insert(6, cols.pop(cols.index('Total Rebs')))
     practice = practice[cols]
 
+    practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
+
     # Sort Practice Data Frame by sum of Assists, OFF Rebs, DEF Rebs
     practice = practice.sort_values(by=['Assists', 'Total Rebs'], ascending=False)
 
     practice['Player'] = practice['Player'].apply(split_name)
 
-    # Create a copy for display purposes
+    # Create a copy for display purposes but remove Practice Score
     practice_display = practice.copy()
-
+    practice_display = practice_display.drop(columns=['Practice Score'])
 
     if selected_week == "Season":
         title = "Season Practice Stats"
