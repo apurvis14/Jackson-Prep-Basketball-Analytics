@@ -860,14 +860,13 @@ with tab7:
     cols.insert(6, cols.pop(cols.index('Total Rebs')))
     practice = practice[cols]
 
+    # Sort Practice Data Frame by sum of Assists, OFF Rebs, DEF Rebs
+    practice = practice.sort_values(by=['Assists', 'OFF Rebs', 'DEF Rebs'], ascending=False)
+
     practice['Player'] = practice['Player'].apply(split_name)
 
     # Create a copy for display purposes
     practice_display = practice.copy()
-
-    # Replace 0s with empty strings for display
-    # cols_to_replace = practice_display.columns[1:]  # skip 'Player' column
-    # practice_display[cols_to_replace] = practice_display[cols_to_replace].replace(0, "")
 
 
     if selected_week == "Season":
