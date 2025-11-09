@@ -294,27 +294,27 @@ if selected_player != "Team":
     player_df = game_df[game_df["Player"] == selected_player]
 
     if player_df.empty:
-        total_assists = 0
-        total_turnovers = 0
-        total_off_rebs = 0
-        total_def_rebs = 0
-        ast_to_ratio = 0
+        game_total_assists = 0
+        game_total_turnovers = 0
+        game_total_off_rebs = 0
+        game_total_def_rebs = 0
+        game_ast_to_ratio = 0
     else:
         # Sum the stats for that player
-        total_assists = player_df["Ast"].sum()
-        total_turnovers = player_df["TO"].sum()
-        total_off_rebs = player_df["OFF_Reb"].sum()
-        total_def_rebs = player_df["DEF_Reb"].sum()
+        game_total_assists = player_df["Ast"].sum()
+        game_total_turnovers = player_df["TO"].sum()
+        game_total_off_rebs = player_df["OFF_Reb"].sum()
+        game_total_def_rebs = player_df["DEF_Reb"].sum()
 
-            # Derived metric
-        ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
+        # Derived metric
+        game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
 else:
     # For "Team", sum all players
-    total_assists = game_df["Ast"].sum()
-    total_turnovers = game_df["TO"].sum()
-    total_off_rebs = game_df["OFF_Reb"].sum()
-    total_def_rebs = game_df["DEF_Reb"].sum()
-    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
+    game_total_assists = game_df["Ast"].sum()
+    game_total_turnovers = game_df["TO"].sum()
+    game_total_off_rebs = game_df["OFF_Reb"].sum()
+    game_total_def_rebs = game_df["DEF_Reb"].sum()
+    game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
 
 # -----------------------------
 # Tab 2: Player Stats Dashboard
@@ -422,24 +422,24 @@ with tab2:
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
-            centered_metric("ASTs", )
+            centered_metric("ASTs", game_total_assists)
 
         with col2:
-            centered_metric("TOs", )
+            centered_metric("TOs", game_total_turnovers)
 
         with col3:
-            centered_metric("AST/TO", )
-        
+            centered_metric("AST/TO", game_ast_to_ratio)
+
         col4, col5, col6 = st.columns(3)
 
         with col4:
-            centered_metric("DEF Rebs", )
+            centered_metric("DEF Rebs", game_total_def_rebs)
 
         with col5:
-            centered_metric("OFF Rebs", )
+            centered_metric("OFF Rebs", game_total_off_rebs)
 
         with col6:
-            centered_metric("Total Rebs",)
+            centered_metric("Total Rebs", game_total_def_rebs + game_total_off_rebs)
 
 with tab3:
 
