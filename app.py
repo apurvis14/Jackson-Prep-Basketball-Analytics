@@ -836,78 +836,84 @@ with tab7:
     )
     
     if stats_df.empty:
-        st.markdown(styled_text("No Practice Stats Available", size=32, weight='bold', margin="200px 0px", underline=False, center=True), unsafe_allow_html=True)
-    
-
-    practice = stats_df.groupby('Player').agg(
-            {'Ast': 'sum',
-            'TO': 'sum',
-            'OFF_Reb': 'sum',
-            'DEF_Reb': 'sum'}
-        ).reset_index()
-
-    # Fill all NaN with 0
-    practice = practice.fillna(0)
-
-    practice['AST/TO Ratio'] = round(practice['Ast'] / practice['TO'], 2)
-    practice['Total Rebs'] = practice['OFF_Reb'] + practice['DEF_Reb']
-
-    practice = practice.rename(columns={
-    "Ast": "Assists",
-    "TO": "Turnovers",
-    "OFF_Reb": "OFF Rebs",
-    "DEF_Reb": "DEF Rebs",
-    })
-    
-    cols = practice.columns.tolist()
-    cols.insert(3, cols.pop(cols.index('AST/TO Ratio')))
-    cols.insert(6, cols.pop(cols.index('Total Rebs')))
-    practice = practice[cols]
-
-    practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
-
-    # Sort Practice Data Frame by sum of Assists, OFF Rebs, DEF Rebs
-    practice = practice.sort_values(by=['Practice Score'], ascending=False)
-
-    practice['Player'] = practice['Player'].apply(split_name)
-
-    # Create a copy for display purposes but remove Practice Score
-    practice_display = practice.copy()
-    practice_display = practice_display.drop(columns=['Practice Score'])
-
-    fig, ax = plt.subplots(figsize=(32, 40))
-    ax.axis('off')
-
-    # Create table with Formatted DataFrame
-    table = plt.table(
-        cellText=practice_display.values,
-        colLabels=practice_display.columns,
-        cellLoc='center',
-        bbox=[-0.05, 0.13, 1.05, 0.95]
+        st.markdown(
+        styled_text(
+            "No Practice Stats Available",
+            size=32,
+            weight='bold',
+            margin="200px 0px",
+            underline=False,
+            center=True
+        ),
+        unsafe_allow_html=True
     )
 
-    # Resize to ensure fit and readability
-    table.auto_set_font_size(False)
-    table.set_fontsize(28)
-    table.scale(1.4, 2.5)
+    else:
+        practice = stats_df.groupby('Player').agg(
+            {
+                'Ast': 'sum',
+                'TO': 'sum',
+                'OFF_Reb': 'sum',
+                'DEF_Reb': 'sum'
+            }
+        ).reset_index()
 
-    # Change Color the header row
-    for key, cell in table.get_celld().items():
-        row, col = key
-        if row == 0:  # header row
-            cell.set_facecolor('#da1a32')
-            cell.set_linewidth(2.5)
-            cell.set_edgecolor('#0033A0')
-            cell.get_text().set_fontweight('bold')
-            cell.get_text().set_color('#0033A0')
-            cell.set_fontsize(30)
-        else:
-            cell.get_text().set_color('#0033A0')
-            cell.set_edgecolor('#0033A0')
-    
-            if row % 2 == 0:
-                cell.set_facecolor('#f2f2f2')  # light gray
+        # Fill all NaN with 0
+        practice = practice.fillna(0)
+
+        practice['AST/TO Ratio'] = round(practice['Ast'] / practice['TO'].replace(0, np.nan), 2).fillna(0)
+        practice['Total Rebs'] = practice['OFF_Reb'] + practice['DEF_Reb']
+
+        practice = practice.rename(columns={
+            "Ast": "Assists",
+            "TO": "Turnovers",
+            "OFF_Reb": "OFF Rebs",
+            "DEF_Reb": "DEF Rebs",
+        })
+
+        cols = practice.columns.tolist()
+        cols.insert(3, cols.pop(cols.index('AST/TO Ratio')))
+        cols.insert(6, cols.pop(cols.index('Total Rebs')))
+        practice = practice[cols]
+
+        practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
+
+        # Sort Practice DataFrame
+        practice = practice.sort_values(by=['Practice Score'], ascending=False)
+
+        practice['Player'] = practice['Player'].apply(split_name)
+
+        # Create display version (without Practice Score)
+        practice_display = practice.drop(columns=['Practice Score']).copy()
+
+        fig, ax = plt.subplots(figsize=(32, 40))
+        ax.axis('off')
+
+        # Create table
+        table = plt.table(
+            cellText=practice_display.values,
+            colLabels=practice_display.columns,
+            cellLoc='center',
+            bbox=[-0.05, 0.13, 1.05, 0.95]
+        )
+
+        # Style table
+        table.auto_set_font_size(False)
+        table.set_fontsize(28)
+        table.scale(1.4, 2.5)
+
+        for key, cell in table.get_celld().items():
+            row, col = key
+            if row == 0:
+                cell.set_facecolor('#da1a32')
+                cell.set_linewidth(2.5)
+                cell.set_edgecolor('#0033A0')
+                cell.get_text().set_fontweight('bold')
+                cell.get_text().set_color('#0033A0')
+                cell.set_fontsize(30)
             else:
-                cell.set_facecolor('white')    # default white
+                cell.get_text().set_color('#0033A0')
+                cell.set_edgecolor('#0033A0')
+                cell.set_facecolor('#f2f2f2' if row % 2 == 0 else 'white')
 
-    st.pyplot(fig)   
+        st.pyplot(fig)
