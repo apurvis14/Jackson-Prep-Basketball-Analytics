@@ -842,6 +842,9 @@ with tab7:
             'DEF_Reb': 'sum'}
         ).reset_index()
 
+    # Fill all NaN with 0
+    practice = practice.fillna(0)
+
     practice['AST/TO Ratio'] = round(practice['Ast'] / practice['TO'], 2)
     practice['Total Rebs'] = practice['OFF_Reb'] + practice['DEF_Reb']
 
@@ -863,8 +866,8 @@ with tab7:
     practice_display = practice.copy()
 
     # Replace 0s with empty strings for display
-    cols_to_replace = practice_display.columns[1:]  # skip 'Player' column
-    practice_display[cols_to_replace] = practice_display[cols_to_replace].replace(0, "")
+    # cols_to_replace = practice_display.columns[1:]  # skip 'Player' column
+    # practice_display[cols_to_replace] = practice_display[cols_to_replace].replace(0, "")
 
 
     if selected_week == "Season":
