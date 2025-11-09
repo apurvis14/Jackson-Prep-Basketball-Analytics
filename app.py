@@ -84,11 +84,13 @@ st.sidebar.button("Logout", on_click=do_logout)
 csv_url = st.secrets["data"]["shooting_url"]
 csv_url_hustle = st.secrets["data"]["hustle_url"]
 practice_url = st.secrets["data"]["practice_url"]
+game_url = st.secrets["data"]["game_url"]
 
 # Set DF Variable
 df = pd.read_csv(csv_url)
 df_hustle = pd.read_csv(csv_url_hustle)
 stats_df = pd.read_csv(practice_url)
+game_df = pd.read_csv(game_url)
 
 # Sidebar filters
 st.sidebar.header("Shot/Player Filters")
@@ -110,9 +112,9 @@ selected_type = st.sidebar.selectbox("Select Type", options=["Game", "Practice",
 
 # --- Game Dropdown ---
 if selected_player == "Team":
-    games = stats_df["Practice"].dropna().unique().tolist()
+    games = df["GAME"].dropna().unique().tolist()
 else:
-    games = stats_df["Practice"].dropna().unique().tolist()
+    games = df["GAME"].dropna().unique().tolist()
 games.sort()
 games = ["Season"] + games  # Add "Season" option at top
 selected_game = st.sidebar.selectbox("Select Game/Practice", games)
@@ -138,6 +140,15 @@ if selected_week_shot != "Season":
             stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
     else:
         stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
+
+    if "Week" in game_df.columns:
+        week_values_game = game_df["Week"].astype(str).unique().tolist()
+        if str(selected_week_shot) in week_values_game:
+            game_df = game_df[game_df["Week"].astype(str) == str(selected_week_shot)]
+        else:
+            game_df = game_df.iloc[0:0]  # Empty DF if week not found
+    else:
+        game_df = game_df.iloc[0:0]  # Empty DF if week not found
 
 else:
     # --- Regular filtering logic ---
@@ -276,6 +287,35 @@ player_info = {
 selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}" 
                         if x in player_info else x)(selected_player)
 
+if selected_game != "Season":
+    game_df = game_df[game_df["Game"] == str(selected_game)]
+
+if selected_player != "Team":
+    player_df = game_df[game_df["Player"] == selected_player]
+
+    if player_df.empty:
+        total_assists = 0
+        total_turnovers = 0
+        total_off_rebs = 0
+        total_def_rebs = 0
+        ast_to_ratio = 0
+    else:
+        # Sum the stats for that player
+        total_assists = player_df["Ast"].sum()
+        total_turnovers = player_df["TO"].sum()
+        total_off_rebs = player_df["OFF_Reb"].sum()
+        total_def_rebs = player_df["DEF_Reb"].sum()
+
+            # Derived metric
+        ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
+else:
+    # For "Team", sum all players
+    total_assists = game_df["Ast"].sum()
+    total_turnovers = game_df["TO"].sum()
+    total_off_rebs = game_df["OFF_Reb"].sum()
+    total_def_rebs = game_df["DEF_Reb"].sum()
+    ast_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
+
 # -----------------------------
 # Tab 2: Player Stats Dashboard
 # -----------------------------
@@ -328,13 +368,13 @@ with tab2:
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            centered_metric("Points Per Game", 15)
+            centered_metric("Points Per Game", "N/A")
 
         with col2:
-            centered_metric("Assists Per Game", 2)
+            centered_metric("Assists Per Game", "N/A")
 
         with col3:
-            centered_metric("Rebs. Per Game", 6)
+            centered_metric("Rebs. Per Game", "N/A")
 
         st.markdown(
             "<hr style='border: 1px solid #0033A0; margin-top: 1rem; margin-bottom: 0rem;'>",
@@ -345,13 +385,13 @@ with tab2:
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            centered_metric("OFF Efficiency", 100.4)
+            centered_metric("OFF Efficiency", "N/A")
 
         with col2:
-            centered_metric("DEF Efficiency", 92.3)
+            centered_metric("DEF Efficiency", "N/A")
 
         with col3:
-            centered_metric("Net Efficiency", +8.1)
+            centered_metric("Net Efficiency", "N/A")
 
         st.markdown(
             "<hr style='border: 1px solid #0033A0; margin-top: 1rem; margin-bottom: 0rem;'>",
@@ -362,33 +402,44 @@ with tab2:
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
-            centered_metric("eFG %", 58.7)
+            centered_metric("eFG %", "N/A")
 
         with col2:
-            centered_metric("3PT %", 38.7)
+            centered_metric("3PT %", "N/A")
 
         with col3:
-            centered_metric("2PT %", 52.5)
+            centered_metric("2PT %", "N/A")
         
         with col4:
-            centered_metric("FT %", 78.6)
+            centered_metric("FT %", "N/A")
 
         st.markdown(
             "<hr style='border: 1px solid #0033A0; margin-top: 1rem; margin-bottom: 0rem;'>",
             unsafe_allow_html=True)
 
-        st.markdown(styled_text("Advanced Stats", size=28, weight='normal', margin="2px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True) 
+        st.markdown(styled_text("Totals AST, TO, Rebs", size=28, weight='normal', margin="2px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True) 
 
-        col1, col2, col3 = st.columns(3)
+        col1, col2, col3, col4 = st.columns(4)
 
         with col1:
-            centered_metric("AST/TO", 1.5)
+            centered_metric("ASTs", )
 
         with col2:
-            centered_metric("AST %", 33.3)
+            centered_metric("TOs", )
 
         with col3:
-            centered_metric("STL + BLK / 100", 23)
+            centered_metric("AST/TO", )
+        
+        col4, col5, col6 = st.columns(3)
+
+        with col4:
+            centered_metric("DEF Rebs", )
+
+        with col5:
+            centered_metric("OFF Rebs", )
+
+        with col6:
+            centered_metric("Total Rebs",)
 
 with tab3:
 
