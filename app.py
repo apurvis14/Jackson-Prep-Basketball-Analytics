@@ -863,7 +863,7 @@ with tab7:
     practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
 
     # Sort Practice Data Frame by sum of Assists, OFF Rebs, DEF Rebs
-    practice = practice.sort_values(by=['Assists', 'Total Rebs'], ascending=False)
+    practice = practice.sort_values(by=['Practice Score'], ascending=False)
 
     practice['Player'] = practice['Player'].apply(split_name)
 
