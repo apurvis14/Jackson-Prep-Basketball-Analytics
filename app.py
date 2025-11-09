@@ -82,7 +82,7 @@ st.sidebar.button("Logout", on_click=do_logout)
 # -----------------------------
 # Direct CSV URL
 @st.cache_data
-def load_data(url):
+def load_data():
     csv_url = st.secrets["data"]["shooting_url"]
     csv_url_hustle = st.secrets["data"]["hustle_url"]
     practice_url = st.secrets["data"]["practice_url"]
