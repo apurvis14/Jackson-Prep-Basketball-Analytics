@@ -838,7 +838,7 @@ with tab7:
     if stats_df.empty:
         st.markdown(
         styled_text(
-            "No Practice Stats Available",
+            "No Practice Stats Available for Selected Game",
             size=32,
             weight='bold',
             margin="200px 0px",
