@@ -860,8 +860,10 @@ with tab7:
     cols.insert(6, cols.pop(cols.index('Total Rebs')))
     practice = practice[cols]
 
+    sum = practice['Assists'] + practice['OFF Rebs'] + practice['DEF Rebs']
+    
     # Sort Practice Data Frame by sum of Assists, OFF Rebs, DEF Rebs
-    practice = practice.sort_values(by=['Assists', 'OFF Rebs', 'DEF Rebs'], ascending=False)
+    practice = practice.sort_values(by=sum, ascending=False)
 
     practice['Player'] = practice['Player'].apply(split_name)
 
