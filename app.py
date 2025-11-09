@@ -834,6 +834,10 @@ with tab7:
         """,
         unsafe_allow_html=True
     )
+    
+    if stats_df.empty:
+        st.markdown(styled_text("No Practice Stats Available", size=32, weight='bold', margin="200px 0px", underline=False, center=True), unsafe_allow_html=True)
+    
 
     practice = stats_df.groupby('Player').agg(
             {'Ast': 'sum',
