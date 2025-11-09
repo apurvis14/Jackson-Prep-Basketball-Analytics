@@ -419,7 +419,7 @@ with tab2:
 
         st.markdown(styled_text("Totals AST, TO, Rebs", size=28, weight='normal', margin="2px 0px 0px 0px", underline=False, center=False, vertical=False), unsafe_allow_html=True) 
 
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3 = st.columns(4)
 
         with col1:
             centered_metric("ASTs", game_total_assists)
