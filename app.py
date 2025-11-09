@@ -835,4 +835,77 @@ with tab7:
         unsafe_allow_html=True
     )
 
-    st.markdown(styled_text("Coming Soon!", size=32, weight='bold', margin="200px 0px", underline=False, center=True), unsafe_allow_html=True)    
+    practice = stats_df.groupby('Player').agg(
+            {'Ast': 'sum',
+            'TO': 'sum',
+            'OFF_Reb': 'sum',
+            'DEF_Reb': 'sum'}
+        ).reset_index()
+
+    practice['AST/TO Ratio'] = practice['Ast'] / practice['TO']
+    practice['Total Rebs'] = practice['OFF_Reb'] + practice['DEF_Reb']
+
+    practice = practice.rename(columns={
+    "Ast": "Assists",
+    "TO": "Turnovers",
+    "OFF_Reb": "OFF Rebs",
+    "DEF_Reb": "DEF Rebs",
+    })
+    
+    cols = practice.columns.tolist()
+    cols.insert(3, cols.pop(cols.index('AST/TO Ratio')))
+    cols.insert(6, cols.pop(cols.index('Total Rebs')))
+    practice = practice[cols]
+
+    practice['Player'] = practice['Player'].apply(split_name)
+
+    # Create a copy for display purposes
+    practice_display = practice.copy()
+
+    # Replace 0s with empty strings for display
+    cols_to_replace = practice_display.columns[1:]  # skip 'Player' column
+    practice_display[cols_to_replace] = practice_display[cols_to_replace].replace(0, "")
+
+
+    if selected_week == "Season":
+        title = "Season Practice Stats"
+    else:
+        title = f"Week {selected_week} Practice Stats"
+
+    fig, ax = plt.subplots(figsize=(32, 40))
+    fig.suptitle(title, fontsize=36, color='#0033A0', fontweight='bold', y=0.975)
+    ax.axis('off')
+
+    # Create table with Formatted DataFrame
+    table = plt.table(
+        cellText=practice_display.values,
+        colLabels=practice_display.columns,
+        cellLoc='center',
+        bbox=[-0.05, 0.13, 1.05, 0.95]
+    )
+
+    # Resize to ensure fit and readability
+    table.auto_set_font_size(False)
+    table.set_fontsize(28)
+    table.scale(1.4, 2.5)
+
+    # Change Color the header row
+    for key, cell in table.get_celld().items():
+        row, col = key
+        if row == 0:  # header row
+            cell.set_facecolor('#da1a32')
+            cell.set_linewidth(2.5)
+            cell.set_edgecolor('#0033A0')
+            cell.get_text().set_fontweight('bold')
+            cell.get_text().set_color('#0033A0')
+            cell.set_fontsize(30)
+        else:
+            cell.get_text().set_color('#0033A0')
+            cell.set_edgecolor('#0033A0')
+    
+            if row % 2 == 0:
+                cell.set_facecolor('#f2f2f2')  # light gray
+            else:
+                cell.set_facecolor('white')    # default white
+
+    st.pyplot(fig)   
