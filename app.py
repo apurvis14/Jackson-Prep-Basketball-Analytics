@@ -871,11 +871,6 @@ with tab7:
     practice_display = practice.copy()
     practice_display = practice_display.drop(columns=['Practice Score'])
 
-    if selected_week == "Season":
-        title = "Season Practice Stats"
-    else:
-        title = f"Week {selected_week} Practice Stats"
-
     fig, ax = plt.subplots(figsize=(32, 40))
     fig.suptitle(title, fontsize=36, color='#0033A0', fontweight='bold', y=0.975)
     ax.axis('off')
