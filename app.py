@@ -192,7 +192,7 @@ else:
 
 
 # Create Tabs
-tab1, tab2, tab6, tab4, tab7, tab5, tab3 = st.tabs(["Shot Chart", "Player Game Dashboard", "Team Game Stats", "Player Practice Dashboard", "Team Practice Stats", "Pickup Stats", 'Lunch Pail Stats'])
+tab1, tab7, tab6, tab3, tab2, tab4, tab5 = st.tabs(["Shot Chart", "Team Practice Stats", "Team Game Stats", 'Lunch Pail Stats', "Player Game Dashboard", "Player Practice Dashboard", "Pickup Dashboard"])
 
 st.markdown(
     """
