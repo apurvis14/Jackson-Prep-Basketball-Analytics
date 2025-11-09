@@ -836,19 +836,18 @@ with tab7:
     )
     
     if stats_df.empty:
-        st.markdown(
-        styled_text(
-            "No Practice Stats Available for Selected Game",
-            size=32,
-            weight='bold',
-            margin="200px 0px",
-            underline=False,
-            center=True
-        ),
-        unsafe_allow_html=True
-    )
-
-    else:
+        selected_game = "Season"
+    #     st.markdown(
+    #     styled_text(
+    #         f"No Practice Stats Available for {selected_game}",
+    #         size=32,
+    #         weight='bold',
+    #         margin="200px 0px",
+    #         underline=False,
+    #         center=True
+    #     ),
+    #     unsafe_allow_html=True
+    # )
         practice = stats_df.groupby('Player').agg(
             {
                 'Ast': 'sum',
