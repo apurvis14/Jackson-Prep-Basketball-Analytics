@@ -842,7 +842,7 @@ with tab7:
             'DEF_Reb': 'sum'}
         ).reset_index()
 
-    practice['AST/TO Ratio'] = practice['Ast'] / practice['TO']
+    practice['AST/TO Ratio'] = round(practice['Ast'] / practice['TO'], 2)
     practice['Total Rebs'] = practice['OFF_Reb'] + practice['DEF_Reb']
 
     practice = practice.rename(columns={
