@@ -806,7 +806,7 @@ with tab6:
             border: 3px solid red;
             border-radius: 15px;
             padding: 5px 5px;
-            width: 350px;              /* fixed width to ensure centering */
+            width: 500px;              /* fixed width to ensure centering */
             margin: 10px auto;         /* auto horizontal margin centers the div */
             text-align: center;
         ">
@@ -825,7 +825,7 @@ with tab7:
             border: 3px solid red;
             border-radius: 15px;
             padding: 5px 5px;
-            width: 350px;              /* fixed width to ensure centering */
+            width: 500px;              /* fixed width to ensure centering */
             margin: 10px auto;         /* auto horizontal margin centers the div */
             text-align: center;
         ">
