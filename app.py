@@ -832,13 +832,13 @@ with tab7:
         """
         <div style="
             border: 3px solid red;
-            border-radius: 15px;
-            padding: 5px 5px;
+            border-radius: 10px;
+            padding: 2px 2px;
             width: 500px;              /* fixed width to ensure centering */
             margin: 10px auto;         /* auto horizontal margin centers the div */
             text-align: center;
         ">
-            <h1 style='margin: 0; font-size: 48px; text-decoration: underline; font-weight: bold;'>Team Practice Stats</h1>
+            <h1 style='margin: 0; font-size: 36px; text-decoration: underline; font-weight: bold;'>Team Practice Stats</h1>
         </div>
         """,
         unsafe_allow_html=True
