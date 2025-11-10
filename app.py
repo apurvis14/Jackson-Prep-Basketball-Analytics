@@ -833,7 +833,7 @@ with tab7:
         <div style="
             border: 3px solid red;
             border-radius: 10px;
-            padding: 2px 2px;
+            padding: 5px 5px;
             width: 400px;              /* fixed width to ensure centering */
             margin: 10px auto;         /* auto horizontal margin centers the div */
             text-align: center;
