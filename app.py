@@ -824,6 +824,9 @@ with tab6:
 
     st.markdown(styled_text("Coming Soon!", size=32, weight='bold', margin="200px 0px", underline=False, center=True), unsafe_allow_html=True)
 
+if selected_game != "Season":
+    practice_df = practice_df[practice_df["Practice"] == str(selected_game)]
+
 with tab7:
     st.markdown(
         """
