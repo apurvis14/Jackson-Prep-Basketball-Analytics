@@ -824,7 +824,7 @@ with tab6:
         unsafe_allow_html=True
     )
 
-    if practice_df.empty:
+    if game_df.empty:
         st.markdown(
         styled_text(
             f"No Game Stats Available for {selected_game}",
