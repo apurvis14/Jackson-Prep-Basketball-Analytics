@@ -1004,7 +1004,7 @@ with tab7:
         # Create display version (without Practice Score)
         practice_display = practice.drop(columns=['Practice Score']).copy()
 
-        fig, ax = plt.subplots(figsize=(32, 32))
+        fig, ax = plt.subplots(figsize=(32, 36))
         ax.axis('off')
 
         # Create table
