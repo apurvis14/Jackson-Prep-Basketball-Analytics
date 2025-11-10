@@ -536,7 +536,7 @@ with tab3:
             cell.set_edgecolor('#0033A0')
     
             if row % 2 == 0:
-                cell.set_facecolor('#f2f2f2')  # light gray
+                cell.set_facecolor("#BDBDBDB0")  # light gray
             else:
                 cell.set_facecolor('white')    # default white
 
@@ -1032,6 +1032,6 @@ with tab7:
             else:
                 cell.get_text().set_color('#0033A0')
                 cell.set_edgecolor('#0033A0')
-                cell.set_facecolor('#f2f2f2' if row % 2 == 0 else 'white')
+                cell.set_facecolor("#BDBDBDB0" if row % 2 == 0 else 'white')
 
         st.pyplot(fig)
