@@ -804,8 +804,22 @@ with tab5:
         with col3:
             centered_metric("Total Rebs", total_off_rebs + total_def_rebs)
 
-if selected_game != "Season":
-    game_df = game_df[game_df["Game"] == str(selected_game)]
+# --- Filtering Logic ---
+if selected_week == "Season":
+    if selected_game != "Season":
+        game_df = game_df[
+            (game_df["Game"] == str(selected_game))]
+    else:
+        game_df = game_df
+
+else:
+    if selected_game != "Season":
+        game_df = game_df[
+            (game_df["Game"] == str(selected_game))
+            & (game_df["Week"] == selected_week)]
+    else:
+        game_df = game_df[
+            (game_df["Week"] == selected_week)]
 
 with tab6:
     st.markdown(
@@ -906,8 +920,22 @@ with tab6:
 
         st.pyplot(fig)
 
-if selected_game != "Season":
-    practice_df = practice_df[practice_df["Practice"] == str(selected_game)]
+# --- Filtering Logic ---
+if selected_week == "Season":
+    if selected_game != "Season":
+        practice_df = practice_df[
+            (practice_df["Practice"] == str(selected_game))]
+    else:
+        practice_df = practice_df
+
+else:
+    if selected_game != "Season":
+        practice_df = practice_df[
+            (practice_df["Practice"] == str(selected_game))
+            & (practice_df["Week"] == selected_week)]
+    else:
+        practice_df = practice_df[
+            (practice_df["Week"] == selected_week)]
 
 with tab7:
     st.markdown(
