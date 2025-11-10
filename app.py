@@ -889,7 +889,7 @@ with tab7:
         # Sort Practice DataFrame
         practice = practice.sort_values(by=['Practice Score'], ascending=False)
 
-        practice['Player'] = practice['Player'].apply(split_name)
+        # practice['Player'] = practice['Player'].apply(split_name)
 
         # Create display version (without Practice Score)
         practice_display = practice.drop(columns=['Practice Score']).copy()
