@@ -804,6 +804,8 @@ with tab5:
         with col3:
             centered_metric("Total Rebs", total_off_rebs + total_def_rebs)
 
+if selected_game != "Season":
+    game_df = game_df[game_df["Game"] == str(selected_game)]
 
 with tab6:
     st.markdown(
@@ -822,7 +824,87 @@ with tab6:
         unsafe_allow_html=True
     )
 
-    st.markdown(styled_text("Coming Soon!", size=32, weight='bold', margin="200px 0px", underline=False, center=True), unsafe_allow_html=True)
+    if practice_df.empty:
+        st.markdown(
+        styled_text(
+            f"No Game Stats Available for {selected_game}",
+            size=32,
+            weight='bold',
+            margin="200px 0px",
+            underline=False,
+            center=True
+        ),
+        unsafe_allow_html=True
+    )
+    else:
+        game = game_df.groupby('Player').agg(
+            {
+                'Ast': 'sum',
+                'TO': 'sum',
+                'OFF_Reb': 'sum',
+                'DEF_Reb': 'sum'
+            }
+        ).reset_index()
+
+        # Fill all NaN with 0
+        game = game.fillna(0)
+
+        game['AST/TO Ratio'] = round(game['Ast'] / game['TO'].replace(0, np.nan), 2).fillna(0)
+        game['Total Rebs'] = game['OFF_Reb'] + game['DEF_Reb']
+
+        game = game.rename(columns={
+            "Ast": "Assists",
+            "TO": "Turnovers",
+            "OFF_Reb": "OFF Rebs",
+            "DEF_Reb": "DEF Rebs",
+        })
+
+        cols = game.columns.tolist()
+        cols.insert(3, cols.pop(cols.index('AST/TO Ratio')))
+        cols.insert(6, cols.pop(cols.index('Total Rebs')))
+        game = game[cols]
+
+        game['Game Score'] = game['Assists'] - game['Turnovers'] + game['Total Rebs']
+
+        # Sort Game DataFrame
+        game = game.sort_values(by=['Game Score'], ascending=False)
+
+        # practice['Player'] = practice['Player'].apply(split_name)
+
+        # Create display version (without Game Score)
+        game_display = game.drop(columns=['Game Score']).copy()
+
+        fig, ax = plt.subplots(figsize=(32, 32))
+        ax.axis('off')
+
+        # Create table
+        table = plt.table(
+            cellText=game_display.values,
+            colLabels=game_display.columns,
+            cellLoc='center',
+            bbox=[-0.05, 0.13, 1.05, 0.95]
+        )
+
+        # Style table
+        table.auto_set_font_size(False)
+        table.set_fontsize(28)
+        table.scale(1.4, 2.5)
+
+        for key, cell in table.get_celld().items():
+            row, col = key
+            if row == 0:
+                cell.set_facecolor('#da1a32')
+                cell.set_linewidth(2.5)
+                cell.set_edgecolor('#0033A0')
+                cell.get_text().set_fontweight('bold')
+                cell.get_text().set_color('#0033A0')
+                cell.set_fontsize(30)
+            else:
+                cell.get_text().set_color('#0033A0')
+                cell.set_edgecolor('#0033A0')
+                cell.set_facecolor('#f2f2f2' if row % 2 == 0 else 'white')
+
+        st.pyplot(fig)
 
 if selected_game != "Season":
     practice_df = practice_df[practice_df["Practice"] == str(selected_game)]
