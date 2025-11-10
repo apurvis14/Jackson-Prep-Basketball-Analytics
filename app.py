@@ -838,7 +838,7 @@ with tab7:
             margin: 10px auto;         /* auto horizontal margin centers the div */
             text-align: center;
         ">
-            <h1 style='margin: 0; font-size: 24px; text-decoration: underline; font-weight: bold;'>Team Practice Stats</h1>
+            <h1 style='margin: 0; font-size: 36px; text-decoration: underline; font-weight: bold;'>Team Practice Stats</h1>
         </div>
         """,
         unsafe_allow_html=True
