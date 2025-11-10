@@ -916,7 +916,7 @@ with tab6:
             else:
                 cell.get_text().set_color('#0033A0')
                 cell.set_edgecolor('#0033A0')
-                cell.set_facecolor("#999898FF" if row % 2 == 0 else 'white')
+                cell.set_facecolor("#BDBDBDFF" if row % 2 == 0 else 'white')
 
         st.pyplot(fig)
 
