@@ -908,7 +908,7 @@ with tab7:
         # Style table
         table.auto_set_font_size(False)
         table.set_fontsize(28)
-        table.scale(1.4, 2.5)
+        table.scale(1.4, 1.75)
 
         for key, cell in table.get_celld().items():
             row, col = key
