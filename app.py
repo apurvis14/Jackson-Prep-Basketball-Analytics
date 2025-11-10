@@ -805,7 +805,7 @@ with tab5:
             centered_metric("Total Rebs", total_off_rebs + total_def_rebs)
 
 # --- Filtering Logic ---
-if selected_week == "Season":
+if selected_week_shot == "Season":
     if selected_game != "Season":
         game_df = game_df[
             (game_df["Game"] == str(selected_game))]
@@ -921,7 +921,7 @@ with tab6:
         st.pyplot(fig)
 
 # --- Filtering Logic ---
-if selected_week == "Season":
+if selected_week_shot == "Season":
     if selected_game != "Season":
         practice_df = practice_df[
             (practice_df["Practice"] == str(selected_game))]
