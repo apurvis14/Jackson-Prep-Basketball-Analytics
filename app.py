@@ -816,10 +816,10 @@ else:
     if selected_game != "Season":
         game_df = game_df[
             (game_df["Game"] == str(selected_game))
-            & (game_df["Week"] == str(selected_week_shot))]
+            & (game_df["Week"].astype(str) == str(selected_week_shot))]
     else:
         game_df = game_df[
-            (game_df["Week"] == str(selected_week_shot))]
+            (game_df["Week"].astype(str) == str(selected_week_shot))]
 
 with tab6:
     st.markdown(
@@ -883,7 +883,7 @@ with tab6:
         # Sort Game DataFrame
         game = game.sort_values(by=['Game Score'], ascending=False)
 
-        # practice['Player'] = practice['Player'].apply(split_name)
+        game['Player'] = game['Player'].apply(split_name)
 
         # Create display version (without Game Score)
         game_display = game.drop(columns=['Game Score']).copy()
