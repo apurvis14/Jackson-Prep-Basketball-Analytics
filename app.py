@@ -894,7 +894,7 @@ with tab7:
         # Create display version (without Practice Score)
         practice_display = practice.drop(columns=['Practice Score']).copy()
 
-        fig, ax = plt.subplots(figsize=(32, 40))
+        fig, ax = plt.subplots(figsize=(32, 32))
         ax.axis('off')
 
         # Create table
@@ -908,7 +908,7 @@ with tab7:
         # Style table
         table.auto_set_font_size(False)
         table.set_fontsize(28)
-        table.scale(1.4, 1.75)
+        table.scale(1.4, 2.5)
 
         for key, cell in table.get_celld().items():
             row, col = key
