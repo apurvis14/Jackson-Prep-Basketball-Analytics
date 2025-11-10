@@ -816,10 +816,10 @@ else:
     if selected_game != "Season":
         game_df = game_df[
             (game_df["Game"] == str(selected_game))
-            & (game_df["Week"] == selected_week)]
+            & (game_df["Week"] == selected_week_shot)]
     else:
         game_df = game_df[
-            (game_df["Week"] == selected_week)]
+            (game_df["Week"] == selected_week_shot)]
 
 with tab6:
     st.markdown(
@@ -932,10 +932,10 @@ else:
     if selected_game != "Season":
         practice_df = practice_df[
             (practice_df["Practice"] == str(selected_game))
-            & (practice_df["Week"] == selected_week)]
+            & (practice_df["Week"] == selected_week_shot)]
     else:
         practice_df = practice_df[
-            (practice_df["Week"] == selected_week)]
+            (practice_df["Week"] == selected_week_shot)]
 
 with tab7:
     st.markdown(
