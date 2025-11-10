@@ -93,9 +93,10 @@ def load_data():
     df_hustle = pd.read_csv(csv_url_hustle)
     stats_df = pd.read_csv(practice_url)
     game_df = pd.read_csv(game_url)
-    return df, df_hustle, stats_df, game_df
+    practice_df = pd.read_csv(practice_url)
+    return df, df_hustle, stats_df, game_df, practice_df
 
-df, df_hustle, stats_df, game_df = load_data()
+df, df_hustle, stats_df, game_df, practice_df = load_data()
 
 # Sidebar filters
 st.sidebar.header("Shot/Player Filters")
@@ -840,7 +841,7 @@ with tab7:
         unsafe_allow_html=True
     )
     
-    if stats_df.empty:
+    if practice_df.empty:
         st.markdown(
         styled_text(
             f"No Practice Stats Available for {selected_game}",
@@ -853,7 +854,7 @@ with tab7:
         unsafe_allow_html=True
     )
     else:
-        practice = stats_df.groupby('Player').agg(
+        practice = practice_df.groupby('Player').agg(
             {
                 'Ast': 'sum',
                 'TO': 'sum',
