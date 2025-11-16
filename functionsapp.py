@@ -188,9 +188,9 @@ def plot_zone_chart(filtered_df, df_team):
     thresholds = {
     "3PT": {
         "red": 25,
-        "orange": 27,
-        "yellow": 30,
-        "green": 33
+        "orange": 29,
+        "yellow": 33,
+        "green": 36
     },
     "Midrange": {
         "red": 35,
