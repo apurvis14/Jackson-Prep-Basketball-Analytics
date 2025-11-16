@@ -185,6 +185,27 @@ def plot_zone_chart(filtered_df, df_team):
     max_alpha = 0.8
     max_attempts = zone_stats['attempts'].max() if not zone_stats.empty else 1
 
+    thresholds = {
+    "3PT": {
+        "red": 25,
+        "orange": 27,
+        "yellow": 30,
+        "green": 33
+    },
+    "Midrange": {
+        "red": 35,
+        "orange": 40,
+        "yellow": 45,
+        "green": 52
+    },
+    "Layup": {
+        "red": 45,
+        "orange": 55,
+        "yellow": 60,
+        "green": 65
+    }
+}
+
     for zone_name, poly in zone_polys.items():
         if zone_name not in zone_stats['ZONE'].values:
             continue
@@ -195,23 +216,24 @@ def plot_zone_chart(filtered_df, df_team):
 
         # Determine zone type
         z_type = get_zone_type(zone_name)
-        benchmark = team_benchmarks[z_type]
 
         # -----------------------------
         # Multi-threshold color logic
         # -----------------------------
         # thresholds (relative to benchmark)
-        ratio = zone_fg / benchmark if benchmark > 0 else 0
-        if ratio < 0.5:
-            color = 'red'
-        elif ratio < 0.7: 
-            color = 'orange'
-        elif ratio < 1.0:
-            color = 'yellow'
-        elif ratio < 1.2:
-            color = 'green'
+        t = thresholds[z_type]  # get thresholds for this zone type
+        fg = zone_fg            # player FG% in that zone
+
+        if fg < t["red"]:
+            color = "red"
+        elif fg < t["orange"]:
+            color = "orange"
+        elif fg < t["yellow"]:
+            color = "yellow"
+        elif fg < t["green"]:
+            color = "green"
         else:
-            color = 'darkgreen'
+            color = "darkgreen"
 
         # -----------------------------
         # Alpha scaling based on attempts
