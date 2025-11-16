@@ -500,7 +500,10 @@ with tab3:
 
 
     if selected_week == "Season":
-        title = "Season Lunch Pail Stats"
+        if selected_game != "Season":
+            title = f"{selected_game} Lunch Pail Stats"
+        else:
+            title = "Season Lunch Pail Stats"
     else:
         title = f"Week {selected_week} Lunch Pail Stats"
 
