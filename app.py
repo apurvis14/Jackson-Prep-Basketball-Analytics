@@ -87,6 +87,7 @@ def load_data():
     csv_url_hustle = st.secrets["data"]["hustle_url"]
     practice_url = st.secrets["data"]["practice_url"]
     game_url = st.secrets["data"]["game_url"]
+    press_url = st.secrets["data"]["press_url"]
 
 # Set DF Variable
     df = pd.read_csv(csv_url)
@@ -94,9 +95,10 @@ def load_data():
     stats_df = pd.read_csv(practice_url)
     game_df = pd.read_csv(game_url)
     practice_df = pd.read_csv(practice_url)
-    return df, df_hustle, stats_df, game_df, practice_df
+    press_df = pd.read_csv(press_url)
+    return df, df_hustle, stats_df, game_df, practice_df, press_df
 
-df, df_hustle, stats_df, game_df, practice_df = load_data()
+df, df_hustle, stats_df, game_df, practice_df, press_df = load_data()
 
 # Sidebar filters
 st.sidebar.header("Shot/Player Filters")
@@ -183,22 +185,28 @@ if selected_week == "Season":
     if selected_game != "Season":
         df_hustle = df_hustle[
             (df_hustle["Game/Practice"] == str(selected_game))]
+        press_df = press_df[
+            (press_df["Game"] == str(selected_game))]
     else:
         df_hustle = df_hustle
+        press_df = press_df
 
 else:
     if selected_game != "Season":
         df_hustle = df_hustle[
             (df_hustle["Game/Practice"] == str(selected_game))
             & (df_hustle["Week"] == selected_week)]
+        press_df = press_df[
+            (press_df["Game"] == str(selected_game)) 
+            & (press_df["Week"] == selected_week_shot)]
     else:
+        press_df = press_df[
+            (press_df["Week"] == selected_week_shot)]
         df_hustle = df_hustle[
             (df_hustle["Week"] == selected_week)]
-
-
-
+        
 # Create Tabs
-tab1, tab7, tab6, tab3, tab2, tab4, tab5 = st.tabs(["Shot Chart", "Team Practice Stats", "Team Game Stats", 'Lunch Pail Stats', "Player Game Dashboard", "Player Practice Dashboard", "Pickup Dashboard"])
+tab1, tab7, tab6, tab8, tab3, tab2, tab4, tab5 = st.tabs(["Shot Chart", "Team Practice Stats", "Team Game Stats", "Press Effectiveness", "Lunch Pail Stats", "Player Game Dashboard", "Player Practice Dashboard", "Pickup Dashboard"])
 
 st.markdown(
     """
@@ -1014,6 +1022,109 @@ with tab7:
         table = plt.table(
             cellText=practice_display.values,
             colLabels=practice_display.columns,
+            cellLoc='center',
+            bbox=[-0.05, 0.13, 1.05, 0.95]
+        )
+
+        # Style table
+        table.auto_set_font_size(False)
+        table.set_fontsize(28)
+        table.scale(1.4, 2.5)
+
+        for key, cell in table.get_celld().items():
+            row, col = key
+            if row == 0:
+                cell.set_facecolor('#da1a32')
+                cell.set_linewidth(2.5)
+                cell.set_edgecolor('#0033A0')
+                cell.get_text().set_fontweight('bold')
+                cell.get_text().set_color('#0033A0')
+                cell.set_fontsize(30)
+            else:
+                cell.get_text().set_color('#0033A0')
+                cell.set_edgecolor('#0033A0')
+                cell.set_facecolor("#BDBDBDB0" if row % 2 == 0 else 'white')
+
+        st.pyplot(fig)
+
+with tab8:
+    st.markdown(
+        """
+        <div style="
+            border: 3px solid red;
+            border-radius: 10px;
+            padding: 5px 5px;
+            width: 350px;              /* fixed width to ensure centering */
+            margin: 10px auto;         /* auto horizontal margin centers the div */
+            text-align: center;
+        ">
+            <h1 style='margin: 0; font-size: 36px; text-decoration: underline; font-weight: bold;'>Press Effectiveness</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    if press_df.empty:
+        st.markdown(
+        styled_text(
+            f"No Press Effectiveness Stats Available for {selected_game}",
+            size=32,
+            weight='bold',
+            margin="200px 0px",
+            underline=False,
+            center=True
+        ),
+        unsafe_allow_html=True
+    )
+    
+    else:
+        press = press_df.groupby('Press').agg(
+            {
+                'No Advantage': 'sum',
+                'Turnover': 'sum',
+                'Jailbreak': 'sum',
+                'BS Miss': 'sum',
+                'BS Make': 'sum',
+                'ES Make': 'sum',
+                'ES Miss': 'sum',
+                'Fouls': 'sum',
+                'Deflections': 'sum',
+                'Total': 'sum'
+            }
+        ).reset_index()
+
+        # Fill all NaN with 0
+        press = press.fillna(0)
+
+
+        cols = press.columns.tolist()
+        press = press[cols]
+
+        press['Press Score'] = press['No Advantage'] * 0 + press['Turnover'] * 2 - press['Jailbreak'] * 0.5 + press['BS Make'] * 0.5 + press['BS Miss'] * 1 - press['ES Make'] * 2 - press['ES Miss'] * 1 - press['Fouls'] * 1 + press['Deflections'] * 0.5
+        press['PSPP'] = round(press['Press Score'] / press['Total'], 2).fillna(0)
+
+        # Sort Practice DataFrame
+        press = press.sort_values(by=['PSPP'], ascending=False)
+
+        # Create display version (without Practice Score)
+        press_display = press.drop(columns=['No Advantage',
+                'Turnover',
+                'Jailbreak',
+                'BS Miss',
+                'BS Make',
+                'ES Make'
+                'ES Miss',
+                'Fouls',
+                'Deflections',
+                'Total']).copy()
+
+        fig, ax = plt.subplots(figsize=(32, 36))
+        ax.axis('off')
+
+        # Create table
+        table = plt.table(
+            cellText=press_display.values,
+            colLabels=press_display.columns,
             cellLoc='center',
             bbox=[-0.05, 0.13, 1.05, 0.95]
         )
