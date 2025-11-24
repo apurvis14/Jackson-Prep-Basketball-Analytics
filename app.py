@@ -185,23 +185,15 @@ if selected_week == "Season":
     if selected_game != "Season":
         df_hustle = df_hustle[
             (df_hustle["Game/Practice"] == str(selected_game))]
-        press_df = press_df[
-            (press_df["Game"] == str(selected_game))]
     else:
         df_hustle = df_hustle
-        press_df = press_df
 
 else:
     if selected_game != "Season":
         df_hustle = df_hustle[
             (df_hustle["Game/Practice"] == str(selected_game))
             & (df_hustle["Week"] == selected_week)]
-        press_df = press_df[
-            (press_df["Game"] == str(selected_game)) 
-            & (press_df["Week"] == selected_week_shot)]
     else:
-        press_df = press_df[
-            (press_df["Week"] == selected_week_shot)]
         df_hustle = df_hustle[
             (df_hustle["Week"] == selected_week)]
         
@@ -1045,7 +1037,23 @@ with tab7:
                 cell.set_edgecolor('#0033A0')
                 cell.set_facecolor("#BDBDBDB0" if row % 2 == 0 else 'white')
 
-        st.pyplot(fig)
+        st.pyplot(fig)# --- Filtering Logic ---
+
+if selected_week_shot == "Season":
+    if selected_game != "Season":
+        press_df = press_df[
+            (press_df["Press"] == str(selected_game))]
+    else:
+        press_df = press_df
+
+else:
+    if selected_game != "Season":
+        press_df = press_df[
+            (press_df["Press"] == str(selected_game))
+            & (press_df["Week"].astype(str) == str(selected_week_shot))]
+    else:
+        press_df = press_df[
+            (press_df["Week"].astype(str) == str(selected_week_shot))]
 
 with tab8:
     st.markdown(
