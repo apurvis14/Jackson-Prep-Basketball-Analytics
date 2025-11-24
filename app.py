@@ -1109,6 +1109,7 @@ with tab8:
         # Move Press Score Per Press next to Press Name Column
         cols = press.columns.tolist()
         cols.insert(1, cols.pop(cols.index('Press Score Per Press')))
+        cols.insert(2, cols.pop(cols.index('Press Score')))
         press = press[cols]
 
         # Create display version (without Practice Score)
