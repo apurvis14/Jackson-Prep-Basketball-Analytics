@@ -1101,10 +1101,15 @@ with tab8:
         press = press[cols]
 
         press['Press Score'] = press['No Advantage'] * 0 + press['Turnover'] * 2 - press['Jailbreak'] * 0.5 + press['BS Make'] * 0.5 + press['BS Miss'] * 1 - press['ES Make'] * 2 - press['ES Miss'] * 1 - press['Fouls'] * 1 + press['Deflections'] * 0.5
-        press['PSPP'] = round(press['Press Score'] / press['Total'], 2).fillna(0)
+        press['Press Score Per Press'] = round(press['Press Score'] / press['Total'], 2).fillna(0)
 
         # Sort Practice DataFrame
-        press = press.sort_values(by=['PSPP'], ascending=False)
+        press = press.sort_values(by=['Press Score Per Press'], ascending=False)
+
+        # Move Press Score Per Press next to Press Name Column
+        cols = press.columns.tolist()
+        cols.insert(1, cols.pop(cols.index('Press Score Per Press')))
+        press = press[cols]
 
         # Create display version (without Practice Score)
         press_display = press.drop(columns=['No Advantage','Turnover','Jailbreak','BS Miss','BS Make','ES Make','ES Miss','Fouls','Deflections','Total']).copy()
