@@ -1107,16 +1107,7 @@ with tab8:
         press = press.sort_values(by=['PSPP'], ascending=False)
 
         # Create display version (without Practice Score)
-        press_display = press.drop(columns=['No Advantage',
-                'Turnover',
-                'Jailbreak',
-                'BS Miss',
-                'BS Make',
-                'ES Make'
-                'ES Miss',
-                'Fouls',
-                'Deflections',
-                'Total']).copy()
+        press_display = press.drop(columns=['No Advantage','Turnover','Jailbreak','BS Miss','BS Make','ES Make','ES Miss','Fouls','Deflections','Total']).copy()
 
         fig, ax = plt.subplots(figsize=(32, 36))
         ax.axis('off')
