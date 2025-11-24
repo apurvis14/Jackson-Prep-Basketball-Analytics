@@ -1042,14 +1042,14 @@ with tab7:
 if selected_week_shot == "Season":
     if selected_game != "Season":
         press_df = press_df[
-            (press_df["Press"] == str(selected_game))]
+            (press_df["Game"] == str(selected_game))]
     else:
         press_df = press_df
 
 else:
     if selected_game != "Season":
         press_df = press_df[
-            (press_df["Press"] == str(selected_game))
+            (press_df["Game"] == str(selected_game))
             & (press_df["Week"].astype(str) == str(selected_week_shot))]
     else:
         press_df = press_df[
