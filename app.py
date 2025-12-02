@@ -1220,6 +1220,22 @@ with tab8:
         # Create display version (without Practice Score)
         press_display_2 = press_2.drop(columns=['No Advantage','Turnover','Jailbreak','BS Miss','BS Make','ES Make','ES Miss','Fouls','Deflections']).copy()
 
+        # helper: put '%' on its own line, otherwise split at last space for long names
+        def split_header(col):
+            if not isinstance(col, str):
+                return col
+            # If it contains ' %' put % on its own line
+            if col.endswith(' %') or ' %' in col:
+                return col.replace(' %', '\n%')
+            # otherwise, split at the last space if it's long (>= 12 chars)
+            if len(col) >= 12 and ' ' in col:
+                a, b = col.rsplit(' ', 1)
+                return f"{a}\n{b}"
+            return col
+
+        # create the display labels (do NOT mutate the dataframe columns if you want to keep them numeric)
+        display_col_labels = [split_header(c) for c in press_display_2.columns]
+
         fig, ax = plt.subplots(figsize=(32, 36))
         ax.axis('off')
 
