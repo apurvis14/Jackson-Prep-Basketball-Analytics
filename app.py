@@ -1362,12 +1362,12 @@ with tab8:
 
             # Low is good (fouls)
             if col_name == "Fouls\n%" or col_name == "ES Make\n%" or col_name == "ES Miss\n%" or col_name == "Jailbreak\n%":
-                if value <= limits["green"]:
+                if value == 0:
+                    return "white"
+                elif value <= limits["green"]:
                     return "#4CAF50"
                 elif value <= limits["yellow"]:
                     return "#FFEB3B"
-                elif value == 0:
-                    return "white"
                 else:
                     return "#F44336"
 
