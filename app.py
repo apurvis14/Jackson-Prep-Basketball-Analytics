@@ -1344,7 +1344,7 @@ with tab8:
         benchmarks = {
             "No Adv.\n%":     {"green": 50, "yellow": 35},
             "TO\n%":          {"green": 25, "yellow": 15},
-            "Jailbreak\n%":   {"green": 10,  "yellow": 20},
+            "Jailbreak\n%":   {"green": 10,  "yellow": 20}, # lower = better
             "BS Miss\n%":     {"green": 30, "yellow": 20},
             "BS Make\n%":     {"green": 25, "yellow": 15},
             "ES Make\n%":     {"green": 10, "yellow": 20}, # lower = better
@@ -1361,7 +1361,7 @@ with tab8:
             limits = benchmarks[col_name]
 
             # Low is good (fouls)
-            if col_name == "Fouls\n%" or col_name == "ES Make\n%" or col_name == "ES Miss\n%":
+            if col_name == "Fouls\n%" or col_name == "ES Make\n%" or col_name == "ES Miss\n%" or col_name == "Jailbreak\n%":
                 if value <= limits["green"]:
                     return "#4CAF50"
                 elif value <= limits["yellow"]:
