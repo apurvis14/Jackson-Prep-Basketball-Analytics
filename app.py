@@ -1265,6 +1265,22 @@ with tab8:
 
         # st.pyplot(fig)
 
+    st.markdown(
+        """
+        <div style="
+            border: 3px solid red;
+            border-radius: 10px;
+            padding: 5px 5px;
+            width: 350px;              /* fixed width to ensure centering */
+            margin: 10px auto;         /* auto horizontal margin centers the div */
+            text-align: center;
+        ">
+            <h1 style='margin: 0; font-size: 36px; text-decoration: underline; font-weight: bold;'>Press Percentages</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
     if press_df.empty:
         st.markdown(
             styled_text(
