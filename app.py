@@ -1192,20 +1192,20 @@ with tab8:
         press_2 = press_2[cols]
 
         # Calculate percentages (keep them numeric first)
-        press_2['No Advantage %'] = (press_2['No Advantage'] / press_2['Total'] * 100).fillna(0)
-        press_2['Turnover %'] = (press_2['Turnover'] / press_2['Total'] * 100).fillna(0)
+        press_2['No Adv. %'] = (press_2['No Advantage'] / press_2['Total'] * 100).fillna(0)
+        press_2['TO %'] = (press_2['Turnover'] / press_2['Total'] * 100).fillna(0)
         press_2['Jailbreak %'] = (press_2['Jailbreak'] / press_2['Total'] * 100).fillna(0)
         press_2['BS Miss %'] = (press_2['BS Miss'] / press_2['Total'] * 100).fillna(0)
         press_2['BS Make %'] = (press_2['BS Make'] / press_2['Total'] * 100).fillna(0)
         press_2['ES Make %'] = (press_2['ES Make'] / press_2['Total'] * 100).fillna(0)
         press_2['ES Miss %'] = (press_2['ES Miss'] / press_2['Total'] * 100).fillna(0)
         press_2['Fouls %'] = (press_2['Fouls'] / press_2['Total'] * 100).fillna(0)
-        press_2['Deflections %'] = (press_2['Deflections'] / press_2['Total'] * 100).fillna(0)
+        press_2['DEFs %'] = (press_2['Deflections'] / press_2['Total'] * 100).fillna(0)
 
         # Columns to format
         pct_cols = [
-            'No Advantage %', 'Turnover %', 'Jailbreak %', 'BS Miss %', 'BS Make %',
-            'ES Make %', 'ES Miss %', 'Fouls %', 'Deflections %'
+            'No Adv. %', 'TO %', 'Jailbreak %', 'BS Miss %', 'BS Make %',
+            'ES Make %', 'ES Miss %', 'Fouls %', 'DEFs %'
         ]
 
         # Format as: integer if whole number, else one decimal — and add %
