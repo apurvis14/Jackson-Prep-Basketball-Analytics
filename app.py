@@ -1155,8 +1155,118 @@ with tab8:
 
         st.pyplot(fig)
 
+    # if press_df.empty:
+    #         st.markdown(
+    #         styled_text(
+    #             f"No Press Effectiveness Stats Available for {selected_game}",
+    #             size=32,
+    #             weight='bold',
+    #             margin="200px 0px",
+    #             underline=False,
+    #             center=True
+    #         ),
+    #         unsafe_allow_html=True
+    #     )
+        
+    # else:
+    #     press_2 = press_df.groupby('Press').agg(
+    #         {
+    #             'No Advantage': 'sum',
+    #             'Turnover': 'sum',
+    #             'Jailbreak': 'sum',
+    #             'BS Miss': 'sum',
+    #             'BS Make': 'sum',
+    #             'ES Make': 'sum',
+    #             'ES Miss': 'sum',
+    #             'Fouls': 'sum',
+    #             'Deflections': 'sum',
+    #             'Total': 'sum'
+    #         }
+    #     ).reset_index()
+
+    #     # Fill all NaN with 0
+    #     press_2 = press_2.fillna(0)
+
+
+    #     cols = press_2.columns.tolist()
+    #     press_2 = press_2[cols]
+
+    #     # Calculate percentages (keep them numeric first)
+    #     press_2['No Adv. %'] = (press_2['No Advantage'] / press_2['Total'] * 100).fillna(0)
+    #     press_2['TO %'] = (press_2['Turnover'] / press_2['Total'] * 100).fillna(0)
+    #     press_2['Jailbreak %'] = (press_2['Jailbreak'] / press_2['Total'] * 100).fillna(0)
+    #     press_2['BS Miss %'] = (press_2['BS Miss'] / press_2['Total'] * 100).fillna(0)
+    #     press_2['BS Make %'] = (press_2['BS Make'] / press_2['Total'] * 100).fillna(0)
+    #     press_2['ES Make %'] = (press_2['ES Make'] / press_2['Total'] * 100).fillna(0)
+    #     press_2['ES Miss %'] = (press_2['ES Miss'] / press_2['Total'] * 100).fillna(0)
+    #     press_2['Fouls %'] = (press_2['Fouls'] / press_2['Total'] * 100).fillna(0)
+    #     press_2['DEFs %'] = (press_2['Deflections'] / press_2['Total'] * 100).fillna(0)
+
+    #     # Columns to format
+    #     pct_cols = [
+    #         'No Adv. %', 'TO %', 'Jailbreak %', 'BS Miss %', 'BS Make %',
+    #         'ES Make %', 'ES Miss %', 'Fouls %', 'DEFs %'
+    #     ]
+
+    #     # Format as: integer if whole number, else one decimal — and add %
+    #     press_2[pct_cols] = press_2[pct_cols].apply(
+    #         lambda col: col.apply(lambda x: f"{x:.0f}%" if x.is_integer() else f"{x:.1f}%")
+    #     )
+
+    #     # Sort Practice DataFrame
+    #     press_2 = press_2.sort_values(by=['Total'], ascending=False)
+
+    #     # Create display version (without Practice Score)
+    #     press_display_2 = press_2.drop(columns=['No Advantage','Turnover','Jailbreak','BS Miss','BS Make','ES Make','ES Miss','Fouls','Deflections']).copy()
+
+    #     press_display_2 = press_display_2.rename(columns={
+    #     "No Adv. %": "No Adv.\n%",
+    #     "TO %": "TO\n%",
+    #     "Jailbreak %": "Jailbreak\n%",
+    #     "BS Miss %": "BS Miss\n%",
+    #     "BS Make %": "BS Make\n%",
+    #     "ES Make %": "ES Make\n%",
+    #     "ES Miss %": "ES Miss\n%",
+    #     "Fouls %": "Fouls\n%",
+    #     "DEFs %": "DEFs\n%"
+    #     })
+
+    #     press_display_2['Press'] = press_display_2['Press'].apply(split_name)
+
+    #     fig, ax = plt.subplots(figsize=(32, 36))
+    #     ax.axis('off')
+
+    #     # Create table
+    #     table = plt.table(
+    #         cellText=press_display_2.values,
+    #         colLabels=press_display_2.columns,
+    #         cellLoc='center',
+    #         bbox=[-0.05, 0.13, 1.05, 0.95]
+    #     )
+
+    #     # Style table
+    #     table.auto_set_font_size(False)
+    #     table.set_fontsize(28)
+    #     table.scale(1.4, 2.5)
+
+    #     for key, cell in table.get_celld().items():
+    #         row, col = key
+    #         if row == 0:
+    #             cell.set_facecolor('#da1a32')
+    #             cell.set_linewidth(2.5)
+    #             cell.set_edgecolor('#0033A0')
+    #             cell.get_text().set_fontweight('bold')
+    #             cell.get_text().set_color('#0033A0')
+    #             cell.set_fontsize(30)
+    #         else:
+    #             cell.get_text().set_color('#0033A0')
+    #             cell.set_edgecolor('#0033A0')
+    #             cell.set_facecolor("#BDBDBDB0" if row % 2 == 0 else 'white')
+
+        # st.pyplot(fig)
+
     if press_df.empty:
-            st.markdown(
+        st.markdown(
             styled_text(
                 f"No Press Effectiveness Stats Available for {selected_game}",
                 size=32,
@@ -1167,7 +1277,7 @@ with tab8:
             ),
             unsafe_allow_html=True
         )
-        
+
     else:
         press_2 = press_df.groupby('Press').agg(
             {
@@ -1184,14 +1294,9 @@ with tab8:
             }
         ).reset_index()
 
-        # Fill all NaN with 0
         press_2 = press_2.fillna(0)
 
-
-        cols = press_2.columns.tolist()
-        press_2 = press_2[cols]
-
-        # Calculate percentages (keep them numeric first)
+        # Calculate percentages
         press_2['No Adv. %'] = (press_2['No Advantage'] / press_2['Total'] * 100).fillna(0)
         press_2['TO %'] = (press_2['Turnover'] / press_2['Total'] * 100).fillna(0)
         press_2['Jailbreak %'] = (press_2['Jailbreak'] / press_2['Total'] * 100).fillna(0)
@@ -1202,41 +1307,82 @@ with tab8:
         press_2['Fouls %'] = (press_2['Fouls'] / press_2['Total'] * 100).fillna(0)
         press_2['DEFs %'] = (press_2['Deflections'] / press_2['Total'] * 100).fillna(0)
 
-        # Columns to format
         pct_cols = [
             'No Adv. %', 'TO %', 'Jailbreak %', 'BS Miss %', 'BS Make %',
             'ES Make %', 'ES Miss %', 'Fouls %', 'DEFs %'
         ]
 
-        # Format as: integer if whole number, else one decimal — and add %
         press_2[pct_cols] = press_2[pct_cols].apply(
             lambda col: col.apply(lambda x: f"{x:.0f}%" if x.is_integer() else f"{x:.1f}%")
         )
 
-        # Sort Practice DataFrame
         press_2 = press_2.sort_values(by=['Total'], ascending=False)
 
-        # Create display version (without Practice Score)
-        press_display_2 = press_2.drop(columns=['No Advantage','Turnover','Jailbreak','BS Miss','BS Make','ES Make','ES Miss','Fouls','Deflections']).copy()
+        press_display_2 = press_2.drop(columns=[
+            'No Advantage','Turnover','Jailbreak','BS Miss','BS Make',
+            'ES Make','ES Miss','Fouls','Deflections'
+        ]).copy()
 
         press_display_2 = press_display_2.rename(columns={
-        "No Adv. %": "No Adv.\n%",
-        "TO %": "TO\n%",
-        "Jailbreak %": "Jailbreak\n%",
-        "BS Miss %": "BS Miss\n%",
-        "BS Make %": "BS Make\n%",
-        "ES Make %": "ES Make\n%",
-        "ES Miss %": "ES Miss\n%",
-        "Fouls %": "Fouls\n%",
-        "DEFs %": "DEFs\n%"
+            "No Adv. %": "No Adv.\n%",
+            "TO %": "TO\n%",
+            "Jailbreak %": "Jailbreak\n%",
+            "BS Miss %": "BS Miss\n%",
+            "BS Make %": "BS Make\n%",
+            "ES Make %": "ES Make\n%",
+            "ES Miss %": "ES Miss\n%",
+            "Fouls %": "Fouls\n%",
+            "DEFs %": "DEFs\n%"
         })
 
+        # Apply name splitting
         press_display_2['Press'] = press_display_2['Press'].apply(split_name)
 
+        # -------------------------------
+        # THRESHOLD BENCHMARKS
+        # -------------------------------
+        benchmarks = {
+            "No Adv.\n%":     {"green": 60, "yellow": 45},
+            "TO\n%":          {"green": 15, "yellow": 8},
+            "Jailbreak\n%":   {"green": 8,  "yellow": 4},
+            "BS Miss\n%":     {"green": 40, "yellow": 25},
+            "BS Make\n%":     {"green": 10, "yellow": 5},
+            "ES Make\n%":     {"green": 20, "yellow": 10},
+            "ES Miss\n%":     {"green": 30, "yellow": 20},
+            "Fouls\n%":       {"green": 5,  "yellow": 10},  # lower = better
+            "DEFs\n%":        {"green": 20, "yellow": 12}
+        }
+
+        # -------------------------------
+        # GET CELL COLOR FUNCTION
+        # -------------------------------
+        def get_color(col_name, value):
+            value = float(value.replace("%", ""))  # convert "25.3%" to 25.3
+            limits = benchmarks[col_name]
+
+            # Low is good (fouls)
+            if col_name == "Fouls\n%":
+                if value <= limits["green"]:
+                    return "#4CAF50"
+                elif value <= limits["yellow"]:
+                    return "#FFEB3B"
+                else:
+                    return "#F44336"
+
+            # High is good
+            if value >= limits["green"]:
+                return "#4CAF50"
+            elif value >= limits["yellow"]:
+                return "#FFEB3B"
+            else:
+                return "#F44336"
+
+        # -------------------------------
+        # BUILD TABLE
+        # -------------------------------
         fig, ax = plt.subplots(figsize=(32, 36))
         ax.axis('off')
 
-        # Create table
         table = plt.table(
             cellText=press_display_2.values,
             colLabels=press_display_2.columns,
@@ -1244,13 +1390,16 @@ with tab8:
             bbox=[-0.05, 0.13, 1.05, 0.95]
         )
 
-        # Style table
         table.auto_set_font_size(False)
         table.set_fontsize(28)
         table.scale(1.4, 2.5)
 
-        for key, cell in table.get_celld().items():
-            row, col = key
+        # -------------------------------
+        # APPLY FORMATTING + COLOR CODING
+        # -------------------------------
+        for (row, col), cell in table.get_celld().items():
+
+            # Header row
             if row == 0:
                 cell.set_facecolor('#da1a32')
                 cell.set_linewidth(2.5)
@@ -1258,9 +1407,23 @@ with tab8:
                 cell.get_text().set_fontweight('bold')
                 cell.get_text().set_color('#0033A0')
                 cell.set_fontsize(30)
+                continue
+
+            # Base styling for non-header
+            cell.get_text().set_color('#0033A0')
+            cell.set_edgecolor('#0033A0')
+
+            # Get column name + cell value
+            col_name = press_display_2.columns[col]
+            cell_value = press_display_2.iloc[row-1, col]
+
+            # Only color % columns
+            if isinstance(cell_value, str) and cell_value.endswith("%"):
+                cell.set_facecolor(get_color(col_name, cell_value))
+                cell.get_text().set_color("black")
             else:
-                cell.get_text().set_color('#0033A0')
-                cell.set_edgecolor('#0033A0')
+                # alternate shading for non-% cells
                 cell.set_facecolor("#BDBDBDB0" if row % 2 == 0 else 'white')
 
-        st.pyplot(fig)
+
+        st.pyplot(fig)    
