@@ -1191,15 +1191,28 @@ with tab8:
         cols = press_2.columns.tolist()
         press_2 = press_2[cols]
 
-        press_2['No Advantage %'] = round(press_2['No Advantage'] / press_2['Total'] * 100, 2).fillna(0)
-        press_2['Turnover %'] = round(press_2['Turnover'] / press_2['Total'] * 100, 2).fillna(0)
-        press_2['Jailbreak %'] = round(press_2['Jailbreak'] / press_2['Total'] * 100, 2).fillna(0)
-        press_2['BS Miss %'] = round(press_2['BS Miss'] / press_2['Total'] * 100, 2).fillna(0)
-        press_2['BS Make %'] = round(press_2['BS Make'] / press_2['Total'] * 100, 2).fillna(0)
-        press_2['ES Make %'] = round(press_2['ES Make'] / press_2['Total'] * 100, 2).fillna(0)
-        press_2['ES Miss %'] = round(press_2['ES Miss'] / press_2['Total'] * 100, 2).fillna(0)
-        press_2['Fouls %'] = round(press_2['Fouls'] / press_2['Total'] * 100, 2).fillna(0)
-        press_2['Deflections %'] = round(press_2['Deflections'] / press_2['Total'] * 100, 2).fillna(0)
+        # Calculate percentages (keep them numeric first)
+        press_2['No Advantage %'] = (press_2['No Advantage'] / press_2['Total'] * 100).fillna(0)
+        press_2['Turnover %'] = (press_2['Turnover'] / press_2['Total'] * 100).fillna(0)
+        press_2['Jailbreak %'] = (press_2['Jailbreak'] / press_2['Total'] * 100).fillna(0)
+        press_2['BS Miss %'] = (press_2['BS Miss'] / press_2['Total'] * 100).fillna(0)
+        press_2['BS Make %'] = (press_2['BS Make'] / press_2['Total'] * 100).fillna(0)
+        press_2['ES Make %'] = (press_2['ES Make'] / press_2['Total'] * 100).fillna(0)
+        press_2['ES Miss %'] = (press_2['ES Miss'] / press_2['Total'] * 100).fillna(0)
+        press_2['Fouls %'] = (press_2['Fouls'] / press_2['Total'] * 100).fillna(0)
+        press_2['Deflections %'] = (press_2['Deflections'] / press_2['Total'] * 100).fillna(0)
+
+        # Columns to format
+        pct_cols = [
+            'No Advantage %', 'Turnover %', 'Jailbreak %', 'BS Miss %', 'BS Make %',
+            'ES Make %', 'ES Miss %', 'Fouls %', 'Deflections %'
+        ]
+
+        # Format as: integer if whole number, else one decimal — and add %
+        press_2[pct_cols] = press_2[pct_cols].apply(
+            lambda col: col.apply(lambda x: f"{x:.0f}%" if x.is_integer() else f"{x:.1f}%")
+        )
+
 
         # Sort Practice DataFrame
         press_2 = press_2.sort_values(by=['Total'], ascending=False)
