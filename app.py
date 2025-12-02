@@ -1342,13 +1342,13 @@ with tab8:
         # THRESHOLD BENCHMARKS
         # -------------------------------
         benchmarks = {
-            "No Adv.\n%":     {"green": 60, "yellow": 45},
-            "TO\n%":          {"green": 15, "yellow": 8},
-            "Jailbreak\n%":   {"green": 8,  "yellow": 4},
-            "BS Miss\n%":     {"green": 40, "yellow": 25},
-            "BS Make\n%":     {"green": 10, "yellow": 5},
-            "ES Make\n%":     {"green": 20, "yellow": 10},
-            "ES Miss\n%":     {"green": 30, "yellow": 20},
+            "No Adv.\n%":     {"green": 50, "yellow": 35},
+            "TO\n%":          {"green": 25, "yellow": 15},
+            "Jailbreak\n%":   {"green": 10,  "yellow": 20},
+            "BS Miss\n%":     {"green": 30, "yellow": 20},
+            "BS Make\n%":     {"green": 25, "yellow": 15},
+            "ES Make\n%":     {"green": 10, "yellow": 20}, # lower = better
+            "ES Miss\n%":     {"green": 20, "yellow": 30}, # lower = better
             "Fouls\n%":       {"green": 5,  "yellow": 10},  # lower = better
             "DEFs\n%":        {"green": 20, "yellow": 12}
         }
@@ -1361,11 +1361,13 @@ with tab8:
             limits = benchmarks[col_name]
 
             # Low is good (fouls)
-            if col_name == "Fouls\n%":
+            if col_name == "Fouls\n%" or col_name == "ES Make\n%" or col_name == "ES Miss\n%":
                 if value <= limits["green"]:
                     return "#4CAF50"
                 elif value <= limits["yellow"]:
                     return "#FFEB3B"
+                elif value == 0:
+                    return "white"
                 else:
                     return "#F44336"
 
@@ -1374,6 +1376,8 @@ with tab8:
                 return "#4CAF50"
             elif value >= limits["yellow"]:
                 return "#FFEB3B"
+            elif value == 0:
+                return "white"
             else:
                 return "#F44336"
 
