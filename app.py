@@ -1208,6 +1208,10 @@ with tab8:
             'ES Make %', 'ES Miss %', 'Fouls %', 'DEFs %'
         ]
 
+        # Apply split_name to column headers (rename)
+        press_2 = press_2.rename(columns={col: split_name(col) for col in pct_cols})
+
+        
         # Format as: integer if whole number, else one decimal — and add %
         press_2[pct_cols] = press_2[pct_cols].apply(
             lambda col: col.apply(lambda x: f"{x:.0f}%" if x.is_integer() else f"{x:.1f}%")
