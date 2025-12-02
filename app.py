@@ -1342,7 +1342,7 @@ with tab8:
         # THRESHOLD BENCHMARKS
         # -------------------------------
         benchmarks = {
-            "No Adv.\n%":     {"green": 50, "yellow": 35},
+            "No Adv.\n%":     {"green": 40, "yellow": 30},
             "TO\n%":          {"green": 25, "yellow": 15},
             "Jailbreak\n%":   {"green": 10,  "yellow": 20}, # lower = better
             "BS Miss\n%":     {"green": 30, "yellow": 20},
