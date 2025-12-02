@@ -1350,7 +1350,7 @@ with tab8:
             "ES Make\n%":     {"green": 10, "yellow": 20}, # lower = better
             "ES Miss\n%":     {"green": 20, "yellow": 30}, # lower = better
             "Fouls\n%":       {"green": 5,  "yellow": 10},  # lower = better
-            "DEFs\n%":        {"green": 20, "yellow": 12}
+            "DEFs\n%":        {"green": 35, "yellow": 25}
         }
 
         # -------------------------------
