@@ -135,44 +135,116 @@ elif selected_type == "All Including Pickup":
 else:
     game_types = [selected_type]
 
-# -----------------------------
-# Apply week filter first (OVERRIDE)
-# -----------------------------
+# # -----------------------------
+# # Apply week filter first (OVERRIDE)
+# # -----------------------------
+# if selected_week_shot != "Season":
+#     filtered = df[df["WEEK"] == selected_week_shot]
+#     if "Week" in stats_df.columns:
+#         week_values = stats_df["Week"].astype(str).unique().tolist()
+#         if str(selected_week_shot) in week_values:
+#             stats_df = stats_df[stats_df["Week"].astype(str) == str(selected_week_shot)]
+#         else:
+#             stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
+#     else:
+#         stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
+
+#     if "Week" in game_df.columns:
+#         week_values_game = game_df["Week"].astype(str).unique().tolist()
+#         if str(selected_week_shot) in week_values_game:
+#             game_df = game_df[game_df["Week"].astype(str) == str(selected_week_shot)]
+#         else:
+#             game_df = game_df.iloc[0:0]  # Empty DF if week not found
+#     else:
+#         game_df = game_df.iloc[0:0]  # Empty DF if week not found
+
+# else:
+#     # --- Regular filtering logic ---
+#     if selected_player == "Team" and selected_game == "Season":
+#         filtered = df[df["TYPE"].isin(game_types)]
+#     elif selected_player == "Team":
+#         filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
+#     elif selected_game == "Season":
+#         filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
+#     else:
+#         filtered = df[
+#             (df["PLAYER"] == selected_player)
+#             & (df["GAME"] == selected_game)
+#             & (df["TYPE"].isin(game_types))
+#         ]
+#     stats_df = stats_df.copy() 
+
+# ----------------------------------------------------------
+# Start with full DataFrames
+# ----------------------------------------------------------
+filtered = df.copy()
+stats_filtered = stats_df.copy()
+game_filtered = game_df.copy()
+
+# ----------------------------------------------------------
+# 1. Apply GAME TYPE filter first ("Game" or "Practice")
+# ----------------------------------------------------------
+if game_types:  # list of allowed types
+    filtered = filtered[filtered["TYPE"].isin(game_types)]
+    stats_filtered = stats_filtered[stats_filtered["TYPE"].isin(game_types)] \
+        if "TYPE" in stats_filtered.columns else stats_filtered
+    game_filtered = game_filtered[game_filtered["TYPE"].isin(game_types)] \
+        if "TYPE" in game_filtered.columns else game_filtered
+
+# ----------------------------------------------------------
+# 2. Apply WEEK filter
+# ----------------------------------------------------------
 if selected_week_shot != "Season":
-    filtered = df[df["WEEK"] == selected_week_shot]
-    if "Week" in stats_df.columns:
-        week_values = stats_df["Week"].astype(str).unique().tolist()
-        if str(selected_week_shot) in week_values:
-            stats_df = stats_df[stats_df["Week"].astype(str) == str(selected_week_shot)]
-        else:
-            stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
-    else:
-        stats_df = stats_df.iloc[0:0]  # Empty DF if week not found
 
-    if "Week" in game_df.columns:
-        week_values_game = game_df["Week"].astype(str).unique().tolist()
-        if str(selected_week_shot) in week_values_game:
-            game_df = game_df[game_df["Week"].astype(str) == str(selected_week_shot)]
-        else:
-            game_df = game_df.iloc[0:0]  # Empty DF if week not found
-    else:
-        game_df = game_df.iloc[0:0]  # Empty DF if week not found
+    filtered = filtered[filtered["WEEK"] == selected_week_shot] \
+        if "WEEK" in filtered.columns else filtered.iloc[0:0]
 
-else:
-    # --- Regular filtering logic ---
-    if selected_player == "Team" and selected_game == "Season":
-        filtered = df[df["TYPE"].isin(game_types)]
-    elif selected_player == "Team":
-        filtered = df[(df["GAME"] == selected_game) & (df["TYPE"].isin(game_types))]
-    elif selected_game == "Season":
-        filtered = df[(df["PLAYER"] == selected_player) & (df["TYPE"].isin(game_types))]
-    else:
-        filtered = df[
-            (df["PLAYER"] == selected_player)
-            & (df["GAME"] == selected_game)
-            & (df["TYPE"].isin(game_types))
-        ]
-    stats_df = stats_df.copy() 
+    stats_filtered = stats_filtered[
+        stats_filtered["Week"].astype(str) == str(selected_week_shot)
+    ] if "Week" in stats_filtered.columns else stats_filtered.iloc[0:0]
+
+    game_filtered = game_filtered[
+        game_filtered["Week"].astype(str) == str(selected_week_shot)
+    ] if "Week" in game_filtered.columns else game_filtered.iloc[0:0]
+
+# ----------------------------------------------------------
+# 3. Apply GAME filter (Specific game like "Game 3")
+# ----------------------------------------------------------
+if selected_game != "Season":
+
+    filtered = filtered[filtered["GAME"] == selected_game] \
+        if "GAME" in filtered.columns else filtered.iloc[0:0]
+
+    stats_filtered = stats_filtered[
+        stats_filtered["GAME"] == selected_game
+    ] if "GAME" in stats_filtered.columns else stats_filtered.iloc[0:0]
+
+    game_filtered = game_filtered[
+        game_filtered["GAME"] == selected_game
+    ] if "GAME" in game_filtered.columns else game_filtered.iloc[0:0]
+
+# ----------------------------------------------------------
+# 4. Apply PLAYER filter
+# ----------------------------------------------------------
+if selected_player != "Team":
+
+    filtered = filtered[filtered["PLAYER"] == selected_player] \
+        if "PLAYER" in filtered.columns else filtered.iloc[0:0]
+
+    stats_filtered = stats_filtered[
+        stats_filtered["PLAYER"] == selected_player
+    ] if "PLAYER" in stats_filtered.columns else stats_filtered.iloc[0:0]
+
+    game_filtered = game_filtered[
+        game_filtered["PLAYER"] == selected_player
+    ] if "PLAYER" in game_filtered.columns else game_filtered.iloc[0:0]
+
+# ----------------------------------------------------------
+# Final Output DataFrames
+# ----------------------------------------------------------
+filtered_df = filtered
+stats_df = stats_filtered
+game_df = game_filtered
 
 st.sidebar.header("Lunch Pail Week Filter")
 weeks = df_hustle["Week"].dropna().unique().tolist()
