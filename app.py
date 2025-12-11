@@ -366,7 +366,7 @@ selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info
                         if x in player_info else x)(selected_player)
 
 if selected_game != "Season":
-    game_df = game_df[game_df["Game"] == str(selected_game)]
+    game_df = game_df[game_df["GAME"] == str(selected_game)]
 
 if selected_player != "Team":
     player_df = game_df[game_df["Player"] == selected_player]
