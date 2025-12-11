@@ -883,14 +883,14 @@ with tab5:
 if selected_week_shot == "Season":
     if selected_game != "Season":
         game_df = game_df[
-            (game_df["Game"] == str(selected_game))]
+            (game_df["GAME"] == str(selected_game))]
     else:
         game_df = game_df
 
 else:
     if selected_game != "Season":
         game_df = game_df[
-            (game_df["Game"] == str(selected_game))
+            (game_df["GAME"] == str(selected_game))
             & (game_df["Week"].astype(str) == str(selected_week_shot))]
     else:
         game_df = game_df[
