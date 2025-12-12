@@ -1343,8 +1343,8 @@ with tab8:
             "No Adv.\n%":     {"green": 40, "yellow": 30},
             "TO\n%":          {"green": 25, "yellow": 15},
             "Jailbreak\n%":   {"green": 10,  "yellow": 20}, # lower = better
-            "BS Miss\n%":     {"green": 30, "yellow": 20},
-            "BS Make\n%":     {"green": 25, "yellow": 15},
+            "BS Miss\n%":     {"green": 60, "yellow": 45},
+            "BS Make\n%":     {"green": 15, "yellow": 25},
             "ES Make\n%":     {"green": 10, "yellow": 20}, # lower = better
             "ES Miss\n%":     {"green": 20, "yellow": 30}, # lower = better
             "Fouls\n%":       {"green": 7.5,  "yellow": 15},  # lower = better
