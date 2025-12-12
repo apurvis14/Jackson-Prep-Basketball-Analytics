@@ -1197,6 +1197,13 @@ with tab8:
 
         press = pd.concat([press, pd.DataFrame([total_row])], ignore_index=True)
 
+        # Recalculate and round Total row "Press Score Per Press"
+        press.loc[press['Press'] == 'TOTAL', 'Press Score Per Press'] = round(
+            press.loc[press['Press'] == 'TOTAL', 'Press Score'] /
+            press.loc[press['Press'] == 'TOTAL', 'Total'],
+            2
+        )
+
         # Create display version (without Practice Score)
         press_display = press.drop(columns=['No Advantage','Turnover','Jailbreak','BS Miss','BS Make','ES Make','ES Miss','Fouls','Deflections']).copy()
 
@@ -1229,15 +1236,9 @@ with tab8:
                 cell.set_fontsize(30)
 
             elif row == last_row:
-                if col == 0:
-                    cell.set_facecolor('black')
-                    cell.get_text().set_color('white')
-                    cell.get_text().set_fontweight('bold')
-                else:
-                    cell.set_facecolor('#E0E0E0')
-                    cell.get_text().set_color('#0033A0')
-                    cell.get_text().set_fontweight('bold')
-                cell.set_edgecolor('#0033A0')
+                cell.set_facecolor('black')
+                cell.get_text().set_color('white')
+                cell.get_text().set_fontweight('bold')
             else:
                 cell.get_text().set_color('#0033A0')
                 cell.set_edgecolor('#0033A0')
