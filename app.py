@@ -1359,7 +1359,7 @@ with tab8:
             limits = benchmarks[col_name]
 
             # Low is good (fouls)
-            if col_name == "Fouls\n%" or col_name == "ES Make\n%" or col_name == "ES Miss\n%" or col_name == "Jailbreak\n%":
+            if col_name == "Fouls\n%" or col_name == "ES Make\n%" or col_name == "ES Miss\n%" or col_name == "Jailbreak\n%" or col_name == "BS Make\n%":
                 if value == 0:
                     return "white"
                 elif value <= limits["green"]:
