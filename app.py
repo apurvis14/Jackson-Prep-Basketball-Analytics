@@ -611,6 +611,13 @@ with tab3:
             cell.get_text().set_fontweight('bold')
             cell.get_text().set_color('#0033A0')
             cell.set_fontsize(30)
+        elif row == len(hustle_display):  # total row
+            cell.set_facecolor('#ffd700')
+            cell.set_linewidth(2.5)
+            cell.set_edgecolor('#0033A0')
+            cell.get_text().set_fontweight('bold')
+            cell.get_text().set_color('#0033A0')
+            cell.set_fontsize(30)
         else:
             cell.get_text().set_color('#0033A0')
             cell.set_edgecolor('#0033A0')
