@@ -960,6 +960,18 @@ with tab6:
 
         game['Player'] = game['Player'].apply(split_name)
 
+        total_row_practice = game.sum(numeric_only=True)
+        total_row_practice['Player'] = 'TOTAL'
+
+        practice = pd.concat([game, pd.DataFrame([total_row_practice])], ignore_index=True)
+
+        # Recalculate and round Total row "Press Score Per Press"
+        game.loc[game['Player'] == 'TOTAL', 'AST/TO Ratio'] = round(
+            game.loc[game['Player'] == 'TOTAL', 'Assists'] /
+            game.loc[game['Player'] == 'TOTAL', 'Turnovers'].replace(0, np.nan),
+            2
+        )
+
         # Create display version (without Game Score)
         game_display = game.drop(columns=['Game Score']).copy()
 
@@ -988,6 +1000,10 @@ with tab6:
                 cell.get_text().set_fontweight('bold')
                 cell.get_text().set_color('#0033A0')
                 cell.set_fontsize(30)
+            elif row == len(game_display):
+                cell.set_facecolor('black')
+                cell.get_text().set_color('white')
+                cell.get_text().set_fontweight('bold')
             else:
                 cell.get_text().set_color('#0033A0')
                 cell.set_edgecolor('#0033A0')
