@@ -960,10 +960,10 @@ with tab6:
 
         game['Player'] = game['Player'].apply(split_name)
 
-        total_row_practice = game.sum(numeric_only=True)
-        total_row_practice['Player'] = 'TOTAL'
+        total_row_game = game.sum(numeric_only=True)
+        total_row_game['Player'] = 'TOTAL'
 
-        practice = pd.concat([game, pd.DataFrame([total_row_practice])], ignore_index=True)
+        game = pd.concat([game, pd.DataFrame([total_row_game])], ignore_index=True)
 
         # Recalculate and round Total row "Press Score Per Press"
         game.loc[game['Player'] == 'TOTAL', 'AST/TO Ratio'] = round(
