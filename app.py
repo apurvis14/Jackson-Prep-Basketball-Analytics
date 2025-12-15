@@ -563,6 +563,11 @@ with tab3:
 
     hustle['Player'] = hustle['Player'].apply(split_name)
 
+    total_row_hustle = hustle.sum(numeric_only=True)
+    total_row_hustle['Player'] = 'TOTAL'
+
+    hustle = pd.concat([hustle, pd.DataFrame([total_row_hustle])], ignore_index=True)
+    
     # Create a copy for display purposes
     hustle_display = hustle.copy()
 
