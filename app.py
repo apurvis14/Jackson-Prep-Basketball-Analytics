@@ -1014,8 +1014,11 @@ with tab6:
                 cell.set_fontsize(30)
             elif row == len(game_display):
                 cell.set_facecolor('black')
-                cell.get_text().set_color('white')
+                cell.set_linewidth(2.5)
+                cell.set_edgecolor('#0033A0')
                 cell.get_text().set_fontweight('bold')
+                cell.get_text().set_color('white')
+                cell.set_fontsize(30)
             else:
                 cell.get_text().set_color('#0033A0')
                 cell.set_edgecolor('#0033A0')
@@ -1146,8 +1149,11 @@ with tab7:
                 cell.set_fontsize(30)
             elif row == len(practice_display):
                 cell.set_facecolor('black')
-                cell.get_text().set_color('white')
+                cell.set_linewidth(2.5)
+                cell.set_edgecolor('#0033A0')
                 cell.get_text().set_fontweight('bold')
+                cell.get_text().set_color('white')
+                cell.set_fontsize(30)
             else:
                 cell.get_text().set_color('#0033A0')
                 cell.set_edgecolor('#0033A0')
@@ -1281,8 +1287,11 @@ with tab8:
 
             elif row == last_row:
                 cell.set_facecolor('black')
-                cell.get_text().set_color('white')
+                cell.set_linewidth(2.5)
+                cell.set_edgecolor('#0033A0')
                 cell.get_text().set_fontweight('bold')
+                cell.get_text().set_color('white')
+                cell.set_fontsize(30)
             else:
                 cell.get_text().set_color('#0033A0')
                 cell.set_edgecolor('#0033A0')
