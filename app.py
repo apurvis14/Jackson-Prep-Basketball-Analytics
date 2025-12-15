@@ -1084,10 +1084,10 @@ with tab7:
         practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
 
         # Sort Practice DataFrame
-        practice = practice.sort_values(by=['Practice Score'], ascending=False)
+        practice = practice[practice['Player'] != 'TOTAL'].sort_values(by=['Practice Score'], ascending=False)
 
         practice['Player'] = practice['Player'].apply(split_name)
-
+        practice = pd.concat([practice, pd.DataFrame([total_row_practice])], ignore_index=True)
         # Create display version (without Practice Score)
         practice_display = practice.drop(columns=['Practice Score']).copy()
 
