@@ -1069,6 +1069,18 @@ with tab7:
         cols.insert(6, cols.pop(cols.index('Total Rebs')))
         practice = practice[cols]
 
+        total_row_practice = practice.sum(numeric_only=True)
+        total_row_practice['Player'] = 'TOTAL'
+
+        practice = pd.concat([practice, pd.DataFrame([total_row_practice])], ignore_index=True)
+
+        # Recalculate and round Total row "Press Score Per Press"
+        practice.loc[practice['Player'] == 'TOTAL', 'AST/TO Ratio'] = round(
+            practice.loc[practice['Player'] == 'TOTAL', 'Assists'] /
+            practice.loc[practice['Player'] == 'TOTAL', 'Turnovers'].replace(0, np.nan),
+            2
+        )
+
         practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
 
         # Sort Practice DataFrame
