@@ -1116,6 +1116,10 @@ with tab7:
                 cell.get_text().set_fontweight('bold')
                 cell.get_text().set_color('#0033A0')
                 cell.set_fontsize(30)
+            elif row == len(practice_display):
+                cell.set_facecolor('black')
+                cell.get_text().set_color('white')
+                cell.get_text().set_fontweight('bold')
             else:
                 cell.get_text().set_color('#0033A0')
                 cell.set_edgecolor('#0033A0')
