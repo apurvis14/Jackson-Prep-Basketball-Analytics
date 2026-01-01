@@ -1103,8 +1103,9 @@ with tab7:
         practice[['Assists', 'Turnovers']] = practice[['Assists', 'Turnovers']].apply(
             pd.to_numeric, errors='coerce'
         ).fillna(0)
-
-        total_row_practice = practice.sum(numeric_only=True)
+        
+        sum_cols = practice.drop(columns=['AST/TO Ratio'])
+        total_row_practice = sum_cols.sum(numeric_only=True)
         total_row_practice['Player'] = 'TOTAL'
 
         practice = pd.concat([practice, pd.DataFrame([total_row_practice])], ignore_index=True)
