@@ -1103,14 +1103,18 @@ with tab7:
         total_row_practice = practice.sum(numeric_only=True)
         total_row_practice['Player'] = 'TOTAL'
 
+        total_row_practice['AST/TO Ratio'] = np.nan  # Placeholder, will be recalculated below
+
         practice = pd.concat([practice, pd.DataFrame([total_row_practice])], ignore_index=True)
 
-        # Recalculate and round Total row "Press Score Per Press"
-        practice.loc[practice['Player'] == 'TOTAL', 'AST/TO Ratio'] = round(
-            practice.loc[practice['Player'] == 'TOTAL', 'Assists'] /
-            practice.loc[practice['Player'] == 'TOTAL', 'Turnovers'].replace(0, np.nan),
-            2
-        )
+        total_idx = practice.index[practice['Player'] == 'TOTAL'][0]
+
+        total_assists = practice.at[total_idx, 'Assists']
+        total_turnovers = practice.at[total_idx, 'Turnovers']
+
+        practice.at[total_idx, 'AST/TO Ratio'] = round(
+            total_assists / total_turnovers if total_turnovers != 0 else total_assists,
+            2)
 
         practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
 
