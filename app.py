@@ -1100,6 +1100,10 @@ with tab7:
         cols.insert(6, cols.pop(cols.index('Total Rebs')))
         practice = practice[cols]
 
+        practice[['Assists', 'Turnovers']] = practice[['Assists', 'Turnovers']].apply(
+            pd.to_numeric, errors='coerce'
+        ).fillna(0)
+
         total_row_practice = practice.sum(numeric_only=True)
         total_row_practice['Player'] = 'TOTAL'
 
