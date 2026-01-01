@@ -1107,8 +1107,6 @@ with tab7:
         total_row_practice = practice.sum(numeric_only=True)
         total_row_practice['Player'] = 'TOTAL'
 
-        total_row_practice['AST/TO Ratio'] = np.nan  # Placeholder, will be recalculated below
-
         practice = pd.concat([practice, pd.DataFrame([total_row_practice])], ignore_index=True)
 
         total_idx = practice.index[practice['Player'] == 'TOTAL'][0]
