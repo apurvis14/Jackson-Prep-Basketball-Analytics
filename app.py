@@ -1085,10 +1085,8 @@ with tab7:
         # Fill all NaN with 0
         practice = practice.fillna(0)
 
-        practice[['Assists', 'Turnovers']] = practice[['Assists', 'Turnovers']].apply(
-            pd.to_numeric, errors='coerce'
-        ).fillna(0)
         
+
         practice['AST/TO Ratio'] = round(practice['Ast'] / practice['TO'].replace(0, np.nan), 2).fillna(0)
         practice['Total Rebs'] = practice['OFF_Reb'] + practice['DEF_Reb']
 
@@ -1103,8 +1101,6 @@ with tab7:
         cols.insert(3, cols.pop(cols.index('AST/TO Ratio')))
         cols.insert(6, cols.pop(cols.index('Total Rebs')))
         practice = practice[cols]
-
-        
         
         sum_cols = practice.drop(columns=['AST/TO Ratio'])
         total_row_practice = sum_cols.sum(numeric_only=True)
