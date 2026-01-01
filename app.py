@@ -1102,8 +1102,7 @@ with tab7:
         cols.insert(6, cols.pop(cols.index('Total Rebs')))
         practice = practice[cols]
         
-        sum_cols = practice.drop(columns=['AST/TO Ratio'])
-        total_row_practice = sum_cols.sum(numeric_only=True)
+        total_row_practice = practice.sum(numeric_only=True)
         total_row_practice['Player'] = 'TOTAL'
 
         practice = pd.concat([practice, pd.DataFrame([total_row_practice])], ignore_index=True)
