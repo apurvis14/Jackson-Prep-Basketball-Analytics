@@ -1113,8 +1113,8 @@ with tab7:
 
         total_idx = practice.index[practice['Player'] == 'TOTAL'][0]
 
-        total_assists = practice.at[total_idx, 'Assists']
-        total_turnovers = practice.at[total_idx, 'Turnovers']
+        total_assists = practice.loc[practice['Player'] == 'TOTAL', 'Assists'].values[0]
+        total_turnovers = practice.loc[practice['Player'] == 'TOTAL', 'Turnovers'].values[0]
 
         practice.at[total_idx, 'AST/TO Ratio'] = round(
             total_assists / total_turnovers if total_turnovers != 0 else total_assists,
