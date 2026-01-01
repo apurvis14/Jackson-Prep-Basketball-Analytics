@@ -1115,7 +1115,7 @@ with tab7:
 
         total_assists_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
 
-        total_row_practice['AST/TO Ratio'] = total_assists_to_ratio
+        practice.at[total_idx, 'AST/TO Ratio'] = total_assists_to_ratio
 
         practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
 
