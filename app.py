@@ -1108,14 +1108,12 @@ with tab7:
 
         practice = pd.concat([practice, pd.DataFrame([total_row_practice])], ignore_index=True)
 
-        total_idx = practice.index[practice['Player'] == 'TOTAL'][0]
-
-        total_assists = practice.loc[practice['Player'] == 'TOTAL', 'Assists'].values[0]
-        total_turnovers = practice.loc[practice['Player'] == 'TOTAL', 'Turnovers'].values[0]
-
-        total_assists_to_ratio = round(total_assists / total_turnovers, 2) if total_turnovers != 0 else total_assists
-
-        practice.at[total_idx, 'AST/TO Ratio'] = total_assists_to_ratio
+        # Recalculate and round Total row "Press Score Per Press"
+        practice.loc[practice['Player'] == 'TOTAL', 'AST/TO Ratio'] = round(
+            practice.loc[practice['Player'] == 'TOTAL', 'Assists'] /
+            practice.loc[practice['Player'] == 'TOTAL', 'Turnovers'].replace(0, np.nan),
+            2
+        )
 
         practice['Practice Score'] = practice['Assists'] - practice['Turnovers'] + practice['Total Rebs']
 
