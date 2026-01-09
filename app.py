@@ -231,13 +231,6 @@ if selected_player != "Team":
     filtered = filtered[filtered["PLAYER"] == selected_player] \
         if "PLAYER" in filtered.columns else filtered.iloc[0:0]
 
-    stats_filtered = stats_filtered[
-        stats_filtered["PLAYER"] == selected_player
-    ] if "PLAYER" in stats_filtered.columns else stats_filtered.iloc[0:0]
-
-    game_filtered = game_filtered[
-        game_filtered["Player"] == selected_player
-    ] if "Player" in game_filtered.columns else game_filtered.iloc[0:0]
 
 # ----------------------------------------------------------
 # Final Output DataFrames
