@@ -358,8 +358,6 @@ player_info = {
 selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}" 
                         if x in player_info else x)(selected_player)
 
-game_df = game_df.copy()
-
 if selected_game != "Season":
     game_df = game_df[game_df["GAME"] == str(selected_game)]
 
