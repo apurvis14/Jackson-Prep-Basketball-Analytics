@@ -365,88 +365,55 @@ player_info = {
 selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info[x]['position']}" 
                         if x in player_info else x)(selected_player)
 
-# if selected_game != "Season":
-#     game_df = game_df[game_df["GAME"] == str(selected_game)]
+game_df2 = game_df.copy()
 
-#     if selected_player != "Team":
-#         player_df = game_df[game_df["Player"] == selected_player]
-
-#         if player_df.empty:
-#             game_total_assists = 0
-#             game_total_turnovers = 0
-#             game_total_off_rebs = 0
-#             game_total_def_rebs = 0
-#             game_ast_to_ratio = 0
-#         else:
-#             # Sum the stats for that player
-#             game_total_assists = player_df["Ast"].sum()
-#             game_total_turnovers = player_df["TO"].sum()
-#             game_total_off_rebs = player_df["OFF_Reb"].sum()
-#             game_total_def_rebs = player_df["DEF_Reb"].sum()
-
-#             # Derived metric
-#             game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
-# else:
-#     if selected_player != "Team":
-#         player_df = game_df[game_df["Player"] == selected_player]
-
-#         if player_df.empty:
-#             game_total_assists = 0
-#             game_total_turnovers = 0
-#             game_total_off_rebs = 0
-#             game_total_def_rebs = 0
-#             game_ast_to_ratio = 0
-#         else:
-#             # Sum the stats for that player
-#             game_total_assists = player_df["Ast"].sum()
-#             game_total_turnovers = player_df["TO"].sum()
-#             game_total_off_rebs = player_df["OFF_Reb"].sum()
-#             game_total_def_rebs = player_df["DEF_Reb"].sum()
-
-#             # Derived metric
-#             game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
-
-#     else: # For "Team", sum all players
-#         game_total_assists = game_df["Ast"].sum()
-#         game_total_turnovers = game_df["TO"].sum()
-#         game_total_off_rebs = game_df["OFF_Reb"].sum()
-#         game_total_def_rebs = game_df["DEF_Reb"].sum()
-#         game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
-
-base_game_df = game_df.copy()
-
-# Filter by game
 if selected_game != "Season":
-    game_filtered = base_game_df[base_game_df["GAME"] == selected_game]
-else:
-    game_filtered = base_game_df
+    game_df2 = game_df2[game_df2["GAME"] == str(selected_game)]
 
-# Filter by player
-if selected_player != "Team":
-    player_df = game_filtered[
-        game_filtered["Player"].str.strip().str.lower()
-        == selected_player.strip().lower()
-    ]
-else:
-    player_df = game_filtered
+    if selected_player != "Team":
+        player_df = game_df2[game_df2["Player"] == selected_player]
 
-# Compute totals
-if player_df.empty:
-    game_total_assists = 0
-    game_total_turnovers = 0
-    game_total_off_rebs = 0
-    game_total_def_rebs = 0
-    game_ast_to_ratio = 0
+        if player_df.empty:
+            game_total_assists = 0
+            game_total_turnovers = 0
+            game_total_off_rebs = 0
+            game_total_def_rebs = 0
+            game_ast_to_ratio = 0
+        else:
+            # Sum the stats for that player
+            game_total_assists = player_df["Ast"].sum()
+            game_total_turnovers = player_df["TO"].sum()
+            game_total_off_rebs = player_df["OFF_Reb"].sum()
+            game_total_def_rebs = player_df["DEF_Reb"].sum()
+
+            # Derived metric
+            game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
 else:
-    game_total_assists = player_df["Ast"].sum()
-    game_total_turnovers = player_df["TO"].sum()
-    game_total_off_rebs = player_df["OFF_Reb"].sum()
-    game_total_def_rebs = player_df["DEF_Reb"].sum()
-    game_ast_to_ratio = (
-        round(game_total_assists / game_total_turnovers, 2)
-        if game_total_turnovers != 0
-        else game_total_assists
-    )
+    if selected_player != "Team":
+        player_df = game_df2[game_df2["Player"] == selected_player]
+
+        if player_df.empty:
+            game_total_assists = 0
+            game_total_turnovers = 0
+            game_total_off_rebs = 0
+            game_total_def_rebs = 0
+            game_ast_to_ratio = 0
+        else:
+            # Sum the stats for that player
+            game_total_assists = player_df["Ast"].sum()
+            game_total_turnovers = player_df["TO"].sum()
+            game_total_off_rebs = player_df["OFF_Reb"].sum()
+            game_total_def_rebs = player_df["DEF_Reb"].sum()
+
+            # Derived metric
+            game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
+
+    else: # For "Team", sum all players
+        game_total_assists = game_df2["Ast"].sum()
+        game_total_turnovers = game_df2["TO"].sum()
+        game_total_off_rebs = game_df2["OFF_Reb"].sum()
+        game_total_def_rebs = game_df2["DEF_Reb"].sum()
+        game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
 
 
 # -----------------------------
