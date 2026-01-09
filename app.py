@@ -368,24 +368,24 @@ selected_player_info = (lambda x: f"#{player_info[x]['number']} — {player_info
 if selected_game != "Season":
     game_df = game_df[game_df["GAME"] == str(selected_game)]
 
-if selected_player != "Team":
-    player_df = game_df[game_df["Player"] == selected_player]
+    if selected_player != "Team":
+        player_df = game_df[game_df["Player"] == selected_player]
 
-    if player_df.empty:
-        game_total_assists = 0
-        game_total_turnovers = 0
-        game_total_off_rebs = 0
-        game_total_def_rebs = 0
-        game_ast_to_ratio = 0
-    else:
-        # Sum the stats for that player
-        game_total_assists = player_df["Ast"].sum()
-        game_total_turnovers = player_df["TO"].sum()
-        game_total_off_rebs = player_df["OFF_Reb"].sum()
-        game_total_def_rebs = player_df["DEF_Reb"].sum()
+        if player_df.empty:
+            game_total_assists = 0
+            game_total_turnovers = 0
+            game_total_off_rebs = 0
+            game_total_def_rebs = 0
+            game_ast_to_ratio = 0
+        else:
+            # Sum the stats for that player
+            game_total_assists = player_df["Ast"].sum()
+            game_total_turnovers = player_df["TO"].sum()
+            game_total_off_rebs = player_df["OFF_Reb"].sum()
+            game_total_def_rebs = player_df["DEF_Reb"].sum()
 
-        # Derived metric
-        game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
+            # Derived metric
+            game_ast_to_ratio = round(game_total_assists / game_total_turnovers, 2) if game_total_turnovers != 0 else game_total_assists
 else:
     # For "Team", sum all players
     game_total_assists = game_df["Ast"].sum()
@@ -431,7 +431,7 @@ with tab2:
         with right_col:
             if selected_player == "Team":
                 st.markdown(styled_text("Jackson Prep Team", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
-                st.markdown(styled_text("3-4 (0-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
+                st.markdown(styled_text("9-11 (2-0)", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
             else:
                 st.markdown(styled_text(f"{selected_player}", size=32, weight='normal', margin="8px 0px 16px 0px",underline=False, center=True, vertical=True), unsafe_allow_html=True)
                 st.markdown(styled_text(f"{selected_player_info}", size=24, weight='normal', margin="0px", underline=False, center=True, vertical=True), unsafe_allow_html=True)
